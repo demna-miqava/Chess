@@ -56,7 +56,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
                     <Link to={item.url}>
-                      <item.icon className={item.color} size={24} />
+                      <item.icon className={item.color} />
                       <span
                         className={`text-lg font-medium group-data-[collapsible=icon]:hidden ${item.color}`}
                       >
@@ -82,9 +82,9 @@ export function AppSidebar() {
               }
             >
               {theme === "dark" ? (
-                <Sun className="text-amber-500" size={24} />
+                <Sun className="text-amber-500" />
               ) : (
-                <Moon className="text-sky-600" size={24} />
+                <Moon className="text-sky-600" />
               )}
               <span className="text-lg font-medium group-data-[collapsible=icon]:hidden">
                 {theme === "dark" ? "Light Mode" : "Dark Mode"}
