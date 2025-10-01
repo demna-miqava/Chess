@@ -58,7 +58,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader>Play Chess(Logo)</SidebarHeader>
+      <SidebarHeader>(Logo)</SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
