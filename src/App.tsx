@@ -1,21 +1,27 @@
-import { useState } from "react";
-import { Button } from "./components/ui/button";
+import { Route, Routes } from "react-router";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AppLayout } from "./components/AppLayout";
+import Profile from "./pages/Profile";
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle("dark");
-  };
-
   return (
-    <div>
-      <Button variant="destructive" size="lg" onClick={toggleTheme}>
-        click me
-      </Button>
-      <h1 className="text-2xl font-bold text-bg-secondary-dark">class name</h1>
-    </div>
+    <Routes>
+      <Route
+        element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+      </Route>
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
+    </Routes>
   );
 }
 
