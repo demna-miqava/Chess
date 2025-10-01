@@ -1,4 +1,13 @@
-import { Home, Puzzle, Settings, User, Moon, Sun } from "lucide-react";
+import {
+  Home,
+  Puzzle,
+  Settings,
+  User,
+  Moon,
+  Sun,
+  ArrowRightToLine,
+  ArrowLeftToLine,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,11 +18,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router";
 import { useTheme } from "@/context/ThemeContext";
 
-// Menu items.
 const items = [
   {
     title: "Home",
@@ -44,10 +53,12 @@ const items = [
 
 export function AppSidebar() {
   const { theme, toggleTheme } = useTheme();
+  const { state, toggleSidebar } = useSidebar();
+  const isCollapsed = state === "collapsed";
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader />
+      <SidebarHeader>Play Chess(Logo)</SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -72,6 +83,17 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={toggleSidebar}
+              tooltip={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {isCollapsed ? <ArrowRightToLine /> : <ArrowLeftToLine />}
+              <span className="text-lg font-medium group-data-[collapsible=icon]:hidden">
+                {isCollapsed ? "Expand" : "Collapse"}
+              </span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={toggleTheme}
