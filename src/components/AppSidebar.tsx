@@ -58,7 +58,7 @@ export function AppSidebar() {
                     <Link to={item.url}>
                       <item.icon className={item.color} />
                       <span
-                        className={`text-lg font-medium group-data-[collapsible=icon]:hidden ${item.color}`}
+                        className={`text-lg font-medium group-data-[collapsible=icon]:hidden`}
                       >
                         {item.title}
                       </span>
