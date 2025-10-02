@@ -1,4 +1,4 @@
-import { SimpleStatsGrid } from "@/features/stats";
+import { SimpleStatsGrid } from "@/features/stats/components/simple-stats/SimpleStatsGrid";
 
 const StatsSection = () => {
   return (
