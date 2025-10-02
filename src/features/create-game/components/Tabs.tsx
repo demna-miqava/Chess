@@ -2,7 +2,7 @@ import { CircleUserRound, Play, Plus } from "lucide-react";
 import {
   useCreateGame,
   type SidebarSection,
-} from "@/features/createGame/CreateGameContext";
+} from "@/features/create-game/CreateGameContext";
 
 const tabs = [
   { label: "New Game", icon: Plus, section: "new" as const },

@@ -1,4 +1,4 @@
-import { useCreateGame } from "@/features/createGame/CreateGameContext";
+import { useCreateGame } from "@/features/create-game/CreateGameContext";
 
 const friendsList = Array.from({ length: 10 }, (_, index) => ({
   name: `Friend ${index + 1}`,

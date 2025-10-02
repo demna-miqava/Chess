@@ -8,6 +8,7 @@ import Play from "./pages/CreateGame";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import IntroPage from "./pages/IntroPage";
+import ForgotPassword from "./pages/ForgotPassword";
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AppLayout } from "./components/AppLayout";
@@ -30,6 +31,7 @@ function App() {
       <Route path="/" element={<IntroPage />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
     </Routes>
   );
 }

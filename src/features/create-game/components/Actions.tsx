@@ -2,7 +2,7 @@ import { Bolt, Plus, UserPlus } from "lucide-react";
 import {
   useCreateGame,
   type SidebarSection,
-} from "@/features/createGame/CreateGameContext";
+} from "@/features/create-game/CreateGameContext";
 
 const actionItems = [
   {

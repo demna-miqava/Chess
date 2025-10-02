@@ -1,4 +1,4 @@
-import { LoginContainer } from "@/features/auth/signIn/LoginContainer";
+import { LoginContainer } from "@/features/auth/sign-in/LoginContainer";
 
 const SignIn = () => {
   return <LoginContainer />;

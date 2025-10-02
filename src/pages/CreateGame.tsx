@@ -1,4 +1,4 @@
-import { CreateGameLayout } from "@/features/createGame/components/CreateGameLayout";
+import { CreateGameLayout } from "@/features/create-game/components/CreateGameLayout";
 
 const Play = () => {
   return (

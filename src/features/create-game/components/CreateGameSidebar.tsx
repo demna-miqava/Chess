@@ -8,7 +8,7 @@ import { FriendInviteOptions } from "./sections/FriendInviteOptions";
 import {
   useCreateGame,
   type SidebarSection,
-} from "@/features/createGame/CreateGameContext";
+} from "@/features/create-game/CreateGameContext";
 import { Tabs } from "./Tabs";
 
 const SECTIONS = (activeSection: SidebarSection) => {
