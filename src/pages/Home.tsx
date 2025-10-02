@@ -7,7 +7,7 @@ const Home = () => {
     <div className="space-y-8">
       <Header />
       <QuickPlayGrid />
-      <GameTable variant="preview" actionHref="/profile/stats" />
+      <GameTable variant="preview" actionHref="/profile/games" />
     </div>
   );
 };

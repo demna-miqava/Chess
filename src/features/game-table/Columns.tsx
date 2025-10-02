@@ -27,7 +27,6 @@ export const columns: ColumnDef<GameTableData>[] = [
     maxSize: 120,
     cell: ({ row }) => {
       const { type, timeControl } = row.original;
-      console.log("timeControl", timeControl);
       const Icon = TIME_CONTROL_ICONS[type as keyof typeof TIME_CONTROL_ICONS];
       return (
         <div className="flex flex-col items-center gap-1 text-xs text-white/70">

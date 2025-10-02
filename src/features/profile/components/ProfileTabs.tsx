@@ -1,19 +1,32 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import OverviewSection from "./OverviewSection";
-import StatsSection from "./StatsSection";
-import GamesSection from "./GamesSection";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLocation, useNavigate } from "react-router";
 
 const tabs = [
-  { value: "overview", label: "Overview", content: <OverviewSection /> },
-  { value: "games", label: "Games", content: <GamesSection /> },
-  { value: "stats", label: "Stats", content: <StatsSection /> },
-  { value: "friends", label: "Friends", content: <h1>hi</h1> },
+  { value: "overview", label: "Overview" },
+  { value: "games", label: "Games" },
+  { value: "stats", label: "Stats" },
+  { value: "friends", label: "Friends" },
 ];
 
+const getValueFromPath = (pathname: string) => {
+  // Find the tab that matches the current pathname
+  const matchingTab = tabs.find((tab) => pathname.includes(tab.value));
+  return matchingTab?.value || "overview";
+};
+
 export const ProfileTabs = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   return (
-    <Tabs defaultValue="overview" className="mt-8 w-full">
+    <Tabs
+      value={getValueFromPath(location.pathname)}
+      onValueChange={(value) => {
+        const routeName = value === "overview" ? "" : `${value}`;
+        navigate(`/profile/${routeName}`);
+      }}
+      className="mt-8 w-full"
+    >
       <TabsList className="flex w-full justify-start gap-3 overflow-x-auto bg-transparent p-0 scrollbar-hide">
         {tabs.map((tab) => (
           <TabsTrigger
@@ -25,12 +38,6 @@ export const ProfileTabs = () => {
           </TabsTrigger>
         ))}
       </TabsList>
-
-      {tabs.map((tab) => (
-        <TabsContent key={tab.value} value={tab.value} className="mt-6">
-          {tab.content}
-        </TabsContent>
-      ))}
     </Tabs>
   );
 };
