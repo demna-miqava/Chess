@@ -52,14 +52,7 @@ export const SignUpContainer = () => {
         </Header>
         <main className="mt-10">
           <div className="w-full">
-            {currentStep === "intro" && (
-              <IntroStep
-                onEmailSignup={goNext}
-                onGoogleSignup={() => {
-                  /* TODO: hook up OAuth */
-                }}
-              />
-            )}
+            {currentStep === "intro" && <IntroStep onEmailSignup={goNext} />}
 
             {currentStep === "skill" && (
               <SkillStep
