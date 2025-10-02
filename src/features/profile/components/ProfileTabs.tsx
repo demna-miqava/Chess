@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 
 const tabs = [
   { value: "overview", label: "Overview" },
@@ -16,6 +16,7 @@ const getValueFromPath = (pathname: string) => {
 
 export const ProfileTabs = () => {
   const location = useLocation();
+  const { userName } = useParams();
   const navigate = useNavigate();
 
   return (
@@ -23,7 +24,7 @@ export const ProfileTabs = () => {
       value={getValueFromPath(location.pathname)}
       onValueChange={(value) => {
         const routeName = value === "overview" ? "" : `${value}`;
-        navigate(`/profile/${routeName}`);
+        navigate(`/profile/${userName}/${routeName}`);
       }}
       className="mt-8 w-full"
     >

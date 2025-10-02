@@ -29,7 +29,7 @@ function App() {
         }
       >
         <Route path="/home" element={<Home />} />
-        <Route path="/profile" element={<Profile />}>
+        <Route path="/profile/:userName" element={<Profile />}>
           <Route index element={<ProfileOverview />} />
           <Route path="games" element={<ProfileGames />} />
           <Route path="stats" element={<ProfileStats />} />

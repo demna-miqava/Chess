@@ -1,4 +1,4 @@
-import { UserInfo } from "./userInfo";
+import { UserInfo } from "./UserInfo";
 import { Mail, Settings, Users } from "lucide-react";
 
 export const Header = () => {

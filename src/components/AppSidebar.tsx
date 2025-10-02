@@ -8,6 +8,7 @@ import {
   ArrowRightToLine,
   ArrowLeftToLine,
 } from "lucide-react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -22,39 +23,45 @@ import {
 } from "@/components/ui/sidebar";
 import { Link } from "react-router";
 import { useTheme } from "@/context/ThemeContext";
-
-const items = [
-  {
-    title: "Home",
-    url: "/home",
-    icon: Home,
-    color: "text-sky-600 dark:text-sky-400",
-  },
-  {
-    title: "Puzzles",
-    url: "/home",
-    icon: Puzzle,
-    color: "text-violet-600 dark:text-violet-400",
-  },
-
-  {
-    title: "Profile",
-    url: "/profile",
-    icon: User,
-    color: "text-emerald-600 dark:text-emerald-400",
-  },
-  {
-    title: "Settings",
-    url: "/settings",
-    icon: Settings,
-    color: "text-amber-600 dark:text-amber-400",
-  },
-];
+import { useUser } from "@/hooks/useUser";
+import { useMemo } from "react";
 
 export function AppSidebar() {
   const { theme, toggleTheme } = useTheme();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
+  const { userName } = useUser();
+
+  const items = useMemo(
+    () => [
+      {
+        title: "Home",
+        url: "/home",
+        icon: Home,
+        color: "text-sky-600 dark:text-sky-400",
+      },
+      {
+        title: "Puzzles",
+        url: "/home",
+        icon: Puzzle,
+        color: "text-violet-600 dark:text-violet-400",
+      },
+
+      {
+        title: "Profile",
+        url: `/profile/${userName}`,
+        icon: User,
+        color: "text-emerald-600 dark:text-emerald-400",
+      },
+      {
+        title: "Settings",
+        url: "/settings",
+        icon: Settings,
+        color: "text-amber-600 dark:text-amber-400",
+      },
+    ],
+    [userName]
+  );
 
   return (
     <Sidebar collapsible="icon">
