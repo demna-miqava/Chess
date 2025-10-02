@@ -10,7 +10,6 @@ export type PerformanceCardProps = {
   rating: number;
   delta?: number;
   trend?: Trend;
-  points?: number[];
   className?: string;
 };
 
@@ -25,7 +24,7 @@ const getTrendColor = (trend: Trend) => {
   if (trend === "down") return "text-rose-400";
   return "text-white/60";
 };
-
+// TODO: Refactor
 export const PerformanceCard = ({
   icon,
   label,

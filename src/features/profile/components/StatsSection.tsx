@@ -2,7 +2,7 @@ import { SimpleStatsGrid } from "@/features/stats/components/simple-stats/Simple
 
 const StatsSection = () => {
   return (
-    <div>
+    <div className="space-y-8">
       <SimpleStatsGrid />
     </div>
   );

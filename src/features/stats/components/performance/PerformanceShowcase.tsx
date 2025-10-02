@@ -9,7 +9,6 @@ const performanceStats = [
     rating: 1251,
     delta: 83,
     trend: "up" as const,
-    points: [1180, 1195, 1208, 1220, 1240, 1251],
   },
   {
     icon: <Zap className="size-8 text-lime-400" />,
@@ -17,7 +16,6 @@ const performanceStats = [
     rating: 1415,
     delta: 292,
     trend: "up" as const,
-    points: [1120, 1180, 1255, 1300, 1360, 1415],
   },
   {
     icon: <Clock className="size-8 text-emerald-400" />,
@@ -25,7 +23,6 @@ const performanceStats = [
     rating: 1574,
     delta: -9,
     trend: "down" as const,
-    points: [1582, 1578, 1576, 1574, 1560, 1574],
   },
   {
     icon: <Puzzle className="size-8 text-orange-400" />,
@@ -33,7 +30,6 @@ const performanceStats = [
     rating: 2365,
     delta: 21,
     trend: "up" as const,
-    points: [2210, 2260, 2280, 2290, 2335, 2365],
   },
 ];
 

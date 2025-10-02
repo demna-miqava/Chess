@@ -32,7 +32,7 @@ const items = [
   },
   {
     title: "Puzzles",
-    url: "",
+    url: "/home",
     icon: Puzzle,
     color: "text-violet-600 dark:text-violet-400",
   },
