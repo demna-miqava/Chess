@@ -4,6 +4,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import FriendPopover from "./Popover";
 
 const FriendsGrid = () => {
   const { friends, numberOfFriends } = useGetFriends();
@@ -15,13 +16,15 @@ const FriendsGrid = () => {
         {friends.map((friend) => (
           <div key={friend.username} className="flex justify-center">
             <Tooltip>
-              <TooltipTrigger asChild>
-                <img
-                  src={friend.image}
-                  alt={friend.username}
-                  className="size-12 rounded-full cursor-pointer"
-                />
-              </TooltipTrigger>
+              <FriendPopover data={friend}>
+                <TooltipTrigger asChild>
+                  <img
+                    src={friend.image}
+                    alt={friend.username}
+                    className="size-12 rounded-full cursor-pointer"
+                  />
+                </TooltipTrigger>
+              </FriendPopover>
               <TooltipContent>
                 <p>{friend.username}</p>
               </TooltipContent>
