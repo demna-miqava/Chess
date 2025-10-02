@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AppLayout } from "./components/AppLayout";
 import Profile from "./pages/Profile";
+import Play from "./pages/CreateGame";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       >
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/play" element={<Play />} />
       </Route>
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />

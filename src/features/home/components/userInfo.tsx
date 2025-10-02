@@ -4,23 +4,19 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "../../../components/ui/avatar";
+import { useUser } from "@/hooks/useUser";
 
 export const UserInfo = () => {
-  const user = {
-    name: "Demna Mikava",
-    email: "demna.mikava@gmail.com",
-    image:
-      "https://images.chesscomfiles.com/uploads/v1/user/221994941.525197ea.32x32o.bcf5a30749a9.jpg",
-  };
+  const { name, image } = useUser();
   return (
     <div className="flex items-center gap-2">
       <Link to="/profile">
         <Avatar>
-          <AvatarImage src={user.image} />
-          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+          <AvatarImage src={image} />
+          <AvatarFallback>{name.charAt(0)}</AvatarFallback>
         </Avatar>
       </Link>
-      <span className="text-sm font-medium">{user.name}</span>
+      <span className="text-sm font-medium">{name}</span>
     </div>
   );
 };
