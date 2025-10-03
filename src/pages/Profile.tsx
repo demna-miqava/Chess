@@ -8,9 +8,9 @@ const Profile = () => {
     <div className="mx-auto max-w-8xl py-6 px-16 space-y-8">
       <ProfileHeader />
       <ProfileTabs />
-      <main className="space-y-8">
+      <div className="space-y-8">
         <Outlet />
-      </main>
+      </div>
     </div>
   );
 };

@@ -2,11 +2,11 @@ import type { GameStats } from "./types";
 import ViewFullStatsLink from "./ViewFullStatsLink";
 import RatingDelta from "@/features/stats/components/RatingDelta";
 
-interface GameStatsContentProps {
+interface StatsAccordionContentProps {
   gameStats: GameStats;
 }
 
-const GameStatsContent = ({ gameStats }: GameStatsContentProps) => {
+const StatsAccordionContent = ({ gameStats }: StatsAccordionContentProps) => {
   return (
     <div className="space-y-4">
       {/* Highest Rating */}
@@ -53,4 +53,4 @@ const GameStatsContent = ({ gameStats }: GameStatsContentProps) => {
   );
 };
 
-export default GameStatsContent;
+export default StatsAccordionContent;

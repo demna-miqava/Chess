@@ -1,7 +1,7 @@
 import { GameTable } from "@/features/game-table";
 import { Header } from "@/features/home/components/Header";
 import { QuickPlayGrid } from "@/features/home/components/QuickPlayGrid";
-import CollapsibleStats from "@/features/stats/components/collapsible/CollapsibleStats";
+import StatsCardList from "@/features/stats/components/card/StatsCardList";
 import { useUser } from "@/hooks/useUser";
 
 const Home = () => {
@@ -17,9 +17,13 @@ const Home = () => {
           variant="preview"
           actionHref={`/profile/${userName}/games`}
         />
-        <div className="lg:mr-8">
-          <CollapsibleStats />
-        </div>
+        <aside className="lg:mr-8">
+          <StatsCardList>
+            <StatsCardList.Header showLink={true} />
+            <StatsCardList.General />
+            <StatsCardList.AccordionList />
+          </StatsCardList>
+        </aside>
       </div>
     </div>
   );

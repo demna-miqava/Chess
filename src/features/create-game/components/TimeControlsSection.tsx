@@ -27,7 +27,6 @@ export const TimeControlsSection = () => {
       <CollapsibleContent>
         <div className="flex flex-col gap-4 px-3 mt-4 mb-8 border rounded-lg py-4">
           {PLAY_TIME_CONTROLS.map((option) => {
-            console.log("option", option);
             const { label, options } = option;
             return (
               <div key={label} className="flex flex-col gap-4">

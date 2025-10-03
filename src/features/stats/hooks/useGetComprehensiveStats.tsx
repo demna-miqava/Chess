@@ -859,7 +859,7 @@ export const useGetComprehensiveStats = () => {
   const statsData =
     comprehensiveStatsData[selectedDays]?.[selectedVariant] ||
     comprehensiveStatsData["all-time"]["all"];
-  console.log(statsData);
+
   return {
     selectedDays,
     selectedVariant,
