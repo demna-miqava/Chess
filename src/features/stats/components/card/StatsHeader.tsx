@@ -16,10 +16,10 @@ const StatsHeader = ({ showLink = true }: StatsHeaderProps) => {
 
   return (
     <div className="flex items-center justify-between">
-      <h3 className="text-lg font-semibold text-gray-200">Stats</h3>
+      <h3 className="text-lg font-semibold text-foreground">Stats</h3>
       {showLink && (
         <ArrowRight
-          className="size-4 text-gray-400 cursor-pointer"
+          className="size-4 text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
           onClick={handleNavigate}
         />
       )}

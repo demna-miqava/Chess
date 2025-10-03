@@ -15,11 +15,11 @@ const RatingChart = ({ statsData }: { statsData: ComprehensiveStatsData }) => {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#1a1d24] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-      <h3 className="mb-4 text-lg font-semibold text-white">Rating Progress</h3>
+    <div className="rounded-2xl border border-border bg-card p-6">
+      <h3 className="mb-4 text-lg font-semibold text-foreground">Rating Progress</h3>
       <div className="h-64 relative">
         {/* Y-axis labels */}
-        <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-400">
+        <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-muted-foreground">
           {yAxisLabels.map((label, index) => (
             <span key={index}>{label}</span>
           ))}
@@ -91,7 +91,7 @@ const RatingChart = ({ statsData }: { statsData: ComprehensiveStatsData }) => {
           </svg>
 
           {/* X-axis labels */}
-          <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-400 mt-2">
+          <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-muted-foreground mt-2">
             {ratingData.map((point, index) => (
               <span key={index}>{point.date}</span>
             ))}

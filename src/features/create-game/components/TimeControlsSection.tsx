@@ -16,11 +16,11 @@ export const TimeControlsSection = () => {
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger className="w-full m-auto">
-        <div className="flex items-center justify-between rounded-lg bg-[#1f1f1f] px-3 py-2 text-sm text-white/80">
+        <div className="flex items-center justify-between rounded-lg bg-card border border-border px-3 py-2 text-sm text-foreground hover:bg-accent transition-colors">
           <span className="inline-flex items-center gap-2">
             <Icon /> 3 min ({type})
           </span>
-          <span className="text-xs text-white/50">
+          <span className="text-xs text-muted-foreground">
             {open ? <ChevronUp /> : <ChevronDown />}
           </span>
         </div>

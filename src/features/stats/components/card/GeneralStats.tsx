@@ -7,9 +7,9 @@ const GeneralStats = ({ numberOfGames }: GeneralStatsProps) => {
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-gray-300">Games</span>
+          <span className="text-foreground">Games</span>
         </div>
-        <span className="text-gray-200 font-medium">
+        <span className="text-foreground font-medium">
           {numberOfGames.toLocaleString()}
         </span>
       </div>

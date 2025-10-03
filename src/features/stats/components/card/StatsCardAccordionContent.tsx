@@ -17,7 +17,7 @@ const StatsCardAccordionContent = ({
   gameStats,
 }: StatsCardAccordionContentProps) => {
   return (
-    <AccordionItem value={gameType} className="border-gray-700">
+    <AccordionItem value={gameType} className="border-border">
       <AccordionTrigger className="hover:no-underline py-3">
         <div className="flex items-center justify-between w-full mr-4">
           <StatCardItem gameType={gameType} rating={gameStats.rating} />

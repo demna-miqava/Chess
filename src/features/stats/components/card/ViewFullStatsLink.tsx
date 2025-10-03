@@ -7,7 +7,7 @@ const ViewFullStatsLink = () => {
   return (
     <div className="text-right pt-4">
       <button
-        className="text-gray-400 hover:text-gray-300 text-sm cursor-pointer"
+        className="text-foreground hover:text-gray-300 text-sm cursor-pointer"
         onClick={() => navigate(`/profile/${userName}/stats`)}
       >
         View Full Stats

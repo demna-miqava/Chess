@@ -39,7 +39,9 @@ const StatsCardList = ({ children, onGameTypeClick }: StatsProps) => {
     <StatsListContent.Provider
       value={{ numberOfGames, stats, onGameTypeClick }}
     >
-      <div className="space-y-4">{children}</div>
+      <div className="space-y-4 bg-card border border-border rounded-lg p-4">
+        {children}
+      </div>
     </StatsListContent.Provider>
   );
 };

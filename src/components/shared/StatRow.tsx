@@ -8,9 +8,9 @@ interface StatRowProps {
 export const StatRow = ({ label, value }: StatRowProps) => {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-gray-300">{label}</span>
+      <span className="text-foreground">{label}</span>
       {typeof value === "string" || typeof value === "number" ? (
-        <span className="text-gray-200 font-medium">{value}</span>
+        <span className="text-foreground font-medium">{value}</span>
       ) : (
         value
       )}

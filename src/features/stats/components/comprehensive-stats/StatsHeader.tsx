@@ -40,14 +40,14 @@ const StatsHeader = ({
   ];
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between rounded-2xl border border-white/10 bg-[#1a1d24] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between rounded-2xl border border-border bg-card p-6">
       {/* Current Rating & Gain */}
       <div className="flex flex-col items-start">
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-sm text-white/70">Rating</span>
+          <span className="text-sm text-muted-foreground">Rating</span>
         </div>
         <div className="flex items-baseline gap-3">
-          <span className="text-5xl font-bold text-white/50">
+          <span className="text-5xl font-bold text-foreground">
             {currentRating.toLocaleString()}
           </span>
           <RatingDelta delta={ratingGain} className="text-lg" />
@@ -60,10 +60,10 @@ const StatsHeader = ({
           const IconComponent = rank.icon;
           return (
             <div key={rank.key} className="flex flex-col items-start">
-              <span className="text-sm text-white/70">{rank.label}</span>
+              <span className="text-sm text-muted-foreground">{rank.label}</span>
               <div className="flex items-center gap-2">
-                <IconComponent className="size-4 text-white/50" />
-                <span className="text-xl font-semibold text-white/50">
+                <IconComponent className="size-4 text-muted-foreground" />
+                <span className="text-xl font-semibold text-foreground">
                   {rank.value}
                 </span>
               </div>
