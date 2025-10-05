@@ -10,11 +10,12 @@ import { IntroStep } from "./components/IntroStep";
 import { SkillStep } from "./components/SkillStep";
 import { SKILL_OPTIONS, STEP_COPY } from "./consts";
 import { useStepsNavigation } from "./hooks/useStepsNavigation";
+import type { SignupSkill } from "./types";
 
 export const SignUpContainer = () => {
   const { currentStep, goNext, goBack, canGoBack } = useStepsNavigation();
 
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const [selectedSkill, setSelectedSkill] = useState<SignupSkill | null>(null);
 
   const { title } = STEP_COPY[currentStep];
 

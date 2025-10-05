@@ -1,4 +1,4 @@
-import { Moon, Sun, ArrowRightToLine, ArrowLeftToLine } from "lucide-react";
+import { Moon, Sun, ArrowRightToLine, ArrowLeftToLine, LogOut } from "lucide-react";
 
 import {
   Sidebar,
@@ -17,14 +17,16 @@ import { useTheme } from "@/context/ThemeContext";
 import { useUser } from "@/hooks/useUser";
 import { useMemo } from "react";
 import { getSidebarItems } from "./config/sidebarItems";
+import { useLogout } from "@/features/auth/hooks/useLogout";
 
 export function AppSidebar() {
   const { theme, toggleTheme } = useTheme();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
   const { userName } = useUser();
+  const { logout } = useLogout();
 
-  const items = useMemo(() => getSidebarItems(userName), [userName]);
+  const items = useMemo(() => getSidebarItems(userName || ""), [userName]);
 
   return (
     <Sidebar collapsible="icon">
@@ -80,6 +82,17 @@ export function AppSidebar() {
               )}
               <span className="text-lg font-medium group-data-[collapsible=icon]:hidden">
                 {theme === "dark" ? "Light Mode" : "Dark Mode"}
+              </span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={logout}
+              tooltip="Logout"
+            >
+              <LogOut className="text-red-500" />
+              <span className="text-lg font-medium group-data-[collapsible=icon]:hidden">
+                Logout
               </span>
             </SidebarMenuButton>
           </SidebarMenuItem>

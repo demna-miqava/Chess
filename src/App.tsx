@@ -15,34 +15,30 @@ import SignUp from "./pages/SignUp";
 import IntroPage from "./pages/IntroPage";
 import ForgotPassword from "./pages/ForgotPassword";
 // Components
-import ProtectedRoute from "./components/ProtectedRoute";
+import AuthGuard from "./components/AuthGuard";
 import { AppLayout } from "./components/AppLayout";
 
 function App() {
   return (
-    <Routes>
-      <Route
-        element={
-          <ProtectedRoute>
-            <AppLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="/home" element={<Home />} />
-        <Route path="/profile/:userName" element={<Profile />}>
-          <Route index element={<ProfileOverview />} />
-          <Route path="games" element={<ProfileGames />} />
-          <Route path="stats" element={<ProfileStats />} />
-          <Route path="friends" element={<ProfileFriends />} />
+    <AuthGuard>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile/:userName" element={<Profile />}>
+            <Route index element={<ProfileOverview />} />
+            <Route path="games" element={<ProfileGames />} />
+            <Route path="stats" element={<ProfileStats />} />
+            <Route path="friends" element={<ProfileFriends />} />
+          </Route>
+          <Route path="/play" element={<Play />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
-        <Route path="/play" element={<Play />} />
-        <Route path="/settings" element={<Settings />} />
-      </Route>
-      <Route path="/" element={<IntroPage />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-    </Routes>
+        <Route path="/" element={<IntroPage />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Routes>
+    </AuthGuard>
   );
 }
 

@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import SignInForm from "./components/SignInForm";
 import { FormContainer } from "../FormContainer";
 
-export const LoginContainer = () => {
+export const SignInContainer = () => {
   return (
     <FormContainer
       Footer={

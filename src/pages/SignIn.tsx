@@ -1,7 +1,7 @@
-import { LoginContainer } from "@/features/auth/sign-in/LoginContainer";
+import { SignInContainer } from "@/features/auth/sign-in/LoginContainer";
 
 const SignIn = () => {
-  return <LoginContainer />;
+  return <SignInContainer />;
 };
 
 export default SignIn;

@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
-import type { SkillOption } from "../types";
+import type { SkillOption, SignupSkill } from "../types";
 
 type SkillStepProps = {
   options: SkillOption[];
-  selectedSkill: string | null;
-  onSelectSkill: (value: string) => void;
+  selectedSkill: SignupSkill | null;
+  onSelectSkill: (value: SignupSkill) => void;
   onContinue: () => void;
 };
 

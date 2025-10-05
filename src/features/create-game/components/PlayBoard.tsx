@@ -31,7 +31,7 @@ const PIECE_SYMBOLS: Record<string, string> = {
 };
 // TODO: Refactor
 export const PlayBoard = () => {
-  const { name, image } = useUser();
+  const { userName, image } = useUser();
 
   return (
     <section className="flex w-full flex-1 flex-col overflow-hidden rounded-xl border border-border/60 bg-[#1a1a1a] shadow-sm">
@@ -110,7 +110,7 @@ export const PlayBoard = () => {
             />
           </div>
           <div className="leading-tight">
-            <p className="font-semibold">{name}</p>
+            <p className="font-semibold">{userName}</p>
             <p className="text-xs text-white/70">3415 rating</p>
           </div>
         </div>
