@@ -5,13 +5,10 @@ import { Bots } from "./sections/Bots";
 import { Friends } from "./sections/Friends";
 import { Custom } from "./sections/Custom";
 import { FriendInviteOptions } from "./sections/FriendInviteOptions";
-import {
-  useCreateGame,
-  type SidebarSection,
-} from "@/features/create-game/CreateGameContext";
+import { useCreateGame, type GameSection } from "@/features/create-game/CreateGameContext";
 import { Tabs } from "./Tabs";
 
-const SECTIONS = (activeSection: SidebarSection) => {
+const SECTIONS = (activeSection: GameSection) => {
   switch (activeSection) {
     case "new":
       return <New />;
@@ -33,9 +30,7 @@ export const CreateGameSidebar = () => {
 
   return (
     <aside className="flex max-h-[calc(100vh-4rem)] w-full flex-col overflow-hidden rounded-xl border border-border/60 bg-sidebar text-sidebar-foreground p-4 shadow-sm lg:w-[500px]">
-      <div
-        className="flex flex-1 flex-col gap-6 overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      >
+      <div className="flex flex-1 flex-col gap-6 overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <Tabs />
         {canGoBack && (
           <button type="button" onClick={goBack} className="cursor-pointer">

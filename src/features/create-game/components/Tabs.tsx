@@ -1,7 +1,7 @@
 import { CircleUserRound, Play, Plus } from "lucide-react";
 import {
   useCreateGame,
-  type SidebarSection,
+  type GameSection,
 } from "@/features/create-game/CreateGameContext";
 
 const tabs = [
@@ -18,7 +18,7 @@ export const Tabs = () => {
         const Icon = tab.icon;
         const isActive = tab.section ? tab.section === activeSection : false;
         const handleClick = tab.section
-          ? () => setActiveSection(tab.section as SidebarSection)
+          ? () => setActiveSection(tab.section as GameSection)
           : undefined;
 
         return (

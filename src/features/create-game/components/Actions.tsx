@@ -1,10 +1,11 @@
 import { Plus, UserPlus } from "lucide-react";
 import {
   useCreateGame,
-  type SidebarSection,
+  type GameSection,
 } from "@/features/create-game/CreateGameContext";
 import { Button } from "@/components/ui/button";
-import { useCreateGameWS } from "@/features/create-game/hooks/useCreateGame";
+import { useUser } from "@/hooks/useUser";
+import { useMatchmaking } from "@/features/game/hooks/useMatchmaking";
 
 const actionItems = [
   {
@@ -22,31 +23,29 @@ const actionItems = [
 ];
 
 export const Actions = () => {
-  const { setActiveSection, selectedFormat, selectedTimeControl } =
-    useCreateGame();
+  const { setActiveSection, timeControl } = useCreateGame();
+  const { id } = useUser();
 
-  const { setShouldConnect, lastMessage } = useCreateGameWS(
-    selectedFormat,
-    selectedTimeControl
-  );
-  const message = JSON.parse(lastMessage?.data ?? "{}");
-  const isSearching = message?.type === "searching";
+  const { setShouldConnect, isSearching } = useMatchmaking({
+    userId: id || "",
+    timeFormat: timeControl.format,
+    timeControl: timeControl.value,
+  });
+
   return (
     <>
       <Button
-        disabled={isSearching || !selectedFormat}
+        disabled={isSearching || !timeControl.format}
         onClick={() => {
           setShouldConnect(true);
         }}
         className="w-full py-6"
       >
-        <>
-          {isSearching ? (
-            <span>Searching for a game...</span>
-          ) : (
-            <span>Start Game</span>
-          )}
-        </>
+        {isSearching ? (
+          <span>Searching for a game...</span>
+        ) : (
+          <span>Start Game</span>
+        )}
       </Button>
       {actionItems.map((item) => {
         const Icon = item.icon;
@@ -57,7 +56,7 @@ export const Actions = () => {
             className={`flex w-full items-center justify-between rounded-xl border border-sidebar-border px-4 py-4 text-left transition hover:border-sidebar-ring/60 hover:bg-sidebar-accent/50 "bg-sidebar text-sidebar-foreground cursor-pointer`}
             onClick={() => {
               if (item.section) {
-                setActiveSection(item.section as SidebarSection);
+                setActiveSection(item.section as GameSection);
               }
             }}
           >

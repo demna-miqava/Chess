@@ -11,8 +11,8 @@ import { TimeControlOption } from "./TimeControlOption";
 import { useCreateGame } from "../CreateGameContext";
 
 export const TimeControlsSection = () => {
-  const { selectedFormat, selectedTimeControl } = useCreateGame();
-  const Icon = getTimeControlIcon(selectedFormat);
+  const { timeControl } = useCreateGame();
+  const Icon = getTimeControlIcon(timeControl.format);
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,8 +20,8 @@ export const TimeControlsSection = () => {
       <CollapsibleTrigger className="w-full m-auto">
         <div className="flex items-center justify-between rounded-lg bg-card border border-border px-3 py-2 text-sm text-foreground hover:bg-accent transition-colors">
           <span className="inline-flex items-center gap-2">
-            {Icon && <Icon />} {selectedTimeControl}{" "}
-            <span className="capitalize">({selectedFormat})</span>
+            {Icon && <Icon />} {timeControl.value}{" "}
+            <span className="capitalize">({timeControl.format})</span>
           </span>
           <span className="text-xs text-muted-foreground">
             {open ? <ChevronUp /> : <ChevronDown />}

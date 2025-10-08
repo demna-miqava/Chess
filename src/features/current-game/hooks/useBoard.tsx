@@ -3,79 +3,35 @@ import { Chessground } from "@lichess-org/chessground";
 import type { Api } from "@lichess-org/chessground/api";
 import { Chess } from "chess.js";
 import { useEffect, useRef } from "react";
-import useWebSocket from "react-use-websocket";
 import { useLocation, useParams } from "react-router";
 import type { Key } from "@lichess-org/chessground/types";
-
-const ENABLE_PREMOVES = true;
-const ENABLE_DRAGGABLE = true;
-
-const syncTheBoardAfterTheMove = (
-  chessRef: React.RefObject<Chess>,
-  cgRef: React.RefObject<Api | null>,
-  color: "black" | "white"
-) => {
-  const chess = chessRef.current;
-  const turn = chess.turn();
-  const playerColorCode = color === "white" ? "w" : "b";
-  const isMyTurn = turn === playerColorCode;
-  cgRef.current?.set({
-    fen: chess.fen(),
-    turnColor: turn === "w" ? "white" : "black",
-    movable: {
-      color: color,
-      dests: isMyTurn
-        ? new Map(
-            chess
-              .moves({ verbose: true })
-              .map((m) => [
-                m.from,
-                chess
-                  .moves({ square: m.from, verbose: true })
-                  .map((move) => move.to),
-              ])
-          )
-        : new Map(),
-    },
-    check: chess.inCheck(),
-  });
-
-  if (isMyTurn) {
-    cgRef.current?.playPremove();
-  }
-};
+import { useGameWebSocket } from "@/features/game/hooks/useGameWebSocket";
+import {
+  syncBoardState,
+  calculateLegalMoves,
+} from "@/features/game/utils/board-sync";
+import { BOARD_CONFIG } from "@/features/game/constants/board-config";
+import type { PlayerColor } from "@/features/game/types/game.types";
 
 export const useBoard = () => {
   const boardRef = useRef<HTMLDivElement>(null);
   const chessRef = useRef(new Chess());
   const cgRef = useRef<Api | null>(null);
-  const { color } = useLocation().state || { color: "black" };
+  const { color } = useLocation().state || {
+    color: "black" as PlayerColor,
+    timeControl: "3",
+  };
   const { id } = useUser();
   const { gameId } = useParams();
 
-  const { lastMessage, sendMessage } = useWebSocket(
-    gameId ? `ws://localhost:5001/ws/game/${gameId}?userId=${id}` : null
-  );
-
-  useEffect(() => {
-    if (lastMessage) {
-      const data = JSON.parse(lastMessage.data);
-
-      // Handle initial connection with game state
-      if (data && data?.data?.fen) {
-        const chess = chessRef.current;
-        if (data?.pgn) {
-          chess.loadPgn(data.pgn);
-        }
-        syncTheBoardAfterTheMove(chessRef, cgRef, color);
-      }
-
-      if (data && data.type === "move" && data?.move && data?.userId !== id) {
-        chessRef.current.move(data.move.lan);
-        syncTheBoardAfterTheMove(chessRef, cgRef, color);
-      }
-    }
-  }, [lastMessage, id, color]);
+  // Use the game WebSocket hook
+  const { sendMessage } = useGameWebSocket({
+    gameId,
+    userId: id || "",
+    playerColor: color,
+    chessRef,
+    cgRef,
+  });
 
   useEffect(() => {
     if (boardRef.current) {
@@ -86,34 +42,26 @@ export const useBoard = () => {
       cgRef.current = Chessground(boardRef.current, {
         fen: chess.fen(),
         orientation: color,
-        premovable: { enabled: ENABLE_PREMOVES },
-        draggable: { enabled: ENABLE_DRAGGABLE },
+        premovable: { enabled: BOARD_CONFIG.ENABLE_PREMOVES },
+        draggable: { enabled: BOARD_CONFIG.ENABLE_DRAGGABLE },
         turnColor: chess.turn() === "w" ? "white" : "black",
         movable: {
           color: color,
           free: false,
-          dests: isMyTurn
-            ? new Map(
-                chess
-                  .moves({ verbose: true })
-                  .map((m) => [
-                    m.from,
-                    chess
-                      .moves({ square: m.from, verbose: true })
-                      .map((move) => move.to),
-                  ])
-              )
-            : new Map(),
+          dests: isMyTurn ? calculateLegalMoves(chess) : new Map(),
         },
         events: {
           move: (orig: Key, dest: Key) => {
             try {
               const move = chess.move({
-                from: orig,
-                to: dest,
+                from: orig as string,
+                to: dest as string,
               });
-              syncTheBoardAfterTheMove(chessRef, cgRef, color);
 
+              // Sync board after move
+              syncBoardState(chessRef, cgRef, color);
+
+              // Send move to server
               sendMessage(
                 JSON.stringify({
                   type: "move",
@@ -130,7 +78,7 @@ export const useBoard = () => {
         },
       });
     }
-  }, [color, sendMessage]);
+  }, [color, sendMessage, chessRef, cgRef]);
 
   return {
     boardRef,

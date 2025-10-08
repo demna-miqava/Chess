@@ -11,9 +11,8 @@ export const TimeControlOption = ({
   icon: Icon,
   options,
 }: TimeControlOptionProps) => {
-  const { selectedTimeControl, setSelectedTimeControl, setSelectedFormat } =
-    useCreateGame();
-  const formatType = label.toLowerCase();
+  const { timeControl, updateTimeControl } = useCreateGame();
+  const formatType = label.toLowerCase() as "bullet" | "blitz" | "rapid";
 
   return (
     <div className="flex flex-col gap-4">
@@ -29,11 +28,10 @@ export const TimeControlOption = ({
               type="button"
               key={value}
               className={`w-full border rounded-md p-2 text-center tracking-normal hover:bg-white/5 transition-colors ${
-                selectedTimeControl === value ? "border-lime-400" : ""
+                timeControl.value === value && timeControl.format === formatType ? "border-lime-400" : ""
               }`}
               onClick={() => {
-                setSelectedTimeControl(value);
-                setSelectedFormat(formatType);
+                updateTimeControl(formatType, value);
               }}
             >
               {label}

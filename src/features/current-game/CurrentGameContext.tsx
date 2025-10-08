@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, type RefObject } from "react";
+import { createContext, useContext, type RefObject } from "react";
 import { useMoveNavigation } from "./hooks/useMoveNavigation";
 import { useBoard } from "./hooks/useBoard";
 import { Chess } from "chess.js";
@@ -28,10 +28,9 @@ export const CurrentGameProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { boardRef, chessRef, cgRef } = useBoard();
+  const { boardRef, chessRef } = useBoard();
   const totalMoves = chessRef.current?.history().length || 0;
 
-  const navigation = useMoveNavigation(totalMoves);
   const {
     goToFirstMove,
     goToPreviousMove,
@@ -39,7 +38,7 @@ export const CurrentGameProvider = ({
     goToLastMove,
     isAtStart,
     isAtEnd,
-  } = navigation;
+  } = useMoveNavigation(totalMoves);
 
   // Handle navigation - runs when user explicitly navigates
   // useEffect(() => {
