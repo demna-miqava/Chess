@@ -36,7 +36,9 @@ export const useMatchmaking = ({
     [shouldConnect, userId, timeControl, timeFormat, rating]
   );
 
-  const { sendMessage, lastMessage, readyState } = useWebSocket(wsUrl);
+  const { sendMessage, lastMessage, readyState } = useWebSocket(wsUrl, {
+    share: true,
+  });
 
   useEffect(() => {
     if (!lastMessage) return;

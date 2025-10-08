@@ -3,7 +3,7 @@ import { Chessground } from "@lichess-org/chessground";
 import type { Api } from "@lichess-org/chessground/api";
 import { Chess } from "chess.js";
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useLocation } from "react-router";
 import type { Key } from "@lichess-org/chessground/types";
 import { useGameWebSocket } from "@/features/game/hooks/useGameWebSocket";
 import {
@@ -12,6 +12,8 @@ import {
 } from "@/features/game/utils/board-sync";
 import { BOARD_CONFIG } from "@/features/game/constants/board-config";
 import type { PlayerColor } from "@/features/game/types/game.types";
+import { parseWebSocketMessage } from "@/features/game/utils/websocket-helpers";
+import type { GameWebSocketMessage } from "@/features/game/types/websocket-messages";
 
 export const useBoard = () => {
   const boardRef = useRef<HTMLDivElement>(null);
@@ -23,17 +25,33 @@ export const useBoard = () => {
     timeControl: "3",
   };
   const { id } = useUser();
-  const { gameId } = useParams();
 
   // Use the game WebSocket hook
-  const { sendMessage } = useGameWebSocket({
-    gameId,
-    userId: id || "",
-    playerColor: color,
-    chessRef,
-    cgRef,
-    setTurn,
-  });
+  const { sendMessage, lastMessage } = useGameWebSocket();
+
+  useEffect(() => {
+    if (!chessRef.current) return;
+
+    const data = parseWebSocketMessage<GameWebSocketMessage>(lastMessage);
+
+    if (!data) return;
+
+    // Handle initial game state from server
+    if ("data" in data && data.data?.fen) {
+      if (data.pgn) {
+        chessRef.current.loadPgn(data.pgn);
+      }
+      syncBoardState(chessRef, cgRef, color, setTurn);
+    }
+
+    // Handle opponent's move
+    if (data.type === "move" && "move" in data) {
+      if (data.move) {
+        chessRef.current.move(data.move.lan);
+        syncBoardState(chessRef, cgRef, color, setTurn);
+      }
+    }
+  }, [lastMessage, id, color, chessRef, cgRef]);
 
   useEffect(() => {
     if (boardRef.current) {
