@@ -5,6 +5,7 @@ export type DrawOfferMessage = {
 export type DrawResponseMessage = {
   type: "draw_response";
   accepted: boolean;
+  userId?: string;
 };
 
 export type GameEndedMessage = {
