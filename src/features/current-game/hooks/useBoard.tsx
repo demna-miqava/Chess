@@ -77,7 +77,7 @@ export const useBoard = () => {
                 from: orig as string,
                 to: dest as string,
               });
-
+              const numberOfMoves = chess.moveNumber();
               // Sync board after move
               syncBoardState(chessRef, cgRef, color, setTurn);
               // Send move to server
@@ -87,6 +87,7 @@ export const useBoard = () => {
                   move: move,
                   fen: chess.fen(),
                   pgn: chess.pgn(),
+                  moveNumber: numberOfMoves,
                 })
               );
             } catch {
