@@ -5,13 +5,16 @@ export interface Friend {
   avatar_url: string | null;
   fullName: string;
   created_at: string;
+  blitz_rating: number;
+  bullet_rating: number;
+  rapid_rating: number;
 }
 
 /**
  * Friend action callbacks that accept friend ID
  */
 export interface FriendActionHandlers {
-  onChallenge?: (friendId: string) => void;
+  onChallenge?: (friendId: Friend) => void;
   onMessage?: (friendId: string) => void;
   onRemove?: (friendId: string) => void;
 }

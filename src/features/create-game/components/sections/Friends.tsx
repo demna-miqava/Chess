@@ -2,16 +2,23 @@ import { useState } from "react";
 import { useUserFriends } from "@/features/friends/list/hooks/useUserFriends";
 import { FriendsPaginatedList } from "@/features/friends/list/components/FriendsPaginatedList";
 import { FriendsLocalSearch } from "@/features/friends/list/components/FriendsLocalSearch";
-import { useFriendActions } from "@/features/friends/hooks/useFriendActions";
 import { useDebounce } from "@/hooks/useDebounce";
+import type { Friend } from "@/types";
+import { useCreateGame } from "../../CreateGameContext";
 
 export const Friends = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearch = useDebounce(searchQuery, 500);
-  const { onChallenge } = useFriendActions();
+  const { setSelectedFriend, setActiveSection } = useCreateGame();
+
+  const onChallenge = (friend: Friend) => {
+    setSelectedFriend(friend);
+    setActiveSection("friend-invite-options");
+  };
   const { friends, page, setPage, pagination, isLoading } = useUserFriends({
     defaultLimit: 1,
     searchQuery: debouncedSearch,
+    useLocalState: true,
   });
 
   return (

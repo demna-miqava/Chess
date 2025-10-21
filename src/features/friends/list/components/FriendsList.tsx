@@ -21,7 +21,6 @@ export const FriendsList = ({
       </div>
     );
   }
-  console.log("ITEMS", items);
 
   return (
     <div className="space-y-2">

@@ -5,6 +5,7 @@ import {
   type TimeControlFormat,
   type TimeControl,
 } from "./hooks/useTimeControl";
+import type { Friend } from "@/types";
 
 export type GameSection =
   | "new"
@@ -23,6 +24,8 @@ interface CreateGameContextValue {
   // Time Control
   timeControl: TimeControl;
   updateTimeControl: (format: TimeControlFormat, value: string) => void;
+  selectedFriend: Friend | null;
+  setSelectedFriend: React.Dispatch<React.SetStateAction<Friend | null>>;
 }
 
 const CreateGameContext = createContext<CreateGameContextValue | null>(null);
@@ -37,7 +40,7 @@ export const CreateGameProvider = ({
   const initialSection = (state?.section as GameSection) ?? "new";
   const [activeSection, setActiveSection] =
     useState<GameSection>(initialSection);
-
+  const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
   const { timeControl, updateTimeControl } = useTimeControl();
 
   const canGoBack = activeSection !== "new";
@@ -62,12 +65,15 @@ export const CreateGameProvider = ({
         goBack,
         timeControl,
         updateTimeControl,
+        selectedFriend,
+        setSelectedFriend,
       }}
     >
       {children}
     </CreateGameContext.Provider>
   );
 };
+
 /* eslint-disable-next-line */
 export const useCreateGame = () => {
   const context = useContext(CreateGameContext);

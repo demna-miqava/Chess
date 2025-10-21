@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Crown } from "lucide-react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
 import { TimeControlsSection } from "../TimeControlsSection";
+import { useCreateGame } from "../../CreateGameContext";
+import { UserAvatar } from "@/components/UserAvatar";
 
 type ColorChoice = "white" | "random" | "black";
 
@@ -13,20 +13,23 @@ const COLOR_CHOICES: ColorChoice[] = ["white", "random", "black"];
 
 export const FriendInviteOptions = () => {
   const [colorChoice, setColorChoice] = useState<ColorChoice>("random");
+  const { selectedFriend, timeControl } = useCreateGame();
+
+  if (!selectedFriend) return;
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center gap-3">
-        <Avatar className="size-20">
-          <AvatarImage
-            src="https://images.chesscomfiles.com/uploads/v1/user/195303573.7eeab86b.50x50o.4f5a7d721b05.jpg"
-            className="rounded-md object-cover"
-          />
-          <AvatarFallback>A</AvatarFallback>
-        </Avatar>
+        <UserAvatar
+          src={selectedFriend.avatar_url || ""}
+          username={selectedFriend.username}
+          className="size-20"
+        />
         <div className="flex items-center gap-1">
-          <span className="text-md font-medium">joffarex</span>
-          <span className="text-md font-medium">(300)</span>
+          <span className="text-md font-medium">{selectedFriend.username}</span>
+          <span className="text-md font-medium">
+            ({selectedFriend[`${timeControl.format}_rating`]})
+          </span>
         </div>
       </div>
 
@@ -38,15 +41,17 @@ export const FriendInviteOptions = () => {
           {COLOR_CHOICES.map((choice) => {
             const isActive = colorChoice === choice;
             const bgColor =
-              choice === "white" ? "bg-white" :
-              choice === "black" ? "bg-[#1a1a1a]" :
-              "bg-sidebar";
+              choice === "white"
+                ? "bg-white"
+                : choice === "black"
+                ? "bg-[#1a1a1a]"
+                : "bg-sidebar";
             const borderColor = isActive
               ? "border-lime-400 shadow-[0_0_0_1px_rgba(163,230,53,0.4)]"
               : "border-sidebar-border hover:border-lime-300";
 
             return (
-              <button
+              <Button
                 key={choice}
                 type="button"
                 aria-pressed={isActive}
@@ -59,9 +64,13 @@ export const FriendInviteOptions = () => {
                     <span className="bg-[#1a1a1a]" />
                   </div>
                 ) : (
-                  <Crown className={`size-6 ${choice === "white" ? "text-black" : "text-white"}`} />
+                  <Crown
+                    className={`size-6 ${
+                      choice === "white" ? "text-black" : "text-white"
+                    }`}
+                  />
                 )}
-              </button>
+              </Button>
             );
           })}
         </div>

@@ -22,10 +22,8 @@ export const useQueryParams = () => {
 
   const setParam = useCallback(
     (key: string, value: string | number) => {
-      setSearchParams((prev) => {
-        prev.set(key, String(value));
-        return prev;
-      });
+      searchParams.set(key, String(value));
+      setSearchParams(searchParams);
     },
     [setSearchParams]
   );

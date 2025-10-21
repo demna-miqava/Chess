@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { searchFriends } from "@/services/friends";
 import { useUser } from "@/hooks/useUser";
@@ -8,17 +9,22 @@ interface UseUserFriendsOptions {
   defaultPage?: number;
   defaultLimit?: number;
   searchQuery?: string;
+  useLocalState?: boolean;
 }
 
 export const useUserFriends = ({
   defaultPage = 1,
   defaultLimit = 20,
   searchQuery,
+  useLocalState = false,
 }: UseUserFriendsOptions = {}) => {
   const { id: userId } = useUser();
   const { getNumberParam, getParam, setParam } = useQueryParams();
 
-  const page = getNumberParam("page", defaultPage);
+  // Use local state or URL params based on useLocalState flag
+  const [localPage, setLocalPage] = useState(defaultPage);
+  const urlPage = getNumberParam("page", defaultPage);
+  const page = useLocalState ? localPage : urlPage;
 
   // Use searchQuery prop if provided, otherwise read from URL params
   const search =
@@ -43,7 +49,11 @@ export const useUserFriends = ({
   const totalPages = query.data?.pagination.totalPages ?? 1;
 
   const setPage = (newPage: number) => {
-    setParam("page", newPage);
+    if (useLocalState) {
+      setLocalPage(newPage);
+    } else {
+      setParam("page", newPage);
+    }
   };
 
   return {

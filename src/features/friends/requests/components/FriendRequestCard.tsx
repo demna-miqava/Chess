@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { UserAvatar } from "@/components/UserAvatar";
 import type { FriendRequest } from "@/services/friends";
 
 interface FriendRequestCardProps {
@@ -30,12 +31,8 @@ export const FriendRequestCard = ({
   return (
     <div className="flex items-center justify-between p-4 border rounded-lg">
       <div className="flex items-center gap-3">
-        {/* use profile */}
-        <img
-          src={displayUser.image}
-          alt={displayUser.username}
-          className="size-12 rounded-full"
-        />
+        <UserAvatar src={displayUser.image} username={displayUser.username} />
+
         <div>
           <p className="font-medium">{displayUser.username}</p>
           <p className="text-sm text-muted-foreground">

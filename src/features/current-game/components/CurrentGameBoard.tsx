@@ -4,6 +4,7 @@ import { useCurrentGame } from "../CurrentGameContext";
 import { useLocation } from "react-router";
 import Clock from "./Clock";
 import { BoardLayout } from "@/features/game/components/BoardLayout";
+import { UserAvatar } from "@/components/UserAvatar";
 
 const CurrentGameBoard = () => {
   const { userName, image } = useUser();
@@ -33,11 +34,7 @@ const CurrentGameBoard = () => {
         rating: 3415,
         avatar: (
           <div className="flex size-8 items-center justify-center overflow-hidden rounded-full">
-            <img
-              src={image}
-              alt="Player avatar"
-              className="size-full object-cover"
-            />
+            <UserAvatar src={image} username={userName} />
           </div>
         ),
       }}

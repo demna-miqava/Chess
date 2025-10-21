@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare, Sword } from "lucide-react";
 import { useNavigate } from "react-router";
 import { format } from "date-fns";
+import { UserAvatar } from "@/components/UserAvatar";
 
 const FriendPopover = ({
   children,
@@ -31,7 +32,7 @@ const FriendPopover = ({
               navigate(`/profile/${username}`);
             }}
           >
-            <img src={image} alt={username} className="size-12 rounded-full" />
+            <UserAvatar src={image} username={username} />
             <div>
               <h3>{username}</h3>
               <p className="text-sm">

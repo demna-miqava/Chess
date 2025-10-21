@@ -4,6 +4,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { UserAvatar } from "@/components/UserAvatar";
 import { Link, useParams } from "react-router";
 import FriendPopover from "../../components/Popover";
 
@@ -23,11 +24,11 @@ const FriendsGrid = () => {
           <div key={friend.username} className="flex justify-center">
             <Tooltip>
               <FriendPopover data={friend}>
-                <TooltipTrigger asChild>
-                  <img
+                <TooltipTrigger>
+                  <UserAvatar
                     src={friend.image}
-                    alt={friend.username}
-                    className="size-12 rounded-full cursor-pointer"
+                    username={friend.username}
+                    className="cursor-pointer"
                   />
                 </TooltipTrigger>
               </FriendPopover>

@@ -5,6 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { UserAvatar } from "@/components/UserAvatar";
 import type { Friend } from "@/types";
 import {
   MessageSquare,
@@ -16,7 +17,7 @@ import {
 
 interface FriendCardProps<T extends Friend> {
   friend: T;
-  onChallenge?: (id: string) => void;
+  onChallenge?: (id: Friend) => void;
   onMessage?: (id: string) => void;
   onRemove?: (id: string) => void;
   onAddFriend?: (id: string) => void;
@@ -37,7 +38,7 @@ export function FriendCard<T extends Friend>({
     onChallenge && {
       icon: Sword,
       label: "Challenge",
-      onClick: () => onChallenge(friend.id),
+      onClick: () => onChallenge(friend),
     },
     onMessage && {
       icon: MessageSquare,
@@ -68,10 +69,9 @@ export function FriendCard<T extends Friend>({
   return (
     <div className="flex items-center justify-between rounded-lg border p-4">
       <div className="flex items-center gap-3">
-        <img
+        <UserAvatar
           src={friend.image}
-          alt={friend.username}
-          className="size-12 rounded-full"
+          username={friend.username}
         />
         <div className="flex flex-col">
           <span className="font-medium">{friend.username}</span>
