@@ -5,9 +5,9 @@ import { Loader2 } from "lucide-react";
 const publicRoutes = ["/", "/signin", "/signup", "/forgot-password"];
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
-  const { id, isPending } = useUser();
   const location = useLocation();
   const isPublicRoute = publicRoutes.includes(location.pathname);
+  const { id, isPending } = useUser();
   // TODO: change loader
   if (isPending) {
     return (

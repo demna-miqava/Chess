@@ -23,7 +23,7 @@ interface CreateGameContextValue {
 
   // Time Control
   timeControl: TimeControl;
-  updateTimeControl: (format: TimeControlFormat, value: string) => void;
+  updateTimeControl: (format: TimeControlFormat, time: number, increment?: number) => void;
   selectedFriend: Friend | null;
   setSelectedFriend: React.Dispatch<React.SetStateAction<Friend | null>>;
 }

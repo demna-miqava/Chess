@@ -12,11 +12,15 @@ export const useClock = ({
   increment,
   isActive,
 }: {
-  startingTime: number;
-  increment?: number;
+  startingTime: number; // in seconds
+  increment?: number; // in seconds
   isActive: boolean;
 }) => {
-  const [time, setTime] = useState(startingTime);
+  // Convert seconds to milliseconds for internal use
+  const startingTimeMs = startingTime * 1000;
+  const incrementMs = increment ? increment * 1000 : 0;
+
+  const [time, setTime] = useState(startingTimeMs);
   const lastTickRef = useRef<number>(Date.now());
   const intervalRef = useRef<number | null>(null);
 
@@ -24,8 +28,8 @@ export const useClock = ({
   // TODO: Check requestAnimationFrame for better countdown experience
   // Update time when startingTime changes (external updates)
   useEffect(() => {
-    setTime(startingTime);
-  }, [startingTime]);
+    setTime(startingTimeMs);
+  }, [startingTimeMs]);
 
   // Countdown logic when clock is active
   useEffect(() => {
@@ -33,8 +37,8 @@ export const useClock = ({
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
-        if (increment) {
-          setTime((prev) => prev + increment);
+        if (incrementMs > 0) {
+          setTime((prev) => prev + incrementMs);
         }
       }
       return;
@@ -55,7 +59,7 @@ export const useClock = ({
         clearInterval(intervalRef.current);
       }
     };
-  }, [increment, isActive]);
+  }, [incrementMs, isActive]);
 
   return { time, isLowTime };
 };

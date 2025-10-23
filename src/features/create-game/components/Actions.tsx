@@ -4,7 +4,6 @@ import {
   type GameSection,
 } from "@/features/create-game/CreateGameContext";
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/hooks/useUser";
 import { useMatchmaking } from "@/features/game/hooks/useMatchmaking";
 
 const actionItems = [
@@ -24,12 +23,10 @@ const actionItems = [
 
 export const Actions = () => {
   const { setActiveSection, timeControl } = useCreateGame();
-  const { id } = useUser();
 
   const { setShouldConnect, isSearching } = useMatchmaking({
-    userId: id || "",
-    timeFormat: timeControl.format,
-    timeControl: timeControl.value,
+    time: timeControl.time,
+    increment: timeControl.increment,
   });
 
   return (

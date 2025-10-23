@@ -4,25 +4,28 @@ export type TimeControlFormat = "bullet" | "blitz" | "rapid";
 
 export interface TimeControl {
   format: TimeControlFormat;
-  value: string;
+  time: number;
+  increment: number;
 }
 
 /**
  * Hook to manage time control selection
- * Combines format (bullet/blitz/rapid) and value (3 min, 5 min, etc.) in a single state
+ * Combines format (bullet/blitz/rapid), time (in minutes), and increment (in seconds)
  */
 export const useTimeControl = (
   initialFormat: TimeControlFormat = "blitz",
-  initialValue = "3"
+  initialTime = 180,
+  initialIncrement = 0
 ) => {
   const [timeControl, setTimeControl] = useState<TimeControl>({
     format: initialFormat,
-    value: initialValue,
+    time: initialTime,
+    increment: initialIncrement,
   });
 
   const updateTimeControl = useCallback(
-    (format: TimeControlFormat, value: string) => {
-      setTimeControl({ format, value });
+    (format: TimeControlFormat, time: number, increment: number = 0) => {
+      setTimeControl({ format, time, increment });
     },
     []
   );
@@ -31,6 +34,7 @@ export const useTimeControl = (
     timeControl,
     updateTimeControl,
     format: timeControl.format,
-    value: timeControl.value,
+    time: timeControl.time,
+    increment: timeControl.increment,
   };
 };

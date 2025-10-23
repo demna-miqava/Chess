@@ -7,15 +7,18 @@ export const PLAY_TIME_CONTROLS = [
     options: [
       {
         label: "1 min",
-        value: "1",
+        time: 60,
+        increment: 0,
       },
       {
         label: "1|1",
-        value: "1 + 1",
+        time: 60,
+        increment: 1,
       },
       {
         label: "2 | 1",
-        value: "2 + 1",
+        time: 120,
+        increment: 1,
       },
     ],
   },
@@ -25,15 +28,18 @@ export const PLAY_TIME_CONTROLS = [
     options: [
       {
         label: "3 min",
-        value: "3",
+        time: 180,
+        increment: 0,
       },
       {
         label: "3 | 2",
-        value: "3 + 2",
+        time: 180,
+        increment: 2,
       },
       {
         label: "5 min",
-        value: "5",
+        time: 300,
+        increment: 0,
       },
     ],
   },
@@ -43,15 +49,18 @@ export const PLAY_TIME_CONTROLS = [
     options: [
       {
         label: "10 min",
-        value: "10",
+        time: 600,
+        increment: 0,
       },
       {
         label: "15 | 10",
-        value: "15 + 10",
+        time: 900,
+        increment: 10,
       },
       {
         label: "30 min",
-        value: "30",
+        time: 1800,
+        increment: 0,
       },
     ],
   },

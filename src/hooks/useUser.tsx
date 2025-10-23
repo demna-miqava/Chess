@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCurrentUser, type User } from "@/services/user";
 import { QKEY_USER } from "@/consts/queryKeys";
 
-export const useUser = () => {
+export const useUser = (enabled: boolean = true) => {
   const queryClient = useQueryClient();
 
   const {
@@ -13,8 +13,10 @@ export const useUser = () => {
   } = useQuery({
     queryKey: [QKEY_USER],
     queryFn: getCurrentUser,
+
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: false,
+    enabled,
   });
 
   const setUser = (userData: User) => {

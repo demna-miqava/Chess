@@ -20,7 +20,10 @@ export const TimeControlsSection = () => {
       <CollapsibleTrigger className="w-full m-auto">
         <div className="flex items-center justify-between rounded-lg bg-card border border-border px-3 py-2 text-sm text-foreground hover:bg-accent transition-colors">
           <span className="inline-flex items-center gap-2">
-            {Icon && <Icon />} {timeControl.value}{" "}
+            {Icon && <Icon />}{" "}
+            {timeControl.increment > 0
+              ? `${timeControl.time} | ${timeControl.increment}`
+              : `${timeControl.time} min`}{" "}
             <span className="capitalize">({timeControl.format})</span>
           </span>
           <span className="text-xs text-muted-foreground">

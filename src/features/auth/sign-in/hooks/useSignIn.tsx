@@ -18,7 +18,7 @@ export type SignInForm = z.infer<typeof signInSchema>;
 
 export const useSignIn = () => {
   const navigate = useNavigate();
-  const { refetch } = useUser();
+  const { refetch } = useUser(false);
 
   const signInMutation = useMutation({
     mutationFn: signIn,

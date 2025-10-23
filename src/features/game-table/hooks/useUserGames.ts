@@ -13,15 +13,15 @@ export const useUserGames = ({
   defaultPage = 1,
   defaultLimit = 10,
 }: UseUserGamesOptions = {}) => {
-  const { id: userId } = useUser();
+  const { id: userId, username } = useUser();
   const { getNumberParam, setParam } = useQueryParams();
 
   const page = getNumberParam("page", defaultPage);
   const limit = getNumberParam("limit", defaultLimit);
 
   const query = useQuery({
-    queryKey: [QKEY_USER_GAMES, userId, page, limit],
-    queryFn: () => getUserGames({ userId: userId || "", page, limit }),
+    queryKey: [QKEY_USER_GAMES, username, page, limit],
+    queryFn: () => getUserGames({ username: username || "", page, limit }),
     enabled: !!userId,
     staleTime: 1000 * 60 * 5,
   });

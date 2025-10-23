@@ -12,8 +12,12 @@ export interface GameState {
 
 export interface MatchmakingMessage {
   type: "searching" | "match_found" | "error";
-  gameId?: string;
-  color?: PlayerColor;
-  opponentRating?: number;
-  opponentUsername?: string;
+  data: {
+    gameId?: string;
+    color?: PlayerColor;
+    opponentRating?: number;
+    opponentUsername?: string;
+    time: number;
+    increment: number | null;
+  };
 }

@@ -35,7 +35,7 @@ export type SignUpData = SignUpForm & { skill: SignupSkill };
 
 export const useSignup = (selectedSkill: SignupSkill) => {
   const navigate = useNavigate();
-  const { refetch } = useUser();
+  const { refetch } = useUser(false);
 
   const signUpMutation = useMutation({
     mutationFn: signUp,

@@ -33,18 +33,18 @@ export type PaginatedGamesResponse = {
 };
 
 export type GetUserGamesParams = {
-  userId: string;
+  username: string;
   page?: number;
   limit?: number;
 };
 
 export const getUserGames = async ({
-  userId,
+  username,
   page = 1,
   limit = 10,
 }: GetUserGamesParams): Promise<PaginatedGamesResponse> => {
   return apiRequest<PaginatedGamesResponse>(
     "get",
-    `/games/archive/${userId}?page=${page}&limit=${limit}`
+    `/games/archive/${username}?page=${page}&limit=${limit}`
   );
 };

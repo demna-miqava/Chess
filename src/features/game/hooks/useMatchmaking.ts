@@ -5,35 +5,24 @@ import { BOARD_CONFIG } from "../constants/board-config";
 import type { MatchmakingMessage } from "../types/game.types";
 
 interface UseMatchmakingProps {
-  userId: string;
-  timeFormat: string;
-  timeControl: string;
-  rating?: number;
+  time: number;
+  increment: number;
 }
 
 /**
  * Hook to manage matchmaking WebSocket connection
  * Handles finding opponents and navigating to game when match is found
  */
-export const useMatchmaking = ({
-  userId,
-  timeFormat,
-  timeControl,
-  rating = 1000,
-}: UseMatchmakingProps) => {
+export const useMatchmaking = ({ time, increment }: UseMatchmakingProps) => {
   const [shouldConnect, setShouldConnect] = useState(false);
   const navigate = useNavigate();
 
   const wsUrl = useMemo(
     () =>
       shouldConnect
-        ? `${
-            BOARD_CONFIG.WEBSOCKET_BASE_URL
-          }/matchmaking?userId=${userId}&timeControl=${encodeURIComponent(
-            timeControl
-          )}&timeFormat=${timeFormat}&rating=${rating}`
+        ? `${BOARD_CONFIG.WEBSOCKET_BASE_URL}/matchmaking?time=${time}&increment=${increment}`
         : null,
-    [shouldConnect, userId, timeControl, timeFormat, rating]
+    [shouldConnect, time, increment]
   );
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(wsUrl, {
@@ -44,13 +33,17 @@ export const useMatchmaking = ({
     if (!lastMessage) return;
 
     const data: MatchmakingMessage = JSON.parse(lastMessage.data);
-
-    if (data.type === "match_found" && data.gameId) {
-      navigate(`/game/${data.gameId}`, {
+    console.log("data", data);
+    const { gameId, color, opponentRating, opponentUsername, time, increment } =
+      data.data;
+    if (data.type === "match_found" && gameId) {
+      navigate(`/game/${gameId}`, {
         state: {
-          color: data.color,
-          opponentRating: data.opponentRating,
-          opponentUsername: data.opponentUsername,
+          color: color,
+          opponentRating: opponentRating,
+          opponentUsername: opponentUsername,
+          time,
+          increment: increment ?? 0,
         },
       });
     }

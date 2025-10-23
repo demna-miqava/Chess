@@ -3,7 +3,7 @@ import { useCreateGame } from "../CreateGameContext";
 interface TimeControlOptionProps {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
-  options: Array<{ label: string; value: string }>;
+  options: Array<{ label: string; time: number; increment: number }>;
 }
 
 export const TimeControlOption = ({
@@ -22,16 +22,20 @@ export const TimeControlOption = ({
       </div>
       <div className="w-full flex justify-between gap-2">
         {options.map((option) => {
-          const { label, value } = option;
+          const { label, time, increment } = option;
+          const isSelected =
+            timeControl.time === time &&
+            timeControl.increment === increment &&
+            timeControl.format === formatType;
           return (
             <button
               type="button"
-              key={value}
+              key={`${time}-${increment}`}
               className={`w-full border rounded-md p-2 text-center tracking-normal hover:bg-white/5 transition-colors ${
-                timeControl.value === value && timeControl.format === formatType ? "border-lime-400" : ""
+                isSelected ? "border-lime-400" : ""
               }`}
               onClick={() => {
-                updateTimeControl(formatType, value);
+                updateTimeControl(formatType, time, increment);
               }}
             >
               {label}

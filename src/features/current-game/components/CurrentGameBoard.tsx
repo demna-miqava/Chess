@@ -9,13 +9,15 @@ import { UserAvatar } from "@/components/UserAvatar";
 const CurrentGameBoard = () => {
   const { username, image } = useUser();
   const { boardRef, turn } = useCurrentGame();
-  const startingTime = 60000;
-  const increment = 2000;
-  const { opponentRating, opponentUsername, color } = useLocation().state || {
-    opponentRating: 0,
-    opponentUsername: "",
-    color: "",
-  };
+
+  const { opponentRating, opponentUsername, color, time, increment } =
+    useLocation().state || {
+      opponentRating: 0,
+      opponentUsername: "",
+      color: "",
+      time: 180,
+      increment: 0,
+    };
 
   return (
     <BoardLayout
@@ -40,14 +42,14 @@ const CurrentGameBoard = () => {
       }}
       topPlayerClock={
         <Clock
-          startingTime={startingTime}
+          startingTime={time}
           increment={increment}
           isActive={turn !== color}
         />
       }
       bottomPlayerClock={
         <Clock
-          startingTime={startingTime}
+          startingTime={time}
           increment={increment}
           isActive={turn === color}
         />
