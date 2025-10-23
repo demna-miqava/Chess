@@ -20,11 +20,11 @@ export const FriendRequestCard = ({
   const displayUser =
     type === "incoming"
       ? {
-          username: request.senderUserName,
+          username: request.senderUsername,
           image: request.senderImage,
         }
       : {
-          username: request.receiverUserName,
+          username: request.receiverUsername,
           image: request.receiverImage,
         };
 

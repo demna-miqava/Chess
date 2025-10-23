@@ -3,8 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-import { signIn, type AuthResponse } from "@/services/user";
-import Cookies from "js-cookie";
+import { signIn } from "@/services/user";
 import { useUser } from "@/hooks/useUser";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
@@ -23,9 +22,7 @@ export const useSignIn = () => {
 
   const signInMutation = useMutation({
     mutationFn: signIn,
-    onSuccess: (data: AuthResponse, variables) => {
-      const expires = variables.rememberMe ? 30 : 7;
-      Cookies.set("token", data.session.access_token, { expires });
+    onSuccess: () => {
       refetch();
       navigate("/home");
     },

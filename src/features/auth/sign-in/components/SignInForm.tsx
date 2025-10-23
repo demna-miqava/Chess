@@ -24,7 +24,7 @@ const SignInForm = () => {
           render={({ field }) => (
             <FormItem className="text-left">
               <FormLabel className="text-sm font-semibold text-white">
-                Email or Username
+                Email or username
               </FormLabel>
               <FormControl>
                 <Input

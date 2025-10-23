@@ -2,13 +2,13 @@ import { useUser } from "@/hooks/useUser";
 import { useNavigate } from "react-router";
 
 const ViewFullStatsLink = () => {
-  const { userName } = useUser();
+  const { username } = useUser();
   const navigate = useNavigate();
   return (
     <div className="text-right pt-4">
       <button
         className="text-foreground hover:text-gray-300 text-sm cursor-pointer"
-        onClick={() => navigate(`/profile/${userName}/stats`)}
+        onClick={() => navigate(`/profile/${username}/stats`)}
       >
         View Full Stats
       </button>

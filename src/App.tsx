@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/profile/:userName" element={<Profile />}>
+          <Route path="/profile/:username" element={<Profile />}>
             <Route index element={<ProfileOverview />} />
             <Route path="games" element={<ProfileGames />} />
             <Route path="stats" element={<ProfileStats />} />

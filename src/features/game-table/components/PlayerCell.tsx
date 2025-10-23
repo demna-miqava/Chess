@@ -1,17 +1,17 @@
 interface PlayerCellProps {
-  white: { userName: string; rating: number };
-  black: { userName: string; rating: number };
+  white: { username: string; rating: number };
+  black: { username: string; rating: number };
 }
 
 export const PlayerCell = ({ white, black }: PlayerCellProps) => {
   return (
     <div className="flex flex-col">
       <span className="text-accent-foreground">
-        {white.userName}{" "}
+        {white.username}{" "}
         <span className="text-xs text-gray-400">({white.rating})</span>
       </span>
       <span className="text-accent-foreground">
-        {black.userName}{" "}
+        {black.username}{" "}
         <span className="text-xs text-gray-400">({black.rating})</span>
       </span>
     </div>

@@ -7,11 +7,11 @@ interface StatsHeaderProps {
 }
 
 const StatsHeader = ({ showLink = true }: StatsHeaderProps) => {
-  const { userName } = useUser();
+  const { username } = useUser();
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/profile/${userName}/stats`);
+    navigate(`/profile/${username}/stats`);
   };
 
   return (

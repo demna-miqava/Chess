@@ -4,8 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
 import type { SignupSkill } from "../types";
 import { useMutation } from "@tanstack/react-query";
-import { signUp, type AuthResponse } from "@/services/user";
-import Cookies from "js-cookie";
+import { signUp } from "@/services/user";
 import { useUser } from "@/hooks/useUser";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
@@ -17,10 +16,10 @@ const signupSchema = z.object({
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       "Please enter a valid email address"
     ),
-  userName: z
+  username: z
     .string()
-    .min(3, "Username must be at least 3 characters")
-    .max(20, "Username must be at most 20 characters"),
+    .min(3, "username must be at least 3 characters")
+    .max(20, "username must be at most 20 characters"),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")
@@ -40,8 +39,7 @@ export const useSignup = (selectedSkill: SignupSkill) => {
 
   const signUpMutation = useMutation({
     mutationFn: signUp,
-    onSuccess: (data: AuthResponse) => {
-      Cookies.set("token", data.session.access_token, { expires: 7 });
+    onSuccess: () => {
       refetch();
       navigate("/home");
     },

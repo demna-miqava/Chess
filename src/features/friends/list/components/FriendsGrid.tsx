@@ -10,11 +10,11 @@ import FriendPopover from "../../components/Popover";
 
 const FriendsGrid = () => {
   const { friends, pagination } = useUserFriends({ defaultLimit: 20 });
-  const { userName } = useParams();
+  const { username } = useParams();
 
   return (
     <aside className="rounded-2xl border p-4 flex flex-col gap-4">
-      <Link to={`/profile/${userName}/friends`}>
+      <Link to={`/profile/${username}/friends`}>
         <h3 className="text-sm font-semibold">
           Friends ({pagination?.total ?? 0})
         </h3>

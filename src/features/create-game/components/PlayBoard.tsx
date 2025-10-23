@@ -6,7 +6,7 @@ import { BoardLayout } from "@/features/game/components/BoardLayout";
 import { UserAvatar } from "@/components/UserAvatar";
 
 export const PlayBoard = () => {
-  const { userName, image } = useUser();
+  const { username, image } = useUser();
   const boardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,11 +31,11 @@ export const PlayBoard = () => {
         ),
       }}
       bottomPlayer={{
-        name: userName,
+        name: username,
         rating: 3415,
         avatar: (
           <div className="flex size-8 items-center justify-center overflow-hidden rounded-full">
-            <UserAvatar src={image} username={userName} />
+            <UserAvatar src={image} username={username} />
           </div>
         ),
       }}

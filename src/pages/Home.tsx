@@ -5,7 +5,7 @@ import StatsCardList from "@/features/stats/components/card/StatsCardList";
 import { useUser } from "@/hooks/useUser";
 
 const Home = () => {
-  const { userName } = useUser();
+  const { username } = useUser();
 
   return (
     <div className="space-y-8">
@@ -15,7 +15,7 @@ const Home = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
         <GameTable
           variant="preview"
-          actionHref={`/profile/${userName}/games`}
+          actionHref={`/profile/${username}/games`}
         />
         <aside className="lg:mr-8">
           <StatsCardList>

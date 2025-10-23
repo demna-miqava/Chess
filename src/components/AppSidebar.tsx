@@ -1,4 +1,10 @@
-import { Moon, Sun, ArrowRightToLine, ArrowLeftToLine, LogOut } from "lucide-react";
+import {
+  Moon,
+  Sun,
+  ArrowRightToLine,
+  ArrowLeftToLine,
+  LogOut,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -23,10 +29,10 @@ export function AppSidebar() {
   const { theme, toggleTheme } = useTheme();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
-  const { userName } = useUser();
+  const { username } = useUser();
   const { logout } = useLogout();
 
-  const items = useMemo(() => getSidebarItems(userName || ""), [userName]);
+  const items = useMemo(() => getSidebarItems(username || ""), [username]);
 
   return (
     <Sidebar collapsible="icon">
@@ -86,10 +92,7 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              onClick={logout}
-              tooltip="Logout"
-            >
+            <SidebarMenuButton onClick={logout} tooltip="Logout">
               <LogOut className="text-red-500" />
               <span className="text-lg font-medium group-data-[collapsible=icon]:hidden">
                 Logout

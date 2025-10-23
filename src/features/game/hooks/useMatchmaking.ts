@@ -50,7 +50,7 @@ export const useMatchmaking = ({
         state: {
           color: data.color,
           opponentRating: data.opponentRating,
-          opponentUserName: data.opponentUsername,
+          opponentUsername: data.opponentUsername,
         },
       });
     }

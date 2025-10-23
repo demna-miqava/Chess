@@ -1,7 +1,6 @@
 import type { SignUpData } from "@/features/auth/sign-up/hooks/useSignup";
 import type { SignInForm } from "@/features/auth/sign-in/hooks/useSignIn";
 import { apiRequest } from ".";
-import Cookies from "js-cookie";
 
 export type User = {
   id: string;
@@ -17,7 +16,6 @@ export type User = {
 };
 
 export type AuthResponse = {
-  session: { access_token: string };
   user: User;
 };
 
@@ -30,16 +28,11 @@ export const signIn = async (data: SignInForm) => {
 };
 
 export const getCurrentUser = async (): Promise<User> => {
-  const token = Cookies.get("token");
-  if (!token) {
-    throw new Error("No authentication token found");
-  }
-
-  const response = await apiRequest<{ user: User }>("get", "/users/me", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await apiRequest<{ user: User }>("get", "/users/me");
 
   return response.user;
+};
+
+export const logout = async () => {
+  return apiRequest<void>("post", "/users/logout");
 };

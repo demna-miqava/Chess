@@ -4,9 +4,9 @@ import PerformanceShowcase from "@/features/stats/components/performance/Perform
 import { useUser } from "@/hooks/useUser";
 
 const ProfileOverview = () => {
-  const { userName } = useUser();
+  const { username } = useUser();
 
-  const profileGamesHref = `/profile/${userName}/games`;
+  const profileGamesHref = `/profile/${username}/games`;
 
   return (
     <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_300px]">

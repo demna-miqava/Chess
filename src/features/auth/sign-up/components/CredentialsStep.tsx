@@ -37,12 +37,12 @@ export const CredentialsStep = ({
         />
         <FormField
           control={form.control}
-          name="userName"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>username</FormLabel>
               <FormControl>
-                <Input placeholder="userName" {...field} />
+                <Input placeholder="username" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -7,13 +7,13 @@ import { BoardLayout } from "@/features/game/components/BoardLayout";
 import { UserAvatar } from "@/components/UserAvatar";
 
 const CurrentGameBoard = () => {
-  const { userName, image } = useUser();
+  const { username, image } = useUser();
   const { boardRef, turn } = useCurrentGame();
   const startingTime = 60000;
   const increment = 2000;
-  const { opponentRating, opponentUserName, color } = useLocation().state || {
+  const { opponentRating, opponentUsername, color } = useLocation().state || {
     opponentRating: 0,
-    opponentUserName: "",
+    opponentUsername: "",
     color: "",
   };
 
@@ -21,7 +21,7 @@ const CurrentGameBoard = () => {
     <BoardLayout
       boardRef={boardRef}
       topPlayer={{
-        name: opponentUserName,
+        name: opponentUsername,
         rating: opponentRating,
         avatar: (
           <div className="flex size-8 items-center justify-center rounded-full bg-[#3d3d3d]">
@@ -30,11 +30,11 @@ const CurrentGameBoard = () => {
         ),
       }}
       bottomPlayer={{
-        name: userName,
+        name: username,
         rating: 3415,
         avatar: (
           <div className="flex size-8 items-center justify-center overflow-hidden rounded-full">
-            <UserAvatar src={image} username={userName} />
+            <UserAvatar src={image} username={username} />
           </div>
         ),
       }}

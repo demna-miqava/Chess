@@ -7,17 +7,17 @@ import {
 import { useUser } from "@/hooks/useUser";
 
 export const UserInfo = () => {
-  const { image, userName } = useUser();
+  const { image, username } = useUser();
 
   return (
     <div className="flex items-center gap-2">
-      <Link to={`/profile/${userName}`}>
+      <Link to={`/profile/${username}`}>
         <Avatar>
           {image && <AvatarImage src={image} />}
-          <AvatarFallback>{userName?.charAt(0)}</AvatarFallback>
+          <AvatarFallback>{username?.charAt(0)}</AvatarFallback>
         </Avatar>
       </Link>
-      <span className="text-sm font-medium">{userName}</span>
+      <span className="text-sm font-medium">{username}</span>
     </div>
   );
 };

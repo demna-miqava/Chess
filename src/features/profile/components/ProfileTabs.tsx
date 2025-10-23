@@ -16,7 +16,7 @@ const getValueFromPath = (pathname: string) => {
 
 export const ProfileTabs = () => {
   const location = useLocation();
-  const { userName } = useParams();
+  const { username } = useParams();
   const navigate = useNavigate();
 
   return (
@@ -24,7 +24,7 @@ export const ProfileTabs = () => {
       value={getValueFromPath(location.pathname)}
       onValueChange={(value) => {
         const routeName = value === "overview" ? "" : `${value}`;
-        navigate(`/profile/${userName}/${routeName}`);
+        navigate(`/profile/${username}/${routeName}`);
       }}
       className="mt-8 w-full"
     >

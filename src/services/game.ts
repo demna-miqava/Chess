@@ -10,12 +10,12 @@ export type Game = {
   moves?: string;
   players: {
     white: {
-      userName: string;
+      username: string;
       rating: number;
       image: string | null;
     };
     black: {
-      userName: string;
+      username: string;
       rating: number;
       image: string | null;
     };

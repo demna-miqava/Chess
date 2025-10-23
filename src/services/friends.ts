@@ -5,8 +5,8 @@ export type FriendRequest = {
   id: string;
   senderId: string;
   receiverId: string;
-  senderUserName: string;
-  receiverUserName: string;
+  senderUsername: string;
+  receiverUsername: string;
   senderImage: string;
   receiverImage: string;
   status: string;

@@ -1,15 +1,23 @@
 import { Navigate, useLocation } from "react-router";
-import Cookies from "js-cookie";
+import { useUser } from "@/hooks/useUser";
+import { Loader2 } from "lucide-react";
 
 const publicRoutes = ["/", "/signin", "/signup", "/forgot-password"];
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
-  const token = Cookies.get("token");
+  const { id, isPending } = useUser();
   const location = useLocation();
   const isPublicRoute = publicRoutes.includes(location.pathname);
-
+  // TODO: change loader
+  if (isPending) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-lime-500" />
+      </div>
+    );
+  }
   // User is authenticated
-  if (token) {
+  if (id) {
     // Redirect authenticated users away from public routes
     if (isPublicRoute) {
       return <Navigate to="/home" replace />;
