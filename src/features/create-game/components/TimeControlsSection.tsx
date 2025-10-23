@@ -23,7 +23,7 @@ export const TimeControlsSection = () => {
             {Icon && <Icon />}{" "}
             {timeControl.increment > 0
               ? `${timeControl.time} | ${timeControl.increment}`
-              : `${timeControl.time} min`}{" "}
+              : `${timeControl.time / 60} min`}{" "}
             <span className="capitalize">({timeControl.format})</span>
           </span>
           <span className="text-xs text-muted-foreground">
