@@ -63,6 +63,19 @@ export type InitialGameStateMessage = {
   };
 };
 
+export type RematchRequestMessage = {
+  type: "rematch_request";
+};
+
+export type RematchResponseMessage = {
+  type: "rematch_response";
+  accepted: boolean;
+};
+
+export type CancelRematchMessage = {
+  type: "rematch_canceled";
+};
+
 export type GameWebSocketMessage =
   | DrawOfferMessage
   | DrawResponseMessage
@@ -73,4 +86,7 @@ export type GameWebSocketMessage =
   | TimeoutMessage
   | CheckmateMessage
   | StalemateMessage
-  | InitialGameStateMessage;
+  | InitialGameStateMessage
+  | RematchRequestMessage
+  | RematchResponseMessage
+  | CancelRematchMessage;

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,8 +11,7 @@ type GameResultDialogProps = {
   onOpenChange: (open: boolean) => void;
   title?: string;
   description?: string;
-  onRematch?: () => void;
-  onNewGame?: () => void;
+  children: React.ReactNode;
 };
 
 const GameResultDialog = ({
@@ -21,8 +19,7 @@ const GameResultDialog = ({
   onOpenChange,
   title = "Game Over",
   description,
-  onRematch,
-  onNewGame,
+  children,
 }: GameResultDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -45,27 +42,7 @@ const GameResultDialog = ({
           ) : null}
         </DialogHeader>
 
-        <div className="flex gap-2 pt-2">
-          <Button
-            onClick={() => {
-              onRematch?.();
-              onOpenChange(false);
-            }}
-            className="flex-1 cursor-pointer"
-          >
-            Rematch
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              onNewGame?.();
-              onOpenChange(false);
-            }}
-            className="flex-1 cursor-pointer"
-          >
-            New Game
-          </Button>
-        </div>
+        <div className="w-full flex gap-2 pt-2">{children}</div>
       </DialogContent>
     </Dialog>
   );

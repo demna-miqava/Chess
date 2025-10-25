@@ -1,8 +1,11 @@
 import { Flag, HandshakeIcon, X } from "lucide-react";
 import GameResultDialog from "./GameResultDialog";
 import { useGameActions } from "../hooks/useGameActions";
+import { useRematch } from "../hooks/useRematch";
 import { ActionButton } from "./ActionButton";
-
+import RematchOffered from "./RematchOffered";
+import RematchRequested from "./RematchRequested";
+import PostGameActions from "./PostGameActions";
 interface MatchActionsProps {
   gameEnded: boolean;
 }
@@ -17,6 +20,17 @@ const MatchActions = ({ gameEnded }: MatchActionsProps) => {
     onAbort,
     hasMoves,
   } = useGameActions();
+
+  const {
+    requestRematch,
+    rematchRequested,
+    acceptRematch,
+    rematchOffered,
+    declineRematch,
+    cancelRematch,
+  } = useRematch({
+    setOpenGameResultDialog,
+  });
 
   return (
     <>
@@ -53,13 +67,21 @@ const MatchActions = ({ gameEnded }: MatchActionsProps) => {
         onOpenChange={setOpenGameResultDialog}
         title={finish?.title ?? "Game Over"}
         description={finish?.description}
-        onRematch={() => {
-          console.log("Rematch");
-        }}
-        onNewGame={() => {
-          console.log("New Game");
-        }}
-      />
+      >
+        {rematchOffered && (
+          <RematchOffered
+            onAcceptRematch={acceptRematch}
+            onDeclineRematch={declineRematch}
+          />
+        )}
+
+        {rematchRequested && (
+          <RematchRequested onCancelRematchRequest={cancelRematch} />
+        )}
+        {!rematchOffered && !rematchRequested && (
+          <PostGameActions onRematch={requestRematch} />
+        )}
+      </GameResultDialog>
     </>
   );
 };

@@ -26,7 +26,7 @@ export const useBoard = () => {
     timeControl: "3",
   };
   const { id } = useUser();
-  // Use the game WebSocket hook
+
   const { sendMessage, lastMessage } = useGameWebSocket();
 
   const { playSoundForMove, playGenericSound } = useChessSound();
@@ -47,12 +47,11 @@ export const useBoard = () => {
     }
 
     // Handle opponent's move
-    if (data.type === "move" && "move" in data) {
+    if (data.type === "move") {
       if (data.move) {
         const move = chessRef.current.move(data.move.lan);
         const isCheckmate = chessRef.current.isCheckmate();
         syncBoardState(chessRef, cgRef, color, setTurn);
-        // Play sound for opponent's move
         playSoundForMove(move, isCheckmate);
       }
     }
@@ -86,13 +85,9 @@ export const useBoard = () => {
               const isCheckmate = chess.isCheckmate();
               const isStalemate = chess.isStalemate();
 
-              // Sync board after move
               syncBoardState(chessRef, cgRef, color, setTurn);
-
-              // Play sound for player's move
               playSoundForMove(move, isCheckmate);
 
-              // Send move to server
               sendMessage(
                 JSON.stringify({
                   type: "move",
@@ -126,7 +121,15 @@ export const useBoard = () => {
         },
       });
     }
-  }, [color, sendMessage, chessRef, cgRef, playSoundForMove, playGenericSound, id]);
+  }, [
+    color,
+    sendMessage,
+    chessRef,
+    cgRef,
+    playSoundForMove,
+    playGenericSound,
+    id,
+  ]);
 
   return {
     boardRef,

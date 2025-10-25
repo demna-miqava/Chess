@@ -12,7 +12,7 @@ type FinishState = {
 };
 
 export const useGameActions = () => {
-  const { sendMessage, lastMessage, closeConnection } = useGameWebSocket();
+  const { sendMessage, lastMessage } = useGameWebSocket();
   const { chessRef } = useCurrentGame();
   const { playGenericSound } = useChessSound();
   const { id: currentUserId } = useUser();
@@ -30,9 +30,6 @@ export const useGameActions = () => {
     if (data.type === "game_ended") {
       const { reason, winnerId } = data;
       const isWinner = winnerId === currentUserId;
-
-      // Close WebSocket connection when game ends
-      // closeConnection();
 
       if (reason === "resignation") {
         setFinish({
@@ -87,7 +84,7 @@ export const useGameActions = () => {
         return;
       }
     }
-  }, [lastMessage, playGenericSound, currentUserId, closeConnection]);
+  }, [lastMessage, playGenericSound, currentUserId]);
 
   const onResign = () => {
     sendMessage(JSON.stringify({ type: "resign" }));

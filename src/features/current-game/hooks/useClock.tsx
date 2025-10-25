@@ -1,12 +1,18 @@
 import { useEffect, useState, useRef } from "react";
+import type { TimeControlFormat } from "@/features/create-game/hooks/useTimeControl";
 
-const LOW_TIME_PER_FORMAT = {
+const LOW_TIME_PER_FORMAT: Record<TimeControlFormat, number> = {
   rapid: 60000,
   blitz: 20000,
   bullet: 10000,
 };
 
-const format = "bullet";
+const getTimeControlFormat = (timeInSeconds: number): TimeControlFormat => {
+  if (timeInSeconds < 180) return "bullet"; // < 3 minutes
+  if (timeInSeconds < 600) return "blitz"; // < 10 minutes
+  return "rapid";
+};
+
 export const useClock = ({
   startingTime,
   increment,
@@ -28,6 +34,7 @@ export const useClock = ({
   const intervalRef = useRef<number | null>(null);
   const timeoutCalledRef = useRef(false);
 
+  const format = getTimeControlFormat(startingTime);
   const isLowTime = time <= LOW_TIME_PER_FORMAT[format];
   // TODO: Check requestAnimationFrame for better countdown experience
   useEffect(() => {
@@ -35,7 +42,6 @@ export const useClock = ({
     timeoutCalledRef.current = false; // Reset timeout flag when time changes
   }, [startingTimeMs]);
 
-  // Check for timeout
   useEffect(() => {
     if (time === 0 && !timeoutCalledRef.current && onTimeout) {
       timeoutCalledRef.current = true;
@@ -43,9 +49,7 @@ export const useClock = ({
     }
   }, [time, onTimeout]);
 
-  // Countdown logic when clock is active
   useEffect(() => {
-    // Stop the clock if game has ended
     if (gameEnded) {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);

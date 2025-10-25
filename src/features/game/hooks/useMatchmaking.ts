@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import useWebSocket from "react-use-websocket";
-import { useNavigate } from "react-router";
 import { BOARD_CONFIG } from "../constants/board-config";
 import type { MatchmakingMessage } from "../types/game.types";
+import { useStartGame } from "./useStartGame";
 
 interface UseMatchmakingProps {
   time: number;
@@ -15,7 +15,7 @@ interface UseMatchmakingProps {
  */
 export const useMatchmaking = ({ time, increment }: UseMatchmakingProps) => {
   const [shouldConnect, setShouldConnect] = useState(false);
-  const navigate = useNavigate();
+  const { startGame } = useStartGame();
 
   const wsUrl = useMemo(
     () =>
@@ -27,6 +27,7 @@ export const useMatchmaking = ({ time, increment }: UseMatchmakingProps) => {
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(wsUrl, {
     share: true,
+    shouldReconnect: () => false,
   });
 
   useEffect(() => {
@@ -34,20 +35,12 @@ export const useMatchmaking = ({ time, increment }: UseMatchmakingProps) => {
 
     const data: MatchmakingMessage = JSON.parse(lastMessage.data);
 
-    const { gameId, color, opponentRating, opponentUsername, time, increment } =
-      data.data;
-    if (data.type === "match_found" && gameId) {
-      navigate(`/game/${gameId}`, {
-        state: {
-          color: color,
-          opponentRating: opponentRating,
-          opponentUsername: opponentUsername,
-          time,
-          increment: increment ?? 0,
-        },
-      });
+    if (data.type === "match_found") {
+      startGame(data);
+      // Disconnect from matchmaking WebSocket after match is found
+      setShouldConnect(false);
     }
-  }, [lastMessage, navigate]);
+  }, [lastMessage, startGame, setShouldConnect]);
 
   return {
     sendMessage,
