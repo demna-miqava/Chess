@@ -3,7 +3,11 @@ import GameResultDialog from "./GameResultDialog";
 import { useGameActions } from "../hooks/useGameActions";
 import { ActionButton } from "./ActionButton";
 
-const MatchActions = () => {
+interface MatchActionsProps {
+  gameEnded: boolean;
+}
+
+const MatchActions = ({ gameEnded }: MatchActionsProps) => {
   const {
     openGameResultDialog,
     setOpenGameResultDialog,
@@ -16,28 +20,32 @@ const MatchActions = () => {
 
   return (
     <>
-      {!hasMoves ? (
-        <ActionButton
-          variant="abort"
-          onClick={onAbort}
-          icon={<X className="size-4" />}
-          label="Abort Game"
-        />
-      ) : (
-        <div className="flex gap-2">
-          <ActionButton
-            variant="resign"
-            onClick={onResign}
-            icon={<Flag className="size-4" />}
-            label="Resign"
-          />
-          <ActionButton
-            variant="draw"
-            onClick={onOfferDraw}
-            icon={<HandshakeIcon className="size-4" />}
-            label="Offer Draw"
-          />
-        </div>
+      {!gameEnded && (
+        <>
+          {!hasMoves ? (
+            <ActionButton
+              variant="abort"
+              onClick={onAbort}
+              icon={<X className="size-4" />}
+              label="Abort Game"
+            />
+          ) : (
+            <div className="flex gap-2">
+              <ActionButton
+                variant="resign"
+                onClick={onResign}
+                icon={<Flag className="size-4" />}
+                label="Resign"
+              />
+              <ActionButton
+                variant="draw"
+                onClick={onOfferDraw}
+                icon={<HandshakeIcon className="size-4" />}
+                label="Offer Draw"
+              />
+            </div>
+          )}
+        </>
       )}
 
       <GameResultDialog

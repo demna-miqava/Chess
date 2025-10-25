@@ -21,14 +21,14 @@ export const FriendInviteOptions = () => {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center gap-3">
         <UserAvatar
-          src={selectedFriend.avatar_url || ""}
+          src={selectedFriend.avatarUrl || ""}
           username={selectedFriend.username}
           className="size-20"
         />
         <div className="flex items-center gap-1">
           <span className="text-md font-medium">{selectedFriend.username}</span>
           <span className="text-md font-medium">
-            ({selectedFriend[`${timeControl.format}_rating`]})
+            ({selectedFriend[`${timeControl.format}Rating`]})
           </span>
         </div>
       </div>

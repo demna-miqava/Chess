@@ -7,12 +7,12 @@ export type User = {
   username: string;
   email: string;
   skill: string;
-  avatar_url: string | null;
+  avatarUrl: string | null;
   friendsCount: number;
-  blitz_rating: number;
-  bullet_rating: number;
-  rapid_rating: number;
-  created_at: string;
+  blitzRating: number;
+  bulletRating: number;
+  rapidRating: number;
+  createdAt: string;
 };
 
 export type AuthResponse = {

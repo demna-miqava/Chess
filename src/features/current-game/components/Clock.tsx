@@ -5,12 +5,14 @@ const Clock = ({
   startingTime,
   increment,
   isActive,
+  onTimeout,
 }: {
   startingTime: number;
   increment?: number;
   isActive: boolean;
+  onTimeout?: () => void;
 }) => {
-  const { time, isLowTime } = useClock({ startingTime, increment, isActive });
+  const { time, isLowTime } = useClock({ startingTime, increment, isActive, onTimeout });
   const formattedTime = formatTime(time, isLowTime);
 
   return (

@@ -20,7 +20,7 @@ export const useBoard = () => {
   const boardRef = useRef<HTMLDivElement>(null);
   const chessRef = useRef(new Chess());
   const cgRef = useRef<Api | null>(null);
-  const [turn, setTurn] = useState<"white" | "black">("white");
+  const [turn, setTurn] = useState<"white" | "black" | undefined>();
   const { color } = useLocation().state || {
     color: "black" as PlayerColor,
     timeControl: "3",
@@ -40,8 +40,8 @@ export const useBoard = () => {
 
     // Handle initial game state from server
     if ("data" in data && data.data?.fen) {
-      if (data.pgn) {
-        chessRef.current.loadPgn(data.pgn);
+      if (data.data?.pgn) {
+        chessRef.current.loadPgn(data.data?.pgn);
       }
       syncBoardState(chessRef, cgRef, color, setTurn);
     }
@@ -84,6 +84,7 @@ export const useBoard = () => {
               });
               const numberOfMoves = chess.moveNumber();
               const isCheckmate = chess.isCheckmate();
+              const isStalemate = chess.isStalemate();
 
               // Sync board after move
               syncBoardState(chessRef, cgRef, color, setTurn);
@@ -101,6 +102,22 @@ export const useBoard = () => {
                   moveNumber: numberOfMoves,
                 })
               );
+
+              // Check for game ending conditions
+              if (isCheckmate) {
+                sendMessage(
+                  JSON.stringify({
+                    type: "checkmate",
+                    winnerId: id,
+                  })
+                );
+              } else if (isStalemate) {
+                sendMessage(
+                  JSON.stringify({
+                    type: "stalemate",
+                  })
+                );
+              }
             } catch {
               // If move fails, reset board to correct position
               cgRef.current?.set({ fen: chess.fen() });
@@ -109,7 +126,7 @@ export const useBoard = () => {
         },
       });
     }
-  }, [color, sendMessage, chessRef, cgRef, playSoundForMove, playGenericSound]);
+  }, [color, sendMessage, chessRef, cgRef, playSoundForMove, playGenericSound, id]);
 
   return {
     boardRef,

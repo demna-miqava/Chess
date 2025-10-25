@@ -10,7 +10,7 @@ export type FriendRequest = {
   senderImage: string;
   receiverImage: string;
   status: string;
-  created_at: string;
+  createdAt: string;
 };
 
 export type PendingFriendRequestsResponse = {

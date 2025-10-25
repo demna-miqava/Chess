@@ -11,25 +11,35 @@ export const useClock = ({
   startingTime,
   increment,
   isActive,
+  onTimeout,
 }: {
   startingTime: number; // in seconds
   increment?: number; // in seconds
   isActive: boolean;
+  onTimeout?: () => void;
 }) => {
-  // Convert seconds to milliseconds for internal use
   const startingTimeMs = startingTime * 1000;
   const incrementMs = increment ? increment * 1000 : 0;
 
   const [time, setTime] = useState(startingTimeMs);
   const lastTickRef = useRef<number>(Date.now());
   const intervalRef = useRef<number | null>(null);
+  const timeoutCalledRef = useRef(false);
 
   const isLowTime = time <= LOW_TIME_PER_FORMAT[format];
   // TODO: Check requestAnimationFrame for better countdown experience
-  // Update time when startingTime changes (external updates)
   useEffect(() => {
     setTime(startingTimeMs);
+    timeoutCalledRef.current = false; // Reset timeout flag when time changes
   }, [startingTimeMs]);
+
+  // Check for timeout
+  useEffect(() => {
+    if (time === 0 && !timeoutCalledRef.current && onTimeout) {
+      timeoutCalledRef.current = true;
+      onTimeout();
+    }
+  }, [time, onTimeout]);
 
   // Countdown logic when clock is active
   useEffect(() => {

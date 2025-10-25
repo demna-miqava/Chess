@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { Link } from "react-router";
-import { columns } from "./Columns";
+import { createColumns } from "./Columns";
 import { useUserGames } from "./hooks/useUserGames";
 import { DataTable } from "./DataTable";
+import { useUser } from "@/hooks/useUser";
 
 type GameTableVariant = "preview" | "full";
 
@@ -20,9 +21,12 @@ export const GameTable = ({
   limit = 10,
 }: GameTableProps) => {
   const isPreview = variant === "preview";
+  const { id: userId } = useUser();
   const { games, isPending, page, setPage, pagination } = useUserGames({
     defaultLimit: limit,
   });
+
+  const columns = useMemo(() => createColumns(userId), [userId]);
 
   const paginationProps = useMemo(() => {
     const totalPages = pagination?.totalPages ?? 1;

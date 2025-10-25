@@ -2,12 +2,12 @@ export interface Friend {
   id: string;
   username: string;
   image: string;
-  avatar_url: string | null;
+  avatarUrl: string | null;
   fullName: string;
-  created_at: string;
-  blitz_rating: number;
-  bullet_rating: number;
-  rapid_rating: number;
+  createdAt: string;
+  blitzRating: number;
+  bulletRating: number;
+  rapidRating: number;
 }
 
 /**

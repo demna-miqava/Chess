@@ -33,7 +33,7 @@ export const FriendsList = ({
           onRemove={onRemove}
           subtitle={friend.fullName}
           secondaryText={`Friends since ${format(
-            new Date(friend.created_at),
+            new Date(friend.createdAt),
             "MMM d, yyyy"
           )}`}
         />

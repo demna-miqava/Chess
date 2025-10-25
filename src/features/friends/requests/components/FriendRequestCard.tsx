@@ -37,8 +37,8 @@ export const FriendRequestCard = ({
           <p className="font-medium">{displayUser.username}</p>
           <p className="text-sm text-muted-foreground">
             {type === "incoming"
-              ? new Date(request.created_at).toLocaleDateString()
-              : `Sent ${new Date(request.created_at).toLocaleDateString()}`}
+              ? new Date(request.createdAt).toLocaleDateString()
+              : `Sent ${new Date(request.createdAt).toLocaleDateString()}`}
           </p>
         </div>
       </div>

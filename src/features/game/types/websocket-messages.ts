@@ -10,6 +10,14 @@ export type DrawResponseMessage = {
 
 export type GameEndedMessage = {
   type: "game_ended";
+  reason?:
+    | "resignation"
+    | "draw_agreement"
+    | "aborted"
+    | "checkmate"
+    | "timeout"
+    | "stalemate";
+  winnerId?: string; // userId of the winner, if applicable
 };
 
 export type ResignMessage = {
@@ -34,12 +42,25 @@ export type MoveMessage = {
   pgn?: string;
 };
 
+export type TimeoutMessage = {
+  type: "timeout";
+};
+
+export type CheckmateMessage = {
+  type: "checkmate";
+  winnerId: string;
+};
+
+export type StalemateMessage = {
+  type: "stalemate";
+};
+
 export type InitialGameStateMessage = {
-  type?: string;
+  type: "initial_game_state";
   data?: {
     fen: string;
+    pgn?: string;
   };
-  pgn?: string;
 };
 
 export type GameWebSocketMessage =
@@ -49,4 +70,7 @@ export type GameWebSocketMessage =
   | ResignMessage
   | AbortMessage
   | MoveMessage
+  | TimeoutMessage
+  | CheckmateMessage
+  | StalemateMessage
   | InitialGameStateMessage;

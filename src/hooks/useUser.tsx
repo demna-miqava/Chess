@@ -31,10 +31,10 @@ export const useUser = (enabled: boolean = true) => {
     ...userData,
     username: userData?.username || "",
     image:
-      userData?.avatar_url ??
+      userData?.avatarUrl ??
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtb2ps4gYYHa5dwBB49DJGsUbQWVbtGAZHeQ&s",
     friendsCount: userData?.friendsCount ?? 0,
-    joinedAt: userData?.created_at ?? "",
+    joinedAt: userData?.createdAt ?? "",
     isPending,
     error,
     setUser,

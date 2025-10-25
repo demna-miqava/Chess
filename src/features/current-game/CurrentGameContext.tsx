@@ -15,7 +15,7 @@ const CurrentGameContext = createContext<{
   isAtStart: boolean;
   isAtEnd: boolean;
   chessRef: RefObject<Chess | null>;
-  turn: PlayerColor;
+  turn?: PlayerColor;
   viewingIndex: number | null;
   currentIndex: number;
   isViewingHistory: boolean;

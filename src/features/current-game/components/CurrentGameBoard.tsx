@@ -5,10 +5,14 @@ import { useLocation } from "react-router";
 import Clock from "./Clock";
 import { BoardLayout } from "@/features/game/components/BoardLayout";
 import { UserAvatar } from "@/components/UserAvatar";
+import { useGameWebSocket } from "@/features/game/hooks/useGameWebSocket";
+import { useRef } from "react";
 
 const CurrentGameBoard = () => {
   const { username, image } = useUser();
   const { boardRef, turn } = useCurrentGame();
+  const { sendMessage } = useGameWebSocket();
+  const timeoutSentRef = useRef(false);
 
   const { opponentRating, opponentUsername, color, time, increment } =
     useLocation().state || {
@@ -18,6 +22,13 @@ const CurrentGameBoard = () => {
       time: 180,
       increment: 0,
     };
+
+  const handleTimeout = () => {
+    if (!timeoutSentRef.current) {
+      timeoutSentRef.current = true;
+      sendMessage(JSON.stringify({ type: "timeout" }));
+    }
+  };
 
   return (
     <BoardLayout
@@ -45,6 +56,7 @@ const CurrentGameBoard = () => {
           startingTime={time}
           increment={increment}
           isActive={turn !== color}
+          onTimeout={turn !== color ? handleTimeout : undefined}
         />
       }
       bottomPlayerClock={
@@ -52,6 +64,7 @@ const CurrentGameBoard = () => {
           startingTime={time}
           increment={increment}
           isActive={turn === color}
+          onTimeout={turn === color ? handleTimeout : undefined}
         />
       }
     />
