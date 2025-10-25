@@ -12,11 +12,13 @@ export const useClock = ({
   increment,
   isActive,
   onTimeout,
+  gameEnded = false,
 }: {
   startingTime: number; // in seconds
   increment?: number; // in seconds
   isActive: boolean;
   onTimeout?: () => void;
+  gameEnded?: boolean;
 }) => {
   const startingTimeMs = startingTime * 1000;
   const incrementMs = increment ? increment * 1000 : 0;
@@ -43,6 +45,15 @@ export const useClock = ({
 
   // Countdown logic when clock is active
   useEffect(() => {
+    // Stop the clock if game has ended
+    if (gameEnded) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      return;
+    }
+
     if (!isActive) {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -69,7 +80,7 @@ export const useClock = ({
         clearInterval(intervalRef.current);
       }
     };
-  }, [incrementMs, isActive]);
+  }, [incrementMs, isActive, gameEnded]);
 
   return { time, isLowTime };
 };

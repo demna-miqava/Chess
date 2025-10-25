@@ -10,7 +10,7 @@ import { useRef } from "react";
 
 const CurrentGameBoard = () => {
   const { username, image } = useUser();
-  const { boardRef, turn } = useCurrentGame();
+  const { boardRef, turn, gameEnded } = useCurrentGame();
   const { sendMessage } = useGameWebSocket();
   const timeoutSentRef = useRef(false);
 
@@ -57,6 +57,7 @@ const CurrentGameBoard = () => {
           increment={increment}
           isActive={turn !== color}
           onTimeout={turn !== color ? handleTimeout : undefined}
+          gameEnded={gameEnded}
         />
       }
       bottomPlayerClock={
@@ -65,6 +66,7 @@ const CurrentGameBoard = () => {
           increment={increment}
           isActive={turn === color}
           onTimeout={turn === color ? handleTimeout : undefined}
+          gameEnded={gameEnded}
         />
       }
     />

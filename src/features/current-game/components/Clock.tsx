@@ -6,13 +6,15 @@ const Clock = ({
   increment,
   isActive,
   onTimeout,
+  gameEnded = false,
 }: {
   startingTime: number;
   increment?: number;
   isActive: boolean;
   onTimeout?: () => void;
+  gameEnded?: boolean;
 }) => {
-  const { time, isLowTime } = useClock({ startingTime, increment, isActive, onTimeout });
+  const { time, isLowTime } = useClock({ startingTime, increment, isActive, onTimeout, gameEnded });
   const formattedTime = formatTime(time, isLowTime);
 
   return (

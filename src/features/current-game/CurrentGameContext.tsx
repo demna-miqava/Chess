@@ -1,10 +1,19 @@
-import { createContext, useContext, useEffect, type RefObject } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type RefObject,
+} from "react";
 import { useMoveNavigation } from "./hooks/useMoveNavigation";
 import { useBoard } from "./hooks/useBoard";
 import { Chess } from "chess.js";
 import type { PlayerColor } from "../game/types/game.types";
 import { useLocation } from "react-router";
 import { calculateLegalMoves } from "../game/utils/board-sync";
+import { useGameWebSocket } from "../game/hooks/useGameWebSocket";
+import { parseWebSocketMessage } from "../game/utils/websocket-helpers";
+import type { GameWebSocketMessage } from "../game/types/websocket-messages";
 
 const CurrentGameContext = createContext<{
   boardRef: RefObject<HTMLDivElement | null>;
@@ -19,6 +28,7 @@ const CurrentGameContext = createContext<{
   viewingIndex: number | null;
   currentIndex: number;
   isViewingHistory: boolean;
+  gameEnded: boolean;
 }>({
   boardRef: { current: null },
   goToFirstMove: () => {},
@@ -32,6 +42,7 @@ const CurrentGameContext = createContext<{
   viewingIndex: null,
   currentIndex: 0,
   isViewingHistory: false,
+  gameEnded: false,
 });
 
 export const CurrentGameProvider = ({
@@ -42,6 +53,8 @@ export const CurrentGameProvider = ({
   const { boardRef, chessRef, turn, cgRef } = useBoard();
   const { color } = useLocation().state || { color: "white" as PlayerColor };
   const totalMoves = chessRef.current?.history().length || 0;
+  const [gameEnded, setGameEnded] = useState(false);
+  const { lastMessage } = useGameWebSocket();
 
   const {
     goToFirstMove,
@@ -54,6 +67,17 @@ export const CurrentGameProvider = ({
     currentIndex,
     isViewingHistory,
   } = useMoveNavigation(totalMoves);
+
+  // Listen for game_ended messages to stop clocks
+  useEffect(() => {
+    if (!lastMessage) return;
+
+    const data = parseWebSocketMessage(lastMessage) as GameWebSocketMessage;
+
+    if (data?.type === "game_ended") {
+      setGameEnded(true);
+    }
+  }, [lastMessage]);
 
   // Handle navigation - runs when user explicitly navigates
   useEffect(() => {
@@ -110,6 +134,7 @@ export const CurrentGameProvider = ({
         viewingIndex,
         currentIndex,
         isViewingHistory,
+        gameEnded,
       }}
     >
       {children}
