@@ -28,7 +28,7 @@ export const useBoard = () => {
   const { id } = useUser();
 
   const { sendMessage, lastMessage } = useGameWebSocket();
-
+  // TODO: Fix sound files refetching
   const { playSoundForMove, playGenericSound } = useChessSound();
 
   useEffect(() => {
@@ -58,69 +58,68 @@ export const useBoard = () => {
   }, [lastMessage, id, color, chessRef, cgRef, playSoundForMove]);
 
   useEffect(() => {
-    if (boardRef.current) {
-      const chess = chessRef.current;
-      const playerColorCode = color === "white" ? "w" : "b";
-      const isMyTurn = chess.turn() === playerColorCode;
-      playGenericSound();
-      cgRef.current = Chessground(boardRef.current, {
-        fen: chess.fen(),
-        orientation: color,
-        premovable: { enabled: BOARD_CONFIG.ENABLE_PREMOVES },
-        draggable: { enabled: BOARD_CONFIG.ENABLE_DRAGGABLE },
-        turnColor: chess.turn() === "w" ? "white" : "black",
-        movable: {
-          color: color,
-          free: false,
-          dests: isMyTurn ? calculateLegalMoves(chess) : new Map(),
-        },
-        events: {
-          move: (orig: Key, dest: Key) => {
-            try {
-              const move = chess.move({
-                from: orig as string,
-                to: dest as string,
-              });
-              const numberOfMoves = chess.moveNumber();
-              const isCheckmate = chess.isCheckmate();
-              const isStalemate = chess.isStalemate();
+    if (!boardRef.current) return;
+    const chess = chessRef.current;
+    const playerColorCode = color === "white" ? "w" : "b";
+    const isMyTurn = chess.turn() === playerColorCode;
+    playGenericSound();
+    cgRef.current = Chessground(boardRef.current, {
+      fen: chess.fen(),
+      orientation: color,
+      premovable: { enabled: BOARD_CONFIG.ENABLE_PREMOVES },
+      draggable: { enabled: BOARD_CONFIG.ENABLE_DRAGGABLE },
+      turnColor: chess.turn() === "w" ? "white" : "black",
+      movable: {
+        color: color,
+        free: false,
+        dests: isMyTurn ? calculateLegalMoves(chess) : new Map(),
+      },
+      events: {
+        move: (orig: Key, dest: Key) => {
+          try {
+            const move = chess.move({
+              from: orig as string,
+              to: dest as string,
+            });
+            const numberOfMoves = chess.moveNumber();
+            const isCheckmate = chess.isCheckmate();
+            const isStalemate = chess.isStalemate();
 
-              syncBoardState(chessRef, cgRef, color, setTurn);
-              playSoundForMove(move, isCheckmate);
+            syncBoardState(chessRef, cgRef, color, setTurn);
+            playSoundForMove(move, isCheckmate);
 
+            sendMessage(
+              JSON.stringify({
+                type: "move",
+                move: move,
+                fen: chess.fen(),
+                pgn: chess.pgn(),
+                moveNumber: numberOfMoves,
+              })
+            );
+
+            // Check for game ending conditions
+            if (isCheckmate) {
               sendMessage(
                 JSON.stringify({
-                  type: "move",
-                  move: move,
-                  fen: chess.fen(),
-                  pgn: chess.pgn(),
-                  moveNumber: numberOfMoves,
+                  type: "checkmate",
+                  winnerId: id,
                 })
               );
-
-              // Check for game ending conditions
-              if (isCheckmate) {
-                sendMessage(
-                  JSON.stringify({
-                    type: "checkmate",
-                    winnerId: id,
-                  })
-                );
-              } else if (isStalemate) {
-                sendMessage(
-                  JSON.stringify({
-                    type: "stalemate",
-                  })
-                );
-              }
-            } catch {
-              // If move fails, reset board to correct position
-              cgRef.current?.set({ fen: chess.fen() });
+            } else if (isStalemate) {
+              sendMessage(
+                JSON.stringify({
+                  type: "stalemate",
+                })
+              );
             }
-          },
+          } catch {
+            // If move fails, reset board to correct position
+            cgRef.current?.set({ fen: chess.fen() });
+          }
         },
-      });
-    }
+      },
+    });
   }, [
     color,
     sendMessage,
