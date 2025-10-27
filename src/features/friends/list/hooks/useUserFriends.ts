@@ -32,8 +32,7 @@ export const useUserFriends = ({
 
   const buildQuery = () => {
     const params = new URLSearchParams();
-    if (userId) params.append("userId", userId.toString());
-    if (search) params.append("username", search);
+    if (search) params.append("q", search);
     params.append("page", String(page));
     params.append("limit", String(defaultLimit));
     return params.toString();

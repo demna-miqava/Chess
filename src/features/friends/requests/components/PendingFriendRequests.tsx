@@ -4,37 +4,29 @@ import type { FriendRequest } from "@/services/friends";
 import { IncomingRequests } from "./IncomingRequests";
 import { OutgoingRequests } from "./OutgoingRequests";
 import { useFriendRequestAction } from "../hooks/useFriendRequestAction";
-import { useUser } from "@/hooks/useUser";
 
 export const PendingFriendRequests = () => {
-  const { id: userId } = useUser();
   const { sentRequests, receivedRequests, isLoading } =
     usePendingFriendRequests();
   const { mutate: handleAction } = useFriendRequestAction();
 
   const handleAccept = (request: FriendRequest) => {
-    if (!userId) return;
     handleAction({
       requestId: `${request.id}`,
-      userId,
       action: "accept",
     });
   };
 
   const handleDecline = (request: FriendRequest) => {
-    if (!userId) return;
     handleAction({
-      requestId: request.id,
-      userId,
-      action: "reject",
+      requestId: `${request.id}`,
+      action: "decline",
     });
   };
 
   const handleCancel = (request: FriendRequest) => {
-    if (!userId) return;
     handleAction({
-      requestId: request.id,
-      userId,
+      requestId: `${request.id}`,
       action: "cancel",
     });
   };

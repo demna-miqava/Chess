@@ -31,9 +31,8 @@ export const FriendsList = ({
           onChallenge={onChallenge}
           onMessage={onMessage}
           onRemove={onRemove}
-          subtitle={friend.fullName}
           secondaryText={`Friends since ${format(
-            new Date(friend.createdAt),
+            new Date(friend.friendsSince),
             "MMM d, yyyy"
           )}`}
         />

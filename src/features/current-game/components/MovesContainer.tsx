@@ -31,7 +31,6 @@ export const MovesContainer = () => {
     // Track draw responses - if current user declined, hide the draw offer
     if (data.type === "draw_response") {
       const drawResponse = data as DrawResponseMessage;
-      console.log(drawResponse);
       if (drawResponse.userId === id && !drawResponse.accepted) {
         setUserDeclinedDraw(true);
       }

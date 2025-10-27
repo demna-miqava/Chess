@@ -15,7 +15,7 @@ export const usePendingFriendRequests = () => {
 
   return {
     ...query,
-    sentRequests: query.data?.sent || [],
-    receivedRequests: query.data?.received || [],
+    sentRequests: query.data?.outgoing || [],
+    receivedRequests: query.data?.incoming || [],
   };
 };

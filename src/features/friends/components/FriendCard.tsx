@@ -21,7 +21,6 @@ interface FriendCardProps<T extends Friend> {
   onMessage?: (id: string) => void;
   onRemove?: (id: string) => void;
   onAddFriend?: (id: string) => void;
-  subtitle?: React.ReactNode;
   secondaryText?: React.ReactNode;
 }
 
@@ -31,7 +30,6 @@ export function FriendCard<T extends Friend>({
   onMessage,
   onRemove,
   onAddFriend,
-  subtitle,
   secondaryText,
 }: FriendCardProps<T>) {
   const actions = [
@@ -72,9 +70,6 @@ export function FriendCard<T extends Friend>({
         <UserAvatar src={friend.image} username={friend.username} />
         <div className="flex flex-col">
           <span className="font-medium">{friend.username}</span>
-          {subtitle && (
-            <span className="text-sm text-muted-foreground">{subtitle}</span>
-          )}
           {secondaryText && (
             <span className="text-xs text-muted-foreground">
               {secondaryText}

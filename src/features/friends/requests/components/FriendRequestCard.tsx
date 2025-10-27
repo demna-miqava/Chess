@@ -21,15 +21,15 @@ export const FriendRequestCard = ({
     type === "incoming"
       ? {
           username: request.senderUsername,
-          image: request.senderImage,
+          image: request.senderAvatarUrl,
         }
       : {
           username: request.receiverUsername,
-          image: request.receiverImage,
+          image: request.receiverAvatarUrl,
         };
 
   return (
-    <div className="flex items-center justify-between p-4 border rounded-lg">
+    <div className="flex flex-col gap-2 p-4 border rounded-lg">
       <div className="flex items-center gap-3">
         <UserAvatar src={displayUser.image} username={displayUser.username} />
 
@@ -43,20 +43,20 @@ export const FriendRequestCard = ({
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 self-end">
         {type === "incoming" ? (
           <>
-            <Button
-              onClick={() => onAccept?.(request)}
-              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-            >
-              Accept
-            </Button>
             <Button
               onClick={() => onDecline?.(request)}
               className="px-4 py-2 border rounded-md hover:bg-accent"
             >
               Decline
+            </Button>
+            <Button
+              onClick={() => onAccept?.(request)}
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+            >
+              Accept
             </Button>
           </>
         ) : (

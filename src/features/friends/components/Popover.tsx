@@ -17,7 +17,7 @@ const FriendPopover = ({
   children: React.ReactNode;
   data: Friend;
 }) => {
-  const { username, createdAt, image } = data;
+  const { username, friendsSince, image } = data;
   // recieve id to fetch friend
   const navigate = useNavigate();
   return (
@@ -36,7 +36,7 @@ const FriendPopover = ({
             <div>
               <h3>{username}</h3>
               <p className="text-sm">
-                Friends since {format(new Date(createdAt), "MMM d, yyyy")}
+                Friends since {format(new Date(friendsSince), "MMM d, yyyy")}
               </p>
             </div>
           </button>

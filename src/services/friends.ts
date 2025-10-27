@@ -2,28 +2,28 @@ import { apiRequest } from ".";
 import type { PaginatedFriendsResponse, Friend } from "@/types";
 
 export type FriendRequest = {
-  id: string;
+  id: number;
   senderId: string;
   receiverId: string;
   senderUsername: string;
   receiverUsername: string;
-  senderImage: string;
-  receiverImage: string;
-  status: string;
+  senderAvatarUrl: string;
+  receiverAvatarUrl: string;
   createdAt: string;
 };
 
 export type PendingFriendRequestsResponse = {
-  sent: FriendRequest[];
-  received: FriendRequest[];
+  incoming: FriendRequest[];
+  outgoing: FriendRequest[];
 };
 
-export const getFriendSuggestions = (query: string): Promise<Friend[]> => {
+export const getFriendSuggestions = (
+  query: string
+): Promise<{ data: Friend[] }> => {
   return apiRequest("get", `/friends/suggestions?${query}`);
 };
 
 export type SendFriendRequestParams = {
-  senderId: string;
   receiverId: string;
 };
 

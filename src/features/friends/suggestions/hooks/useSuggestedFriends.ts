@@ -16,12 +16,12 @@ export const useSuggestedFriends = (searchQuery?: string) => {
   const query = useQuery({
     queryKey: [QKEY_SUGGESTED_FRIENDS, userId, searchQuery],
     queryFn: () => getFriendSuggestions(buildQuery()),
-    enabled: !!(userId && searchQuery),
+    enabled: !!userId && searchQuery !== undefined,
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   return {
     ...query,
-    suggestions: query.data || [],
+    suggestions: query.data?.data || [],
   };
 };

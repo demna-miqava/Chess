@@ -3,8 +3,7 @@ export interface Friend {
   username: string;
   image: string;
   avatarUrl: string | null;
-  fullName: string;
-  createdAt: string;
+  friendsSince: string;
   blitzRating: number;
   bulletRating: number;
   rapidRating: number;
