@@ -7,12 +7,14 @@ import { BoardLayout } from "@/features/game/components/BoardLayout";
 import { UserAvatar } from "@/components/UserAvatar";
 import { useGameWebSocket } from "@/features/game/hooks/useGameWebSocket";
 import { useRef } from "react";
+import { useSettings } from "@/features/settings/SettingsContext";
 
 const CurrentGameBoard = () => {
   const { username, image } = useUser();
   const { boardRef, turn, gameEnded } = useCurrentGame();
   const { sendMessage } = useGameWebSocket();
   const timeoutSentRef = useRef(false);
+  const { settings } = useSettings();
 
   const { opponentRating, opponentUsername, color, time, increment } =
     useLocation().state || {
@@ -35,7 +37,9 @@ const CurrentGameBoard = () => {
       boardRef={boardRef}
       topPlayer={{
         name: opponentUsername,
-        rating: opponentRating,
+        rating: settings?.showRatingsDuringGameEnabled
+          ? opponentRating
+          : undefined,
         avatar: (
           <div className="flex size-8 items-center justify-center rounded-full bg-[#3d3d3d]">
             <User className="size-4" />
@@ -44,7 +48,7 @@ const CurrentGameBoard = () => {
       }}
       bottomPlayer={{
         name: username,
-        rating: 3415,
+        rating: settings?.showRatingsDuringGameEnabled ? 3415 : undefined,
         avatar: (
           <div className="flex size-8 items-center justify-center overflow-hidden rounded-full">
             <UserAvatar src={image} username={username} />

@@ -15,6 +15,7 @@ import type { PlayerColor } from "@/features/game/types/game.types";
 import { parseWebSocketMessage } from "@/features/game/utils/websocket-helpers";
 import type { GameWebSocketMessage } from "@/features/game/types/websocket-messages";
 import { useChessSound } from "@/features/game/hooks/useChessSound";
+import { useSettings } from "@/features/settings/SettingsContext";
 
 export const useBoard = () => {
   const boardRef = useRef<HTMLDivElement>(null);
@@ -26,10 +27,13 @@ export const useBoard = () => {
     timeControl: "3",
   };
   const { id } = useUser();
+  const { settings } = useSettings();
 
   const { sendMessage, lastMessage } = useGameWebSocket();
   // TODO: Fix sound files refetching
-  const { playSoundForMove, playGenericSound } = useChessSound();
+  const { playSoundForMove, playGenericSound } = useChessSound(
+    settings?.soundsEnabled
+  );
 
   useEffect(() => {
     if (!chessRef.current) return;
@@ -66,10 +70,16 @@ export const useBoard = () => {
     cgRef.current = Chessground(boardRef.current, {
       fen: chess.fen(),
       orientation: color,
-      premovable: { enabled: BOARD_CONFIG.ENABLE_PREMOVES },
+      coordinates: settings?.boardCoordinatesEnabled ?? true,
+      premovable: { enabled: settings?.premovesEnabled },
       draggable: { enabled: BOARD_CONFIG.ENABLE_DRAGGABLE },
       turnColor: chess.turn() === "w" ? "white" : "black",
+      highlight: {
+        lastMove: settings?.moveHighlightEnabled ?? true,
+        check: true,
+      },
       movable: {
+        showDests: settings?.showLegalMovesEnabled,
         color: color,
         free: false,
         dests: isMyTurn ? calculateLegalMoves(chess) : new Map(),
@@ -128,6 +138,10 @@ export const useBoard = () => {
     playSoundForMove,
     playGenericSound,
     id,
+    settings?.boardCoordinatesEnabled,
+    settings?.premovesEnabled,
+    settings?.moveHighlightEnabled,
+    settings?.showLegalMovesEnabled,
   ]);
 
   return {

@@ -15,9 +15,7 @@ const SOUND_URLS = {
   generic: GENERIC_SOUND_URL,
 };
 
-export const useChessSound = () => {
-  const enabled = true; // Will be replaced with user preference from API
-
+export const useChessSound = (enabled = false) => {
   const audioRefs = useRef<Record<ChessSoundType, HTMLAudioElement>>({
     move: new Audio(SOUND_URLS.move),
     capture: new Audio(SOUND_URLS.capture),

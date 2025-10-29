@@ -118,3 +118,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Chessground coordinates styling */
+.cg-wrap coords.ranks,
+.cg-wrap coords.files {
+  font-size: 14px !important; /* Increase from default ~10px */
+  font-weight: 600 !important;
+  bottom: 1px !important;
+  z-index: 9 !important;
+}
+
+.cg-wrap coords.files {
+  left: 5% !important;
+}
+
+.cg-wrap piece {
+  width: 12% !important;
+  height: 12% !important;
+}
