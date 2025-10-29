@@ -16,11 +16,17 @@ const SOUND_URLS = {
 };
 
 export const useChessSound = (enabled = false) => {
-  const audioRefs = useRef<Record<ChessSoundType, HTMLAudioElement>>({
-    move: new Audio(SOUND_URLS.move),
-    capture: new Audio(SOUND_URLS.capture),
-    generic: new Audio(SOUND_URLS.generic),
-  });
+  const audioRefs = useRef<Record<ChessSoundType, HTMLAudioElement>>({});
+
+  useEffect(() => {
+    if (enabled) {
+      audioRefs.current = {
+        move: new Audio(SOUND_URLS.move),
+        capture: new Audio(SOUND_URLS.capture),
+        generic: new Audio(SOUND_URLS.generic),
+      };
+    }
+  }, [enabled]);
 
   useEffect(() => {
     Object.values(audioRefs.current).forEach((audio) => {

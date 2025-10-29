@@ -30,7 +30,6 @@ export const useBoard = () => {
   const { settings } = useSettings();
 
   const { sendMessage, lastMessage } = useGameWebSocket();
-  // TODO: Fix sound files refetching
   const { playSoundForMove, playGenericSound } = useChessSound(
     settings?.soundsEnabled
   );
