@@ -15,13 +15,13 @@ import {
   ShieldCheck,
   User,
 } from "lucide-react";
-import { BoardSettingsForm } from "./sections/board/BoardSettingsForm";
-import { GameplaySettingsForm } from "./sections/gamePlay/GameplaySettingsForm";
+import { BoardSettingsForm } from "./sections/BoardSettingsForm";
+import { GameplaySettingsForm } from "./sections/GameplaySettingsForm";
 import { ProfileSettingsForm } from "./sections/profile/ProfileSettingsForm";
-import { SocialSettingsForm } from "./sections/social/SocialSettingsForm";
+import { InterfaceSettingsForm } from "./sections/InterfaceSettingsForm";
+import { SocialSettingsForm } from "./sections/SocialSettingsForm";
+import { NotificationsSettingsForm } from "./sections/NotificationsSettingsForm";
 import { AccountSettingsForm } from "./sections/account/AccountSettingsForm";
-import { InterfaceSettingsForm } from "./sections/interface/InterfaceSettingsForm";
-import { NotificationsSettingsForm } from "./sections/notifications/NotificationsSettingsForm";
 
 const sections = [
   {
@@ -83,7 +83,13 @@ export const SettingsContainer = () => {
       <div className="w-full">
         <Accordion type="single" collapsible className="w-full">
           {sections.map(
-            ({ value, label, icon: Icon, description, component: Component }) => (
+            ({
+              value,
+              label,
+              icon: Icon,
+              description,
+              component: Component,
+            }) => (
               <AccordionItem key={value} value={value}>
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-center gap-3">
