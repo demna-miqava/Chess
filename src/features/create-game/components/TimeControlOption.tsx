@@ -1,4 +1,4 @@
-import { useGameSetup } from "../CreateGameContext";
+import { useGameSetup } from "../GameSetupContext";
 
 interface TimeControlOptionProps {
   label: string;

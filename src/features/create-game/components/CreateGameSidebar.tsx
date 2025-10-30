@@ -5,7 +5,10 @@ import { Bots } from "./sections/Bots";
 import { Friends } from "./sections/Friends";
 import { Custom } from "./sections/Custom";
 import { FriendInviteOptions } from "./sections/FriendInviteOptions";
-import { useGameSetup, type GameSection } from "@/features/create-game/CreateGameContext";
+import {
+  useGameSetup,
+  type GameSection,
+} from "@/features/create-game/GameSetupContext";
 import { Tabs } from "./Tabs";
 
 const SECTIONS = (activeSection: GameSection) => {

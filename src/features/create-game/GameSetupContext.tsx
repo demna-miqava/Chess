@@ -23,7 +23,11 @@ interface GameSetupContextValue {
 
   // Time Control
   timeControl: TimeControl;
-  updateTimeControl: (format: TimeControlFormat, time: number, increment?: number) => void;
+  updateTimeControl: (
+    format: TimeControlFormat,
+    time: number,
+    increment?: number
+  ) => void;
   selectedFriend: Friend | null;
   setSelectedFriend: React.Dispatch<React.SetStateAction<Friend | null>>;
 }
@@ -38,6 +42,7 @@ export const GameSetupProvider = ({
   const location = useLocation();
   const state = location.state;
   const initialSection = (state?.section as GameSection) ?? "new";
+
   const [activeSection, setActiveSection] =
     useState<GameSection>(initialSection);
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
@@ -51,6 +56,12 @@ export const GameSetupProvider = ({
       setActiveSection("new");
     }
   };
+
+  useEffect(() => {
+    if (state?.selectedFriend) {
+      setSelectedFriend(state.selectedFriend);
+    }
+  }, [state?.selectedFriend]);
 
   useEffect(() => {
     setActiveSection(initialSection);

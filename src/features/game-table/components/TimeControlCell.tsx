@@ -1,4 +1,4 @@
-import { getTimeControlIcon } from "@/utils/timeControl";
+import { getTimeControlIcon, formatTimeControl } from "@/utils/timeControl";
 
 interface TimeControlCellProps {
   type: string;
@@ -13,10 +13,7 @@ export const TimeControlCell = ({
 }: TimeControlCellProps) => {
   const Icon = getTimeControlIcon(type);
 
-  // Format time control display: "3 min" or "3|2"
-  const displayText = increment
-    ? `${time / 60}|${increment}`
-    : `${time / 60} min`;
+  const displayText = formatTimeControl(time, increment ?? undefined, "|");
 
   return (
     <div className="flex flex-col items-center gap-1 text-xs text-white/70">

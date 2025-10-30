@@ -16,7 +16,9 @@ const SOUND_URLS = {
 };
 
 export const useChessSound = (enabled = false) => {
-  const audioRefs = useRef<Record<ChessSoundType, HTMLAudioElement>>({});
+  const audioRefs = useRef<Record<ChessSoundType, HTMLAudioElement> | null>(
+    null
+  );
 
   useEffect(() => {
     if (enabled) {
@@ -29,9 +31,11 @@ export const useChessSound = (enabled = false) => {
   }, [enabled]);
 
   useEffect(() => {
-    Object.values(audioRefs.current).forEach((audio) => {
-      audio.volume = 0.5;
-    });
+    if (audioRefs.current) {
+      Object.values(audioRefs.current).forEach((audio) => {
+        audio.volume = 0.5;
+      });
+    }
   }, []);
 
   /**
@@ -39,7 +43,7 @@ export const useChessSound = (enabled = false) => {
    */
   const playSound = useCallback(
     (soundType: ChessSoundType) => {
-      if (!enabled) return;
+      if (!enabled || !audioRefs.current) return;
 
       const audio = audioRefs.current[soundType];
       if (audio) {

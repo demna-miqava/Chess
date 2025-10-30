@@ -9,6 +9,7 @@ import { MessageSquare, Sword } from "lucide-react";
 import { useNavigate } from "react-router";
 import { format } from "date-fns";
 import { UserAvatar } from "@/components/UserAvatar";
+import { useFriendActions } from "../hooks/useFriendActions";
 
 const FriendPopover = ({
   children,
@@ -17,14 +18,16 @@ const FriendPopover = ({
   children: React.ReactNode;
   data: Friend;
 }) => {
-  const { username, friendsSince, image } = data;
-  // recieve id to fetch friend
+  const { username, friendsSince, avatarUrl, id } = data;
   const navigate = useNavigate();
+  const { onChallenge, onMessage } = useFriendActions();
+
   return (
     <Popover>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent>
         <div className="flex-col gap-4">
+          {/* TODO: This should be a link */}
           <button
             type="button"
             className="flex gap-6 text-left w-full hover:opacity-80 transition-opacity"
@@ -32,20 +35,25 @@ const FriendPopover = ({
               navigate(`/profile/${username}`);
             }}
           >
-            <UserAvatar src={image} username={username} />
+            <UserAvatar src={avatarUrl} username={username} />
             <div>
-              <h3>{username}</h3>
+              <p>{username}</p>
               <p className="text-sm">
                 Friends since {format(new Date(friendsSince), "MMM d, yyyy")}
               </p>
             </div>
           </button>
           <div className="flex gap-2 mt-4 justify-end">
-            <Button size="sm">
+            <Button
+              size="sm"
+              onClick={() => {
+                onChallenge(data);
+              }}
+            >
               <Sword />
               Challenge
             </Button>
-            <Button size="sm">
+            <Button size="sm" onClick={() => onMessage(id)}>
               <MessageSquare />
               Message
             </Button>

@@ -1,6 +1,6 @@
 import { PlayBoard } from "./PlayBoard";
 import { CreateGameSidebar } from "./CreateGameSidebar";
-import { GameSetupProvider } from "@/features/create-game/CreateGameContext";
+import { GameSetupProvider } from "@/features/create-game/GameSetupContext";
 
 export const CreateGameLayout = () => {
   return (

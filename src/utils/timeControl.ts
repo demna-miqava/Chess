@@ -10,3 +10,17 @@ export type TimeControlType = keyof typeof TIME_CONTROL_ICONS;
 export const getTimeControlIcon = (type: string) => {
   return TIME_CONTROL_ICONS[type as TimeControlType];
 };
+
+export const formatTimeControl = (
+  time: number,
+  increment?: number,
+  separator: string = "+"
+): string => {
+  const minutes = time / 60;
+
+  if (increment !== undefined && increment > 0) {
+    return `${minutes}${separator}${increment}`;
+  }
+
+  return `${minutes} min`;
+};

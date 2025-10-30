@@ -9,8 +9,21 @@ export const useFriendActions = () => {
   const removeFriendMutation = useRemoveFriend();
 
   const onChallenge = (friend: Friend) => {
-    // Navigate to create game with friend pre-selected
-    navigate(`/create-game?friendId=${friend.id}`);
+    const { username, avatarUrl, blitzRating, bulletRating, rapidRating, id } =
+      friend;
+    navigate("/play", {
+      state: {
+        section: "friend-invite-options",
+        selectedFriend: {
+          id,
+          username,
+          avatarUrl,
+          blitzRating,
+          bulletRating,
+          rapidRating,
+        },
+      },
+    });
   };
 
   const onRemove = (id: string) => {

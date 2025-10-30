@@ -2,7 +2,7 @@ import { Plus, UserPlus } from "lucide-react";
 import {
   useGameSetup,
   type GameSection,
-} from "@/features/create-game/CreateGameContext";
+} from "@/features/create-game/GameSetupContext";
 import { Button } from "@/components/ui/button";
 import { useMatchmaking } from "@/features/game/hooks/useMatchmaking";
 

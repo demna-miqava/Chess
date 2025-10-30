@@ -6,9 +6,9 @@ import {
 import { PLAY_TIME_CONTROLS } from "../consts/timeControls";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
-import { getTimeControlIcon } from "@/utils/timeControl";
+import { getTimeControlIcon, formatTimeControl } from "@/utils/timeControl";
 import { TimeControlOption } from "./TimeControlOption";
-import { useGameSetup } from "../CreateGameContext";
+import { useGameSetup } from "../GameSetupContext";
 
 export const TimeControlsSection = () => {
   const { timeControl } = useGameSetup();
@@ -21,9 +21,11 @@ export const TimeControlsSection = () => {
         <div className="flex items-center justify-between rounded-lg bg-card border border-border px-3 py-2 text-sm text-foreground hover:bg-accent transition-colors">
           <span className="inline-flex items-center gap-2">
             {Icon && <Icon />}{" "}
-            {timeControl.increment > 0
-              ? `${timeControl.time / 60} | ${timeControl.increment}`
-              : `${timeControl.time / 60} min`}{" "}
+            {formatTimeControl(
+              timeControl.time,
+              timeControl.increment > 0 ? timeControl.increment : undefined,
+              " | "
+            )}{" "}
             <span className="capitalize">({timeControl.format})</span>
           </span>
           <span className="text-xs text-muted-foreground">

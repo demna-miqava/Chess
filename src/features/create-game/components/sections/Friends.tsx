@@ -4,7 +4,7 @@ import { FriendsPaginatedList } from "@/features/friends/list/components/Friends
 import { FriendsLocalSearch } from "@/features/friends/list/components/FriendsLocalSearch";
 import { useDebounce } from "@/hooks/useDebounce";
 import type { Friend } from "@/types";
-import { useGameSetup } from "../../CreateGameContext";
+import { useGameSetup } from "../../GameSetupContext";
 
 export const Friends = () => {
   const [searchQuery, setSearchQuery] = useState("");

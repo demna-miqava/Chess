@@ -26,6 +26,7 @@ export const useBoard = () => {
     color: "black" as PlayerColor,
     timeControl: "3",
   };
+
   const { id } = useUser();
   const { settings } = useSettings();
 
@@ -74,7 +75,7 @@ export const useBoard = () => {
       draggable: { enabled: BOARD_CONFIG.ENABLE_DRAGGABLE },
       turnColor: chess.turn() === "w" ? "white" : "black",
       highlight: {
-        lastMove: settings?.moveHighlightEnabled ?? true,
+        lastMove: settings?.moveHighlightEnabled ?? false,
         check: true,
       },
       movable: {

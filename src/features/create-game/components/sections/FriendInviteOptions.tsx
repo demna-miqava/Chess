@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
 import { TimeControlsSection } from "../TimeControlsSection";
-import { useGameSetup } from "../../CreateGameContext";
+import { useGameSetup } from "../../GameSetupContext";
 import { UserAvatar } from "@/components/UserAvatar";
+import { useManageChallenge } from "@/features/notifications/hooks/useManageChallenge";
 
 type ColorChoice = "white" | "random" | "black";
 
@@ -15,6 +16,7 @@ export const FriendInviteOptions = () => {
   const [colorChoice, setColorChoice] = useState<ColorChoice>("random");
   const { selectedFriend, timeControl } = useGameSetup();
 
+  const { sendChallenge } = useManageChallenge();
   if (!selectedFriend) return;
 
   return (
@@ -81,7 +83,18 @@ export const FriendInviteOptions = () => {
         <Switch className="text-lime-400 bg-lime-400/10" />
       </div>
 
-      <Button variant="secondary" size="lg">
+      <Button
+        variant="secondary"
+        size="lg"
+        onClick={() => {
+          sendChallenge({
+            challengedId: selectedFriend.id,
+            color: colorChoice,
+            time: timeControl.time,
+            increment: timeControl.increment,
+          });
+        }}
+      >
         Send Challenge
       </Button>
     </div>
