@@ -8,6 +8,13 @@ export type DrawResponseMessage = {
   userId?: string;
 };
 
+export type RatingChanges = {
+  whiteRatingChange: number;
+  blackRatingChange: number;
+  whiteNewRating: number;
+  blackNewRating: number;
+};
+
 export type GameEndedMessage = {
   type: "game_ended";
   reason?:
@@ -18,6 +25,7 @@ export type GameEndedMessage = {
     | "timeout"
     | "stalemate";
   winnerId?: string; // userId of the winner, if applicable
+  ratingChanges?: RatingChanges;
 };
 
 export type ResignMessage = {

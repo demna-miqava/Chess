@@ -1,12 +1,14 @@
 import { useUser } from "@/hooks/useUser";
 import { User } from "lucide-react";
 import { Chessground } from "@lichess-org/chessground";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { BoardLayout } from "@/features/game/components/BoardLayout";
 import { UserAvatar } from "@/components/UserAvatar";
+import { useGameSetup } from "../GameSetupContext";
 
 export const PlayBoard = () => {
-  const { username, image } = useUser();
+  const { username, image, blitzRating, bulletRating, rapidRating } = useUser();
+  const { timeControl } = useGameSetup();
   const boardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,6 +20,21 @@ export const PlayBoard = () => {
       });
     }
   }, []);
+
+  const rating = useMemo(() => {
+    switch (timeControl.format) {
+      case "bullet":
+        return bulletRating;
+      case "blitz":
+        return blitzRating;
+      case "rapid":
+        return rapidRating;
+      default:
+        return undefined;
+    }
+  }, [bulletRating, blitzRating, rapidRating, timeControl]);
+
+  const startingTime = `${timeControl.time / 60}:00`;
 
   return (
     <BoardLayout
@@ -32,7 +49,7 @@ export const PlayBoard = () => {
       }}
       bottomPlayer={{
         name: username,
-        rating: 3415,
+        startingRating: rating,
         avatar: (
           <div className="flex size-8 items-center justify-center overflow-hidden rounded-full">
             <UserAvatar src={image} username={username} />
@@ -41,12 +58,12 @@ export const PlayBoard = () => {
       }}
       topPlayerClock={
         <span className="rounded-md px-2 py-1 text-md tracking-wider">
-          3:00
+          {startingTime}
         </span>
       }
       bottomPlayerClock={
         <span className="rounded-md px-2 py-1 text-md tracking-wider">
-          3:00
+          {startingTime}
         </span>
       }
     />

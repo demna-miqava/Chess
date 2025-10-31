@@ -2,10 +2,13 @@ import type { ReactNode } from "react";
 import "@lichess-org/chessground/assets/chessground.base.css";
 import "@lichess-org/chessground/assets/chessground.brown.css";
 import "@lichess-org/chessground/assets/chessground.cburnett.css";
+import { PlayerDisplay } from "./PlayerDisplay";
 
 interface PlayerInfo {
   name: string;
-  rating?: number;
+  startingRating?: number;
+  newRating?: number;
+  ratingChange?: number;
   avatar?: ReactNode;
 }
 
@@ -30,42 +33,15 @@ export const BoardLayout = ({
 }: BoardLayoutProps) => {
   return (
     <section className="flex w-full flex-1 flex-col overflow-hidden rounded-xl border border-border/60 bg-background shadow-sm">
-      {/* Top Player (Opponent) */}
-      <header className="flex items-center justify-between bg-card px-4 py-2 text-sm text-foreground">
-        <div className="flex items-center gap-2">
-          {topPlayer.avatar}
-          <div className="leading-tight text-foreground">
-            <p className="font-semibold">{topPlayer.name}</p>
-            {topPlayer.rating !== undefined && (
-              <p className="text-xs">{topPlayer.rating} rating</p>
-            )}
-          </div>
-        </div>
-        {topPlayerClock}
-      </header>
+      <PlayerDisplay {...topPlayer} clock={topPlayerClock} />
 
-      {/* Chess Board */}
       <div className="flex flex-1 items-center justify-center bg-background p-4">
         <div className="relative aspect-square w-full max-w-3xl">
           <div ref={boardRef} className="h-full w-full" />
         </div>
       </div>
 
-      {/* Bottom Player (User) */}
-      <footer className="flex items-center justify-between bg-card px-4 py-2 text-sm text-foreground">
-        <div className="flex items-center gap-2">
-          {bottomPlayer.avatar}
-          <div className="leading-tight text-foreground">
-            <p className="font-semibold">{bottomPlayer.name}</p>
-            {bottomPlayer.rating !== undefined && (
-              <p className="text-xs text-foreground">
-                {bottomPlayer.rating} rating
-              </p>
-            )}
-          </div>
-        </div>
-        {bottomPlayerClock}
-      </footer>
+      <PlayerDisplay {...bottomPlayer} clock={bottomPlayerClock} />
     </section>
   );
 };

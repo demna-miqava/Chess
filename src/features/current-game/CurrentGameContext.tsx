@@ -13,7 +13,10 @@ import { useLocation } from "react-router";
 import { calculateLegalMoves } from "../game/utils/board-sync";
 import { useGameWebSocket } from "../game/hooks/useGameWebSocket";
 import { parseWebSocketMessage } from "../game/utils/websocket-helpers";
-import type { GameWebSocketMessage } from "../game/types/websocket-messages";
+import type {
+  GameWebSocketMessage,
+  RatingChanges,
+} from "../game/types/websocket-messages";
 
 const CurrentGameContext = createContext<{
   boardRef: RefObject<HTMLDivElement | null>;
@@ -29,6 +32,7 @@ const CurrentGameContext = createContext<{
   currentIndex: number;
   isViewingHistory: boolean;
   gameEnded: boolean;
+  ratingChanges: RatingChanges | null;
 }>({
   boardRef: { current: null },
   goToFirstMove: () => {},
@@ -43,6 +47,7 @@ const CurrentGameContext = createContext<{
   currentIndex: 0,
   isViewingHistory: false,
   gameEnded: false,
+  ratingChanges: null,
 });
 
 export const CurrentGameProvider = ({
@@ -54,6 +59,9 @@ export const CurrentGameProvider = ({
   const { color } = useLocation().state || { color: "white" as PlayerColor };
   const totalMoves = chessRef.current?.history().length || 0;
   const [gameEnded, setGameEnded] = useState(false);
+  const [ratingChanges, setRatingChanges] = useState<RatingChanges | null>(
+    null
+  );
   const { lastMessage } = useGameWebSocket();
 
   const {
@@ -68,7 +76,7 @@ export const CurrentGameProvider = ({
     isViewingHistory,
   } = useMoveNavigation(totalMoves);
 
-  // Listen for game_ended messages to stop clocks
+  // Listen for game_ended messages to stop clocks and capture rating changes
   useEffect(() => {
     if (!lastMessage) return;
 
@@ -77,6 +85,9 @@ export const CurrentGameProvider = ({
     // Handle games that ended during play
     if (data?.type === "game_ended") {
       setGameEnded(true);
+      if (data.ratingChanges) {
+        setRatingChanges(data.ratingChanges);
+      }
     }
 
     // Handle games that are already finished (viewing past games)
@@ -141,6 +152,7 @@ export const CurrentGameProvider = ({
         currentIndex,
         isViewingHistory,
         gameEnded,
+        ratingChanges,
       }}
     >
       {children}

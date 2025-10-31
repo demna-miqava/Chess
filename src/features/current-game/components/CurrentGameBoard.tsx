@@ -6,24 +6,51 @@ import Clock from "./Clock";
 import { BoardLayout } from "@/features/game/components/BoardLayout";
 import { UserAvatar } from "@/components/UserAvatar";
 import { useGameWebSocket } from "@/features/game/hooks/useGameWebSocket";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { useSettings } from "@/features/settings/SettingsContext";
+import { calculatePlayerRating } from "../utils/rating-helpers";
 
 const CurrentGameBoard = () => {
   const { username, image } = useUser();
-  const { boardRef, turn, gameEnded } = useCurrentGame();
+  const { boardRef, turn, gameEnded, ratingChanges } = useCurrentGame();
   const { sendMessage } = useGameWebSocket();
   const timeoutSentRef = useRef(false);
   const { settings } = useSettings();
 
-  const { opponentRating, opponentUsername, color, time, increment } =
+  const { opponentRating, opponentUsername, rating, color, time, increment } =
     useLocation().state || {
       opponentRating: 0,
       opponentUsername: "",
       color: "",
       time: 180,
       increment: 0,
+      rating: 0,
     };
+
+  // Calculate player and opponent ratings with useMemo for performance
+  const playerRatings = useMemo(
+    () =>
+      calculatePlayerRating(
+        rating,
+        color,
+        ratingChanges,
+        settings?.showRatingsDuringGameEnabled ?? false,
+        true
+      ),
+    [rating, color, ratingChanges, settings?.showRatingsDuringGameEnabled]
+  );
+
+  const opponentRatings = useMemo(
+    () =>
+      calculatePlayerRating(
+        opponentRating,
+        color,
+        ratingChanges,
+        settings?.showRatingsDuringGameEnabled ?? false,
+        false
+      ),
+    [opponentRating, color, ratingChanges, settings?.showRatingsDuringGameEnabled]
+  );
 
   const handleTimeout = () => {
     if (!timeoutSentRef.current) {
@@ -37,9 +64,9 @@ const CurrentGameBoard = () => {
       boardRef={boardRef}
       topPlayer={{
         name: opponentUsername,
-        rating: settings?.showRatingsDuringGameEnabled
-          ? opponentRating
-          : undefined,
+        startingRating: opponentRatings.startingRating,
+        newRating: opponentRatings.newRating,
+        ratingChange: gameEnded ? opponentRatings.ratingChange : undefined,
         avatar: (
           <div className="flex size-8 items-center justify-center rounded-full bg-[#3d3d3d]">
             <User className="size-4" />
@@ -48,7 +75,9 @@ const CurrentGameBoard = () => {
       }}
       bottomPlayer={{
         name: username,
-        rating: settings?.showRatingsDuringGameEnabled ? 3415 : undefined,
+        startingRating: playerRatings.startingRating,
+        newRating: playerRatings.newRating,
+        ratingChange: gameEnded ? playerRatings.ratingChange : undefined,
         avatar: (
           <div className="flex size-8 items-center justify-center overflow-hidden rounded-full">
             <UserAvatar src={image} username={username} />

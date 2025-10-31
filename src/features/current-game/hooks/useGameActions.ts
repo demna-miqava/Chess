@@ -9,6 +9,10 @@ import { useUser } from "@/hooks/useUser";
 type FinishState = {
   title: string;
   description?: string;
+  ratingChange?: number;
+  newRating?: number;
+  opponentRatingChange?: number;
+  opponentNewRating?: number;
 };
 
 export const useGameActions = () => {

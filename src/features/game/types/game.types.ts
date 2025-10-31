@@ -19,5 +19,6 @@ export interface MatchmakingMessage {
     opponentUsername?: string;
     time: number;
     increment: number | null;
+    rating: number;
   };
 }

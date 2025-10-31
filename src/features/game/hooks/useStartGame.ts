@@ -20,6 +20,7 @@ export const useStartGame = () => {
         opponentUsername,
         time,
         increment,
+        rating,
       } = data.data;
 
       if (gameId) {
@@ -31,6 +32,7 @@ export const useStartGame = () => {
             opponentUsername: opponentUsername,
             time,
             increment: increment ?? 0,
+            rating,
           },
         });
       }
