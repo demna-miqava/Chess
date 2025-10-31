@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Check, X } from "lucide-react";
-import { useManageChallenge } from "../hooks/useManageChallenge";
 import { toast } from "sonner";
 import { formatTimeControl } from "@/utils/timeControl";
 
@@ -11,6 +10,8 @@ type NotificationItem = {
   avatar: string | null;
   time: number;
   increment: number;
+  onAccept: (challengerId: string) => void;
+  onDecline: (challengerId: string) => void;
 };
 
 const ChallengeNotification = ({
@@ -19,17 +20,9 @@ const ChallengeNotification = ({
   avatar,
   time,
   increment,
+  onAccept,
+  onDecline,
 }: NotificationItem) => {
-  const { handleAccept, handleDecline } = useManageChallenge();
-
-  const onAccept = () => {
-    handleAccept(challengerId);
-  };
-
-  const onDecline = () => {
-    handleDecline(challengerId);
-  };
-
   const onClose = () => {
     toast.dismiss();
   };
@@ -53,7 +46,7 @@ const ChallengeNotification = ({
           <Button
             size="sm"
             variant="default"
-            onClick={onAccept}
+            onClick={() => onAccept(challengerId)}
             className="h-7 text-xs"
           >
             <Check className="h-3 w-3 mr-1" />
@@ -62,7 +55,7 @@ const ChallengeNotification = ({
           <Button
             size="sm"
             variant="outline"
-            onClick={onDecline}
+            onClick={() => onDecline(challengerId)}
             className="h-7 text-xs"
           >
             <X className="h-3 w-3 mr-1" />

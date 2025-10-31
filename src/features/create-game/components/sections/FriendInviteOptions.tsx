@@ -6,7 +6,7 @@ import { Switch } from "@/components/ui/switch";
 import { TimeControlsSection } from "../TimeControlsSection";
 import { useGameSetup } from "../../GameSetupContext";
 import { UserAvatar } from "@/components/UserAvatar";
-import { useManageChallenge } from "@/features/notifications/hooks/useManageChallenge";
+import { useChallenges } from "@/features/notifications/context/ChallengesContext";
 
 type ColorChoice = "white" | "random" | "black";
 
@@ -16,7 +16,7 @@ export const FriendInviteOptions = () => {
   const [colorChoice, setColorChoice] = useState<ColorChoice>("random");
   const { selectedFriend, timeControl } = useGameSetup();
 
-  const { sendChallenge } = useManageChallenge();
+  const { sendChallenge } = useChallenges();
   if (!selectedFriend) return;
 
   return (

@@ -2,19 +2,20 @@ import { Outlet } from "react-router";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { SettingsProvider } from "@/features/settings/SettingsContext";
-import { useNotificationsWebSocket } from "@/features/notifications/hooks/useNotificationsWebSocket";
+import { ChallengesProvider } from "@/features/notifications/context/ChallengesContext";
 
 export const AppLayout = () => {
-  useNotificationsWebSocket();
   return (
     <SidebarProvider>
       <SettingsProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <div className="p-4 min-h-screen">
-            <Outlet />
-          </div>
-        </SidebarInset>
+        <ChallengesProvider>
+          <AppSidebar />
+          <SidebarInset>
+            <div className="p-4 min-h-screen">
+              <Outlet />
+            </div>
+          </SidebarInset>
+        </ChallengesProvider>
       </SettingsProvider>
     </SidebarProvider>
   );

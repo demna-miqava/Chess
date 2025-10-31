@@ -1,13 +1,17 @@
 import { toast } from "sonner";
-import { useNotificationsWebSocket } from "./useNotificationsWebSocket";
 import type {
   AcceptChallengeMessage,
   DeclineChallengeMessage,
   SendChallengeMessage,
+  Challenge,
 } from "../types/websocket-messages";
+import { useQueryClient } from "@tanstack/react-query";
+import { QKEY_CHALLENGES } from "@/consts/queryKeys";
+import type { SendMessage } from "react-use-websocket";
+import type { ReadyState } from "react-use-websocket";
 
-export const useManageChallenge = () => {
-  const { sendMessage, readyState } = useNotificationsWebSocket();
+export const useManageChallenge = (sendMessage: SendMessage, readyState: ReadyState) => {
+  const queryClient = useQueryClient();
 
   const checkConnection = () => {
     if (readyState !== 1) {
@@ -39,6 +43,8 @@ export const useManageChallenge = () => {
 
     toast.dismiss();
 
+    queryClient.setQueryData([QKEY_CHALLENGES], []);
+
     const message: AcceptChallengeMessage = {
       type: "challenge_accepted",
       data: {
@@ -51,6 +57,11 @@ export const useManageChallenge = () => {
 
   const handleDecline = (challengerId: string) => {
     if (!checkConnection()) return;
+
+    // Remove challenge from local state
+    queryClient.setQueryData<Challenge[]>([QKEY_CHALLENGES], (old = []) =>
+      old.filter((challenge) => challenge.challengerId !== challengerId)
+    );
 
     const message: DeclineChallengeMessage = {
       type: "challenge_declined",

@@ -1,14 +1,23 @@
-import { Bot } from "lucide-react";
-
-const challenges = [
-  {
-    name: "aarav365",
-    rating: 910,
-    status: "3 days",
-  },
-];
+import { useChallenges } from "@/features/notifications/context/ChallengesContext";
+import { UserAvatar } from "@/components/UserAvatar";
+import { formatTimeControl } from "@/utils/timeControl";
+import { formatDistanceToNow } from "date-fns";
+import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { getChallenges } from "@/services/challenges";
+import { QKEY_CHALLENGES } from "@/consts/queryKeys";
 
 export const Challenges = () => {
+  const { data: challenges = [], isLoading } = useQuery({
+    queryKey: [QKEY_CHALLENGES],
+    queryFn: getChallenges,
+    staleTime: 1000 * 60 * 2,
+  });
+  const { handleAcceptChallenge, handleDeclineChallenge } = useChallenges();
+
+  if (isLoading || challenges.length === 0) {
+    return null;
+  }
   return (
     <>
       <h3 className="text-sm font-semibold uppercase tracking-wide text-sidebar-foreground/70">
@@ -17,27 +26,37 @@ export const Challenges = () => {
       <div className="space-y-3">
         {challenges.map((challenge) => (
           <div
-            key={challenge.name}
+            key={challenge.challengerId}
             className="flex items-center justify-between rounded-xl border border-sidebar-border bg-sidebar px-4 py-3"
           >
             <div className="flex items-center gap-3">
-              <div className="flex size-9 items-center justify-center rounded-full bg-sidebar-accent/40">
-                <Bot className="size-4" />
-              </div>
+              <UserAvatar
+                src={challenge.avatarUrl}
+                username={challenge.username}
+              />
               <div className="leading-tight">
-                <p className="font-semibold">{challenge.name}</p>
+                <p className="font-semibold">{challenge.username}</p>
                 <p className="text-xs text-sidebar-foreground/70">
-                  {challenge.rating} • {challenge.status}
+                  {formatTimeControl(challenge.time, challenge.increment)} •{" "}
+                  {formatDistanceToNow(new Date(challenge.createdAt), {
+                    addSuffix: true,
+                  })}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <button className="rounded-lg bg-destructive px-3 py-1 text-xs text-white">
+              <Button
+                onClick={() => handleDeclineChallenge(challenge.challengerId)}
+                className="rounded-lg bg-destructive px-3 py-1 text-xs text-white hover:bg-destructive/90 transition-colors"
+              >
                 Decline
-              </button>
-              <button className="rounded-lg bg-lime-500 px-3 py-1 text-xs font-semibold text-lime-950">
+              </Button>
+              <Button
+                onClick={() => handleAcceptChallenge(challenge.challengerId)}
+                className="rounded-lg bg-lime-500 px-3 py-1 text-xs font-semibold text-lime-950 hover:bg-lime-600 transition-colors"
+              >
                 Accept
-              </button>
+              </Button>
             </div>
           </div>
         ))}

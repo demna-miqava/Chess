@@ -32,6 +32,7 @@ export type ChallengeReceivedNotification = {
     color: "white" | "black" | "random";
     time: number;
     increment: number;
+    createdAt: string;
   };
 };
 
@@ -61,6 +62,17 @@ export type ChallengeErrorNotification = {
   data: {
     message: string;
   };
+};
+
+export type Challenge = {
+  id: number;
+  challengerId: string;
+  username: string;
+  avatarUrl: string | null;
+  color: "white" | "black" | "random";
+  time: number;
+  increment: number;
+  createdAt: string;
 };
 
 export type NotificationWebSocketMessage =
