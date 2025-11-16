@@ -48,19 +48,20 @@ const MoveControls = () => {
   ];
 
   return (
-    <div className="flex w-full gap-2">
+    <nav className="flex w-full gap-2" aria-label="Move navigation">
       {moveControls.map((control) => (
         <button
           key={control.id}
           className="flex flex-1 items-center justify-center rounded-md bg-[#2f2f2f] py-2 text-white transition-colors hover:bg-[#3d3d3d] disabled:cursor-not-allowed disabled:opacity-50"
           title={control.title}
+          aria-label={control.title}
           onClick={control.onClick}
           disabled={control.disabled}
         >
-          <control.icon className="size-4" />
+          <control.icon className="size-4" aria-hidden="true" />
         </button>
       ))}
-    </div>
+    </nav>
   );
 };
 

@@ -19,7 +19,11 @@ export const ActionButton = ({
   className,
 }: ActionButtonProps) => {
   return (
-    <Button onClick={onClick} className={className || GAME_BUTTON_STYLES[variant]}>
+    <Button
+      onClick={onClick}
+      className={className || GAME_BUTTON_STYLES[variant]}
+      aria-label={label}
+    >
       {icon}
       {label}
     </Button>
