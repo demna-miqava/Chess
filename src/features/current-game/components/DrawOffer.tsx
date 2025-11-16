@@ -2,15 +2,15 @@ import { HandshakeIcon, X, Check } from "lucide-react";
 import type { SendMessage } from "react-use-websocket";
 import { ActionButton } from "./ActionButton";
 
-const DrawOffer = ({
-  sendMessage,
-  setUserDeclinedDraw,
-}: {
+interface DrawOfferProps {
   sendMessage: SendMessage;
-  setUserDeclinedDraw: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+  onRespond: () => void;
+}
+
+const DrawOffer = ({ sendMessage, onRespond }: DrawOfferProps) => {
   const respond = (accepted: boolean) => {
     sendMessage(JSON.stringify({ type: "draw_response", accepted }));
+    onRespond();
   };
 
   return (
@@ -30,10 +30,7 @@ const DrawOffer = ({
         />
         <ActionButton
           variant="decline"
-          onClick={() => {
-            respond(false);
-            setUserDeclinedDraw(true);
-          }}
+          onClick={() => respond(false)}
           icon={<X className="size-4" />}
           label="Decline"
         />

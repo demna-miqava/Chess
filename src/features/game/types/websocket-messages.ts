@@ -17,14 +17,14 @@ export type RatingChanges = {
 
 export type GameEndedMessage = {
   type: "game_ended";
-  reason?:
+  reason:
     | "resignation"
     | "draw_agreement"
     | "aborted"
     | "checkmate"
     | "timeout"
     | "stalemate";
-  winnerId?: string; // userId of the winner, if applicable
+  winnerId?: string;
   ratingChanges?: RatingChanges;
 };
 

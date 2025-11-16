@@ -4,7 +4,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import { useCurrentGame } from "../CurrentGameContext";
+import { useGameNavigation } from "@/features/game/contexts/GameNavigationContext";
 
 const MoveControls = () => {
   const {
@@ -14,7 +14,7 @@ const MoveControls = () => {
     goToLastMove,
     isAtStart,
     isAtEnd,
-  } = useCurrentGame();
+  } = useGameNavigation();
 
   const moveControls = [
     {

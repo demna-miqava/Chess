@@ -1,19 +1,27 @@
 import CurrentGameBoard from "@/features/current-game/components/CurrentGameBoard";
 import { MovesContainer } from "@/features/current-game/components/MovesContainer";
-import { CurrentGameProvider } from "@/features/current-game/CurrentGameContext";
-import { useParams } from "react-router";
+import { ChessBoardProvider } from "@/features/game/contexts/ChessBoardContext";
+import { GameNavigationProvider } from "@/features/game/contexts/GameNavigationContext";
+import { LiveGameProvider } from "@/features/current-game/contexts/LiveGameContext";
+import { useParams, useLocation } from "react-router";
 
 const CurrentGame = () => {
   const { gameId } = useParams();
+  const { color } = useLocation().state;
+
   return (
-    <CurrentGameProvider key={gameId}>
-      <div className="grid h-full grid-cols-1 lg:grid-cols-[1fr_300px] gap-4 p-4">
-        <div className="flex items-center justify-center">
-          <CurrentGameBoard />
-        </div>
-        <MovesContainer />
-      </div>
-    </CurrentGameProvider>
+    <ChessBoardProvider color={color} key={gameId}>
+      <GameNavigationProvider>
+        <LiveGameProvider>
+          <div className="grid h-full grid-cols-1 lg:grid-cols-[1fr_300px] gap-4 p-4">
+            <div className="flex items-center justify-center">
+              <CurrentGameBoard />
+            </div>
+            <MovesContainer />
+          </div>
+        </LiveGameProvider>
+      </GameNavigationProvider>
+    </ChessBoardProvider>
   );
 };
 

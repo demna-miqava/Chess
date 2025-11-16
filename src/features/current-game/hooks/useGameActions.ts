@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useGameWebSocket } from "@/features/game/hooks/useGameWebSocket";
-import { useCurrentGame } from "../CurrentGameContext";
 import { parseWebSocketMessage } from "@/features/game/utils/websocket-helpers";
 import type { GameWebSocketMessage } from "@/features/game/types/websocket-messages";
 import { useChessSound } from "@/features/game/hooks/useChessSound";
 import { useUser } from "@/hooks/useUser";
+import { useChessBoardContext } from "@/features/game/contexts/ChessBoardContext";
+import { getGameEndMessage } from "../constants/gameEndMessages";
 
 type FinishState = {
   title: string;
@@ -17,7 +18,7 @@ type FinishState = {
 
 export const useGameActions = () => {
   const { sendMessage, lastMessage } = useGameWebSocket();
-  const { chessRef } = useCurrentGame();
+  const { chessRef } = useChessBoardContext();
   const { playGenericSound } = useChessSound();
   const { id: currentUserId } = useUser();
 
@@ -33,59 +34,14 @@ export const useGameActions = () => {
 
     if (data.type === "game_ended") {
       const { reason, winnerId } = data;
+
       const isWinner = winnerId === currentUserId;
+      const message = getGameEndMessage(reason, isWinner);
 
-      if (reason === "resignation") {
-        setFinish({
-          title: isWinner ? "You won by resignation!" : "You resigned",
-          description: isWinner
-            ? "Your opponent resigned."
-            : "The game has ended.",
-        });
-        playGenericSound();
-        setOpenGameResultDialog(true);
-      }
-
-      if (reason === "draw_agreement") {
-        setFinish({
-          title: "Draw agreed",
-          description: "The game ended in a draw.",
-        });
+      if (message) {
+        setFinish(message);
         setOpenGameResultDialog(true);
         playGenericSound();
-        return;
-      }
-
-      if (reason === "aborted") {
-        setFinish({
-          title: "Game aborted!",
-          description: "The game has been aborted.",
-        });
-        setOpenGameResultDialog(true);
-        playGenericSound();
-        return;
-      }
-
-      if (reason === "checkmate") {
-        setFinish({
-          title: isWinner ? "You won by checkmate!" : "Checkmate",
-          description: isWinner ? "Congratulations!" : "You lost the game.",
-        });
-        setOpenGameResultDialog(true);
-        playGenericSound();
-        return;
-      }
-
-      if (reason === "timeout") {
-        setFinish({
-          title: isWinner ? "You won on time!" : "Time's up",
-          description: isWinner
-            ? "Your opponent ran out of time."
-            : "You ran out of time.",
-        });
-        setOpenGameResultDialog(true);
-        playGenericSound();
-        return;
       }
     }
   }, [lastMessage, playGenericSound, currentUserId]);

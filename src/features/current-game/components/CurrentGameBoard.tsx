@@ -1,6 +1,5 @@
 import { useUser } from "@/hooks/useUser";
 import { User } from "lucide-react";
-import { useCurrentGame } from "../CurrentGameContext";
 import { useLocation } from "react-router";
 import Clock from "./Clock";
 import { BoardLayout } from "@/features/game/components/BoardLayout";
@@ -9,10 +8,13 @@ import { useGameWebSocket } from "@/features/game/hooks/useGameWebSocket";
 import { useRef, useMemo } from "react";
 import { useSettings } from "@/features/settings/SettingsContext";
 import { calculatePlayerRating } from "../utils/rating-helpers";
+import { useChessBoardContext } from "@/features/game/contexts/ChessBoardContext";
+import { useLiveGame } from "../contexts/LiveGameContext";
 
 const CurrentGameBoard = () => {
   const { username, image } = useUser();
-  const { boardRef, turn, gameEnded, ratingChanges } = useCurrentGame();
+  const { boardRef, turn } = useChessBoardContext();
+  const { gameEnded, ratingChanges } = useLiveGame();
   const { sendMessage } = useGameWebSocket();
   const timeoutSentRef = useRef(false);
   const { settings } = useSettings();

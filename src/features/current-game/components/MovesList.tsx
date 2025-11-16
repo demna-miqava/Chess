@@ -1,12 +1,13 @@
 import type { Move } from "chess.js";
-import { useCurrentGame } from "../CurrentGameContext";
+import { useChessBoardContext } from "@/features/game/contexts/ChessBoardContext";
 import { useMemo } from "react";
 
 export const MovesList = () => {
-  const { chessRef } = useCurrentGame();
+  const { chessRef } = useChessBoardContext();
 
   const movePairs = useMemo(() => {
     const moves = chessRef.current?.history({ verbose: true }) || [];
+
     const movePairs: Array<{ white: Move; black?: Move }> = [];
 
     for (let i = 0; i < moves.length; i += 2) {
@@ -16,7 +17,7 @@ export const MovesList = () => {
       });
     }
     return movePairs;
-  }, [chessRef.current?.history()]);
+  }, [chessRef.current.history().length]);
 
   return (
     <div className="flex flex-col gap-2">

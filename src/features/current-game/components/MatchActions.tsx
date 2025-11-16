@@ -22,10 +22,10 @@ const MatchActions = ({ gameEnded }: MatchActionsProps) => {
   } = useGameActions();
 
   const {
-    requestRematch,
     rematchRequested,
-    acceptRematch,
     rematchOffered,
+    requestRematch,
+    acceptRematch,
     declineRematch,
     cancelRematch,
   } = useRematch({
