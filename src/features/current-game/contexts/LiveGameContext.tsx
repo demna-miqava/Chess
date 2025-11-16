@@ -16,6 +16,7 @@ import type { Key } from "@lichess-org/chessground/types";
 import { syncBoardState } from "@/features/game/utils/board-utils";
 import { useLiveGameMessages } from "../hooks/useLiveGameMessages";
 import type { SendMessage } from "react-use-websocket";
+import { WS_MESSAGE_TYPES } from "@/features/game/constants/websocket-types";
 
 interface LiveGameContextValue {
   gameEnded: boolean;
@@ -64,7 +65,7 @@ export const LiveGameProvider = ({ children }: LiveGameProviderProps) => {
 
         sendMessage(
           JSON.stringify({
-            type: "move",
+            type: WS_MESSAGE_TYPES.MOVE,
             move: move,
             fen: chess.fen(),
             pgn: chess.pgn(),
@@ -76,14 +77,14 @@ export const LiveGameProvider = ({ children }: LiveGameProviderProps) => {
         if (isCheckmate) {
           sendMessage(
             JSON.stringify({
-              type: "checkmate",
+              type: WS_MESSAGE_TYPES.CHECKMATE,
               winnerId: id,
             })
           );
         } else if (isStalemate) {
           sendMessage(
             JSON.stringify({
-              type: "stalemate",
+              type: WS_MESSAGE_TYPES.STALEMATE,
             })
           );
         }

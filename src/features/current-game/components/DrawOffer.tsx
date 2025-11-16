@@ -1,6 +1,7 @@
 import { HandshakeIcon, X, Check } from "lucide-react";
 import type { SendMessage } from "react-use-websocket";
 import { ActionButton } from "./ActionButton";
+import { WS_MESSAGE_TYPES } from "@/features/game/constants/websocket-types";
 
 interface DrawOfferProps {
   sendMessage: SendMessage;
@@ -9,7 +10,9 @@ interface DrawOfferProps {
 
 const DrawOffer = ({ sendMessage, onRespond }: DrawOfferProps) => {
   const respond = (accepted: boolean) => {
-    sendMessage(JSON.stringify({ type: "draw_response", accepted }));
+    sendMessage(
+      JSON.stringify({ type: WS_MESSAGE_TYPES.DRAW_RESPONSE, accepted })
+    );
     onRespond();
   };
 

@@ -11,6 +11,7 @@ import { useGameNavigation } from "@/features/game/contexts/GameNavigationContex
 import { useChessSound } from "@/features/game/hooks/useChessSound";
 import { useSettings } from "@/features/settings/SettingsContext";
 import { messageDispatcher } from "@/features/game/services/WebSocketMessageDispatcher";
+import { WS_MESSAGE_TYPES } from "@/features/game/constants/websocket-types";
 
 interface UseLiveGameMessagesOptions {
   setGameEnded: (ended: boolean) => void;
@@ -29,7 +30,7 @@ export const useLiveGameMessages = ({
   useEffect(() => {
     // Subscribe to move messages
     const unsubMove = messageDispatcher.subscribe<MoveMessage>(
-      "move",
+      WS_MESSAGE_TYPES.MOVE,
       (data) => {
         if (!chessRef.current || !cgRef.current) return;
         if (!data.move) return;
@@ -53,7 +54,7 @@ export const useLiveGameMessages = ({
 
     // Subscribe to game_ended messages
     const unsubGameEnded = messageDispatcher.subscribe<GameEndedMessage>(
-      "game_ended",
+      WS_MESSAGE_TYPES.GAME_ENDED,
       (data) => {
         setGameEnded(true);
         if (data.ratingChanges) {
@@ -65,7 +66,7 @@ export const useLiveGameMessages = ({
     // Subscribe to initial game state
     const unsubInitialState =
       messageDispatcher.subscribe<InitialGameStateMessage>(
-        "initial_game_state",
+        WS_MESSAGE_TYPES.INITIAL_GAME_STATE,
         (data) => {
           if (!chessRef.current || !cgRef.current) return;
           if (!data.data?.fen) return;

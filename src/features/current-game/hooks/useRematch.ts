@@ -8,6 +8,7 @@ import type { MatchmakingMessage } from "@/features/game/types/game.types";
 import { useStartGame } from "@/features/game/hooks/useStartGame";
 import { messageDispatcher } from "@/features/game/services/WebSocketMessageDispatcher";
 import { useLiveGame } from "../contexts/LiveGameContext";
+import { WS_MESSAGE_TYPES } from "@/features/game/constants/websocket-types";
 
 export const useRematch = ({
   setOpenGameResultDialog,
@@ -23,21 +24,21 @@ export const useRematch = ({
 
   useEffect(() => {
     const unsubCanceled = messageDispatcher.subscribe<CancelRematchMessage>(
-      "rematch_canceled",
+      WS_MESSAGE_TYPES.REMATCH_CANCELED,
       () => {
         setRematchOffered(false);
       }
     );
 
     const unsubRequest = messageDispatcher.subscribe<RematchRequestMessage>(
-      "rematch_request",
+      WS_MESSAGE_TYPES.REMATCH_REQUEST,
       () => {
         setRematchOffered(true);
       }
     );
 
     const unsubResponse = messageDispatcher.subscribe<RematchResponseMessage>(
-      "rematch_response",
+      WS_MESSAGE_TYPES.REMATCH_RESPONSE,
       (data) => {
         if (!data.accepted) {
           setRematchDeclined(true);
@@ -47,7 +48,7 @@ export const useRematch = ({
     );
 
     const unsubMatchFound = messageDispatcher.subscribe(
-      "match_found",
+      WS_MESSAGE_TYPES.MATCH_FOUND,
       (data) => {
         startGame(data as unknown as MatchmakingMessage);
         setOpenGameResultDialog(false);
@@ -63,25 +64,25 @@ export const useRematch = ({
   }, [startGame, setOpenGameResultDialog]);
 
   const requestRematch = useCallback(() => {
-    sendMessage(JSON.stringify({ type: "rematch_request" }));
+    sendMessage(JSON.stringify({ type: WS_MESSAGE_TYPES.REMATCH_REQUEST }));
     setRematchRequested(true);
   }, [sendMessage]);
 
   const acceptRematch = useCallback(() => {
     sendMessage(
-      JSON.stringify({ type: "rematch_response", data: { accepted: true } })
+      JSON.stringify({ type: WS_MESSAGE_TYPES.REMATCH_RESPONSE, data: { accepted: true } })
     );
   }, [sendMessage]);
 
   const declineRematch = useCallback(() => {
     sendMessage(
-      JSON.stringify({ type: "rematch_response", data: { accepted: false } })
+      JSON.stringify({ type: WS_MESSAGE_TYPES.REMATCH_RESPONSE, data: { accepted: false } })
     );
     setRematchOffered(false);
   }, [sendMessage]);
 
   const cancelRematch = useCallback(() => {
-    sendMessage(JSON.stringify({ type: "cancel_rematch" }));
+    sendMessage(JSON.stringify({ type: WS_MESSAGE_TYPES.CANCEL_REMATCH }));
     setRematchRequested(false);
   }, [sendMessage]);
 
