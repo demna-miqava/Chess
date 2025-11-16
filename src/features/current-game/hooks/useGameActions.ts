@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import type { GameEndedMessage } from "@/features/game/types/websocket-messages";
 import { useChessSound } from "@/features/game/hooks/useChessSound";
 import { useUser } from "@/hooks/useUser";
@@ -49,17 +49,17 @@ export const useGameActions = () => {
     return unsubscribe;
   }, [playGenericSound, currentUserId]);
 
-  const onResign = () => {
+  const onResign = useCallback(() => {
     sendMessage(JSON.stringify({ type: "resign" }));
-  };
+  }, [sendMessage]);
 
-  const onOfferDraw = () => {
+  const onOfferDraw = useCallback(() => {
     sendMessage(JSON.stringify({ type: "draw_offer" }));
-  };
+  }, [sendMessage]);
 
-  const onAbort = () => {
+  const onAbort = useCallback(() => {
     sendMessage(JSON.stringify({ type: "abort" }));
-  };
+  }, [sendMessage]);
 
   return {
     openGameResultDialog,

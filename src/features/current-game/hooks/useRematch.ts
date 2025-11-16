@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type {
   RematchRequestMessage,
   RematchResponseMessage,
@@ -62,28 +62,28 @@ export const useRematch = ({
     };
   }, [startGame, setOpenGameResultDialog]);
 
-  const requestRematch = () => {
+  const requestRematch = useCallback(() => {
     sendMessage(JSON.stringify({ type: "rematch_request" }));
     setRematchRequested(true);
-  };
+  }, [sendMessage]);
 
-  const acceptRematch = () => {
+  const acceptRematch = useCallback(() => {
     sendMessage(
       JSON.stringify({ type: "rematch_response", data: { accepted: true } })
     );
-  };
+  }, [sendMessage]);
 
-  const declineRematch = () => {
+  const declineRematch = useCallback(() => {
     sendMessage(
       JSON.stringify({ type: "rematch_response", data: { accepted: false } })
     );
     setRematchOffered(false);
-  };
+  }, [sendMessage]);
 
-  const cancelRematch = () => {
+  const cancelRematch = useCallback(() => {
     sendMessage(JSON.stringify({ type: "cancel_rematch" }));
     setRematchRequested(false);
-  };
+  }, [sendMessage]);
 
   return {
     rematchRequested,
