@@ -16,7 +16,6 @@ export const Friends = () => {
     setActiveSection("friend-invite-options");
   };
   const { friends, page, setPage, pagination, isLoading } = useUserFriends({
-    defaultLimit: 1,
     searchQuery: debouncedSearch,
     useLocalState: true,
   });

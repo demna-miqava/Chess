@@ -7,9 +7,7 @@ import { useFriendActions } from "@/features/friends/hooks/useFriendActions";
 
 const ProfileFriends = () => {
   const { friends, page, setPage, pagination, search, isLoading } =
-    useUserFriends({
-      defaultLimit: 1,
-    });
+    useUserFriends({});
   const { onChallenge, onRemove, onMessage } = useFriendActions();
 
   const total = pagination?.total ?? 0;
