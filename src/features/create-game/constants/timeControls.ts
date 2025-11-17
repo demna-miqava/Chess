@@ -40,7 +40,7 @@ export const PLAY_TIME_CONTROLS = [
     label: formatTimeControl(
       option.time,
       option.increment > 0 ? option.increment : undefined,
-      "|"
+      " | "
     ),
   })),
 }));
