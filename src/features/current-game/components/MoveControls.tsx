@@ -52,6 +52,7 @@ const MoveControls = () => {
       {moveControls.map((control) => (
         <button
           key={control.id}
+          type="button"
           className="flex flex-1 items-center justify-center rounded-md bg-[#2f2f2f] py-2 text-white transition-colors hover:bg-[#3d3d3d] disabled:cursor-not-allowed disabled:opacity-50"
           title={control.title}
           aria-label={control.title}

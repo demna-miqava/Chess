@@ -108,6 +108,7 @@ export const Pagination = ({
                   onPageChange(page);
                 }}
                 isActive={currentPage === page}
+                aria-current={currentPage === page ? "page" : undefined}
                 className="cursor-pointer"
               >
                 {page}

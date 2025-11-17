@@ -11,9 +11,9 @@ export const AppLayout = () => {
         <ChallengesProvider>
           <AppSidebar />
           <SidebarInset>
-            <div className="p-4 min-h-screen">
+            <main className="p-4 min-h-screen">
               <Outlet />
-            </div>
+            </main>
           </SidebarInset>
         </ChallengesProvider>
       </SettingsProvider>

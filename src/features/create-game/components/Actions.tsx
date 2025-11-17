@@ -37,6 +37,7 @@ export const Actions = () => {
           setShouldConnect(true);
         }}
         className="w-full py-6"
+        aria-label={isSearching ? "Searching for a game" : "Start a new game"}
       >
         {isSearching ? (
           <span>Searching for a game...</span>
@@ -56,6 +57,7 @@ export const Actions = () => {
                 setActiveSection(item.section as GameSection);
               }
             }}
+            aria-label={`${item.title}: ${item.description}`}
           >
             <div className="flex items-center gap-3">
               <span

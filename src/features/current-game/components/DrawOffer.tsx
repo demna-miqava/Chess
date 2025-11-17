@@ -19,7 +19,7 @@ const DrawOffer = ({ sendMessage, onRespond }: DrawOfferProps) => {
   return (
     <div className="w-full rounded-lg border border-blue-500/40 bg-blue-500/15 p-4 dark:border-blue-500/30 dark:bg-blue-500/10">
       <div className="mb-3 flex items-center gap-2">
-        <HandshakeIcon className="size-5 text-blue-600 dark:text-blue-400" />
+        <HandshakeIcon className="size-5 text-blue-600 dark:text-blue-400" aria-hidden="true" />
         <p className="text-sm font-medium text-blue-700 dark:text-blue-300">
           Opponent offered a draw
         </p>

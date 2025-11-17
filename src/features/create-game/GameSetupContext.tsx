@@ -2,9 +2,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import {
   useTimeControl,
-  type TimeControlFormat,
   type TimeControl,
 } from "./hooks/useTimeControl";
+import type { TimeControlType } from "@/types";
 import type { Friend } from "@/types";
 
 export type GameSection =
@@ -24,7 +24,7 @@ interface GameSetupContextValue {
   // Time Control
   timeControl: TimeControl;
   updateTimeControl: (
-    format: TimeControlFormat,
+    format: TimeControlType,
     time: number,
     increment?: number
   ) => void;

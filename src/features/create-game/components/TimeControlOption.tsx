@@ -38,6 +38,8 @@ export const TimeControlOption = ({
               onClick={() => {
                 updateTimeControl(formatType, time, increment);
               }}
+              aria-label={`Select ${label} time control for ${formatType} game`}
+              aria-pressed={isSelected}
             >
               {label}
             </button>
