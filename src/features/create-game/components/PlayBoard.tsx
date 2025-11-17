@@ -1,9 +1,8 @@
 import { useUser } from "@/hooks/useUser";
-import { User } from "lucide-react";
 import { Chessground } from "@lichess-org/chessground";
 import { useEffect, useMemo, useRef } from "react";
 import { BoardLayout } from "@/features/game/components/BoardLayout";
-import { UserAvatar } from "@/components/UserAvatar";
+import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { useGameSetup } from "../GameSetupContext";
 
 export const PlayBoard = () => {
@@ -41,20 +40,12 @@ export const PlayBoard = () => {
       boardRef={boardRef}
       topPlayer={{
         name: "Opponent",
-        avatar: (
-          <div className="flex size-8 items-center justify-center rounded-full">
-            <User className="size-6 text-foreground" />
-          </div>
-        ),
+        avatar: <PlayerAvatar username="Opponent" isOpponent size="sm" />,
       }}
       bottomPlayer={{
         name: username,
         startingRating: rating,
-        avatar: (
-          <div className="flex size-8 items-center justify-center overflow-hidden rounded-full">
-            <UserAvatar src={image} username={username} />
-          </div>
-        ),
+        avatar: <PlayerAvatar username={username} avatarUrl={image} size="sm" />,
       }}
       topPlayerClock={
         <span className="rounded-md px-2 py-1 text-md tracking-wider">

@@ -1,9 +1,8 @@
 import { useUser } from "@/hooks/useUser";
-import { User } from "lucide-react";
 import { useLocation } from "react-router";
 import Clock from "./Clock";
 import { BoardLayout } from "@/features/game/components/BoardLayout";
-import { UserAvatar } from "@/components/UserAvatar";
+import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { useRef, useMemo } from "react";
 import { useSettings } from "@/features/settings/SettingsContext";
 import { calculatePlayerRating } from "../utils/rating-helpers";
@@ -69,9 +68,7 @@ const CurrentGameBoard = () => {
         newRating: opponentRatings.newRating,
         ratingChange: gameEnded ? opponentRatings.ratingChange : undefined,
         avatar: (
-          <div className="flex size-8 items-center justify-center rounded-full bg-[#3d3d3d]">
-            <User className="size-4" />
-          </div>
+          <PlayerAvatar username={opponentUsername} isOpponent size="sm" />
         ),
       }}
       bottomPlayer={{
@@ -79,11 +76,7 @@ const CurrentGameBoard = () => {
         startingRating: playerRatings.startingRating,
         newRating: playerRatings.newRating,
         ratingChange: gameEnded ? playerRatings.ratingChange : undefined,
-        avatar: (
-          <div className="flex size-8 items-center justify-center overflow-hidden rounded-full">
-            <UserAvatar src={image} username={username} />
-          </div>
-        ),
+        avatar: <PlayerAvatar username={username} avatarUrl={image} size="sm" />,
       }}
       topPlayerClock={
         <Clock

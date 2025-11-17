@@ -21,8 +21,5 @@ export const useSendFriendRequest = () => {
         queryKey: [QKEY_PENDING_FRIEND_REQUESTS, userId],
       });
     },
-    onError: (error) => {
-      console.error("Failed to send friend request:", error);
-    },
   });
 };

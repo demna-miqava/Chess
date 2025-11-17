@@ -30,9 +30,8 @@ export const useFriendActions = () => {
     removeFriendMutation.mutate(id);
   };
 
-  const onMessage = (id: string) => {
+  const onMessage = (_id: string) => {
     // TODO: Navigate to messages when messaging feature is implemented
-    console.log("messaging", id);
   };
 
   const onAddFriend = (id: string) => {

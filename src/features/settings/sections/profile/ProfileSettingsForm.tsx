@@ -22,10 +22,6 @@ export const ProfileSettingsForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Profile settings:", {
-      profileImage,
-      bio,
-    });
     // TODO: Implement save logic
   };
 

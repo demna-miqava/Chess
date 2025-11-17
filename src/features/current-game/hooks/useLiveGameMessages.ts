@@ -12,6 +12,7 @@ import { useChessSound } from "@/features/game/hooks/useChessSound";
 import { useSettings } from "@/features/settings/SettingsContext";
 import { useMessageDispatcher } from "@/hooks/useMessageDispatcher";
 import { GAME_MESSAGE_TYPES } from "@/features/game/constants/websocket-types";
+import { toast } from "sonner";
 
 interface UseLiveGameMessagesOptions {
   setGameEnded: (ended: boolean) => void;
@@ -44,8 +45,8 @@ export const useLiveGameMessages = ({
 
         // Auto-jump to latest move when opponent moves
         goToLastMove();
-      } catch (error) {
-        console.error("Failed to apply move:", error);
+      } catch {
+        toast.error("Failed to sync move. Please refresh the page.");
       }
     },
     [chessRef, cgRef, color, setTurn, playSoundForMove, goToLastMove]

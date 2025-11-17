@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCurrentUser } from "@/services/user";
 import type { User } from "@/types";
 import { QKEY_USER } from "@/constants/queryKeys";
+import { DEFAULT_AVATAR_URL } from "@/constants/defaults";
 
 export const useUser = (enabled: boolean = true) => {
   const queryClient = useQueryClient();
@@ -29,9 +30,7 @@ export const useUser = (enabled: boolean = true) => {
   return {
     ...userData,
     username: userData?.username || "",
-    image:
-      userData?.avatarUrl ??
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtb2ps4gYYHa5dwBB49DJGsUbQWVbtGAZHeQ&s",
+    image: userData?.avatarUrl ?? DEFAULT_AVATAR_URL,
     friendsCount: userData?.friendsCount ?? 0,
     joinedAt: userData?.createdAt ?? "",
     isPending,
