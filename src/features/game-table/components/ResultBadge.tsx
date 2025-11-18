@@ -8,10 +8,10 @@ export const ResultBadge = ({ result }: ResultBadgeProps) => {
 
   const badgeLabel = isDraw ? "=" : isWin ? "+" : "-";
   const badgeColor = isDraw
-    ? "bg-white/10 text-foreground"
+    ? "bg-draw-bg text-draw"
     : isWin
-      ? "bg-lime-500/20 text-green-600"
-      : "bg-rose-500/20 text-red-600";
+      ? "bg-win-bg text-win"
+      : "bg-loss-bg text-loss";
 
   const topScore = isDraw ? "½" : isWin ? "1" : "0";
   const bottomScore = isDraw ? "½" : isWin ? "0" : "1";

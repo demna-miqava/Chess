@@ -33,7 +33,7 @@ export const ProfileTabs = () => {
           <TabsTrigger
             key={tab.value}
             value={tab.value}
-            className="flex-none w-[120px] rounded-lg border border-border bg-card px-3 py-2 text-[11px] font-medium leading-tight text-foreground transition hover:bg-accent data-[state=active]:border-lime-500 data-[state=active]:bg-lime-500/20"
+            className="flex-none w-[120px] rounded-lg border border-border bg-card px-3 py-2 text-[11px] font-medium leading-tight text-foreground transition hover:bg-accent data-[state=active]:border-success data-[state=active]:bg-success-bg"
           >
             <span className="block truncate">{tab.label}</span>
           </TabsTrigger>

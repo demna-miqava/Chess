@@ -23,7 +23,7 @@ const performanceStats = [
     delta: -9,
   },
   {
-    icon: <Puzzle className="size-8 text-orange-400" />,
+    icon: <Puzzle className="size-8 text-warning" />,
     label: "Puzzles",
     rating: 2365,
     delta: 21,

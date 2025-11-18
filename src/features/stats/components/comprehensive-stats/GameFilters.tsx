@@ -25,7 +25,7 @@ const GameFilters = ({ statsData }: { statsData: ComprehensiveStatsData }) => {
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
                 activeTab === tab.id
-                  ? "border-b-2 border-blue-400 text-blue-400"
+                  ? "border-b-2 border-info text-info"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >

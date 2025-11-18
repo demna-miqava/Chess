@@ -6,18 +6,18 @@ export const TIME_CONTROL_ICONS = {
     className,
     ...props
   }: { className?: string } & React.ComponentProps<typeof Bolt>) => (
-    <Bolt className={cn("text-amber-300", className)} {...props} />
+    <Bolt className={cn("text-bullet", className)} {...props} />
   ),
   blitz: ({
     className,
     ...props
   }: { className?: string } & React.ComponentProps<typeof Zap>) => (
-    <Zap className={cn("text-amber-400", className)} {...props} />
+    <Zap className={cn("text-blitz", className)} {...props} />
   ),
   rapid: ({
     className,
     ...props
   }: { className?: string } & React.ComponentProps<typeof Clock>) => (
-    <Clock className={cn("text-green-400", className)} {...props} />
+    <Clock className={cn("text-rapid", className)} {...props} />
   ),
 };

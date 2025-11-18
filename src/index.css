@@ -16,18 +16,13 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.45 0 0);
   --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent-foreground: oklch(0.145 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -36,6 +31,52 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Semantic Colors - Vibrant & Accessible */
+  --success: oklch(0.5 0.18 140);
+  --success-foreground: oklch(1 0 0);
+  --success-bg: oklch(0.94 0.08 140);
+  --error: oklch(0.55 0.22 25);
+  --error-foreground: oklch(1 0 0);
+  --error-bg: oklch(0.94 0.09 25);
+  --warning: oklch(0.65 0.22 80);
+  --warning-foreground: oklch(0.1 0 0);
+  --warning-bg: oklch(0.94 0.09 80);
+  --info: oklch(0.55 0.18 240);
+  --info-foreground: oklch(1 0 0);
+  --info-bg: oklch(0.94 0.08 240);
+
+  /* Chess-Specific Colors - Vibrant */
+  --win: oklch(0.5 0.18 140);
+  --win-foreground: oklch(1 0 0);
+  --win-bg: oklch(0.94 0.08 140);
+  --loss: oklch(0.55 0.22 25);
+  --loss-foreground: oklch(1 0 0);
+  --loss-bg: oklch(0.94 0.09 25);
+  --draw: oklch(0.5 0.02 240);
+  --draw-foreground: oklch(1 0 0);
+  --draw-bg: oklch(0.93 0.01 240);
+
+  /* Time Control Colors - Vibrant & Distinct */
+  --bullet: oklch(0.55 0.22 25);
+  --bullet-foreground: oklch(1 0 0);
+  --blitz: oklch(0.6 0.18 80);
+  --blitz-foreground: oklch(0.15 0 0);
+  --rapid: oklch(0.5 0.18 140);
+  --rapid-foreground: oklch(1 0 0);
+
+  /* Rating Change Indicators - Vibrant */
+  --rating-up: oklch(0.5 0.18 140);
+  --rating-up-foreground: oklch(1 0 0);
+  --rating-down: oklch(0.55 0.22 25);
+  --rating-down-foreground: oklch(1 0 0);
+
+  /* Interactive States */
+  --hover-bg: oklch(0.95 0 0);
+  --active-bg: oklch(0.9 0 0);
+  --focus-ring: oklch(0.55 0.18 240);
+  --disabled-bg: oklch(0.97 0 0);
+  --disabled-foreground: oklch(0.7 0 0);
 }
 
 @theme inline {
@@ -61,11 +102,6 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -74,6 +110,52 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Semantic Colors */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-bg: var(--success-bg);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-error-bg: var(--error-bg);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-bg: var(--warning-bg);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-bg: var(--info-bg);
+
+  /* Chess-Specific Colors */
+  --color-win: var(--win);
+  --color-win-foreground: var(--win-foreground);
+  --color-win-bg: var(--win-bg);
+  --color-loss: var(--loss);
+  --color-loss-foreground: var(--loss-foreground);
+  --color-loss-bg: var(--loss-bg);
+  --color-draw: var(--draw);
+  --color-draw-foreground: var(--draw-foreground);
+  --color-draw-bg: var(--draw-bg);
+
+  /* Time Control Colors */
+  --color-bullet: var(--bullet);
+  --color-bullet-foreground: var(--bullet-foreground);
+  --color-blitz: var(--blitz);
+  --color-blitz-foreground: var(--blitz-foreground);
+  --color-rapid: var(--rapid);
+  --color-rapid-foreground: var(--rapid-foreground);
+
+  /* Rating Change Indicators */
+  --color-rating-up: var(--rating-up);
+  --color-rating-up-foreground: var(--rating-up-foreground);
+  --color-rating-down: var(--rating-down);
+  --color-rating-down-foreground: var(--rating-down-foreground);
+
+  /* Interactive States */
+  --color-hover-bg: var(--hover-bg);
+  --color-active-bg: var(--active-bg);
+  --color-focus-ring: var(--focus-ring);
+  --color-disabled-bg: var(--disabled-bg);
+  --color-disabled-foreground: var(--disabled-foreground);
 }
 
 .dark {
@@ -95,11 +177,6 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -108,6 +185,52 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Semantic Colors - Dark Mode Vibrant */
+  --success: oklch(0.65 0.2 140);
+  --success-foreground: oklch(0.1 0 0);
+  --success-bg: oklch(0.22 0.1 140);
+  --error: oklch(0.65 0.24 25);
+  --error-foreground: oklch(0.1 0 0);
+  --error-bg: oklch(0.22 0.12 25);
+  --warning: oklch(0.75 0.24 80);
+  --warning-foreground: oklch(0.1 0 0);
+  --warning-bg: oklch(0.25 0.12 80);
+  --info: oklch(0.65 0.2 240);
+  --info-foreground: oklch(0.1 0 0);
+  --info-bg: oklch(0.22 0.1 240);
+
+  /* Chess-Specific Colors - Dark Mode Vibrant */
+  --win: oklch(0.65 0.2 140);
+  --win-foreground: oklch(0.1 0 0);
+  --win-bg: oklch(0.22 0.1 140);
+  --loss: oklch(0.65 0.24 25);
+  --loss-foreground: oklch(0.1 0 0);
+  --loss-bg: oklch(0.22 0.12 25);
+  --draw: oklch(0.6 0.02 240);
+  --draw-foreground: oklch(0.1 0 0);
+  --draw-bg: oklch(0.23 0.01 240);
+
+  /* Time Control Colors - Dark Mode Vibrant */
+  --bullet: oklch(0.65 0.24 25);
+  --bullet-foreground: oklch(0.1 0 0);
+  --blitz: oklch(0.7 0.2 80);
+  --blitz-foreground: oklch(0.1 0 0);
+  --rapid: oklch(0.65 0.2 140);
+  --rapid-foreground: oklch(0.1 0 0);
+
+  /* Rating Change Indicators - Dark Mode Vibrant */
+  --rating-up: oklch(0.65 0.2 140);
+  --rating-up-foreground: oklch(0.1 0 0);
+  --rating-down: oklch(0.65 0.24 25);
+  --rating-down-foreground: oklch(0.1 0 0);
+
+  /* Interactive States - Dark Mode */
+  --hover-bg: oklch(0.25 0 0);
+  --active-bg: oklch(0.3 0 0);
+  --focus-ring: oklch(0.65 0.2 240);
+  --disabled-bg: oklch(0.2 0 0);
+  --disabled-foreground: oklch(0.45 0 0);
 }
 
 @layer base {

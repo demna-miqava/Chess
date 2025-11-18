@@ -1,11 +1,11 @@
 export const GAME_BUTTON_STYLES = {
   resign:
-    "flex flex-1 items-center justify-center gap-2 rounded-md bg-red-600/20 px-4 py-2 text-sm font-medium text-red-400 transition-colors hover:bg-red-600/30",
-  draw: "flex flex-1 items-center justify-center gap-2 rounded-md bg-blue-600/20 px-4 py-2 text-sm font-medium text-blue-400 transition-colors hover:bg-blue-600/30",
+    "flex flex-1 items-center justify-center gap-2 rounded-md bg-loss text-loss-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-loss/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring",
+  draw: "flex flex-1 items-center justify-center gap-2 rounded-md bg-draw text-draw-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-draw/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring",
   abort:
-    "flex w-full items-center justify-center gap-2 rounded-md bg-orange-600/20 px-4 py-2 text-sm font-medium text-orange-400 transition-colors hover:bg-orange-600/30",
+    "flex w-full items-center justify-center gap-2 rounded-md bg-warning text-warning-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-warning/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring",
   accept:
-    "flex flex-1 items-center justify-center gap-2 rounded-md bg-green-600/20 px-4 py-2 text-sm font-medium text-green-400 transition-colors hover:bg-green-600/30",
+    "flex flex-1 items-center justify-center gap-2 rounded-md bg-win text-win-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-win/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring",
   decline:
-    "flex flex-1 items-center justify-center gap-2 rounded-md bg-red-600/20 px-4 py-2 text-sm font-medium text-red-400 transition-colors hover:bg-red-600/30",
+    "flex flex-1 items-center justify-center gap-2 rounded-md bg-loss text-loss-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-loss/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring",
 } as const;

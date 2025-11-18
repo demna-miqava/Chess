@@ -32,11 +32,11 @@ export const MovesContainer = () => {
         )}
         {showOpponentDeclined && (
           <div
-            className="w-full rounded-lg border border-gray-500/40 bg-gray-500/15 p-4 dark:border-gray-500/30 dark:bg-gray-500/10"
+            className="w-full rounded-lg border border-border bg-muted p-4"
             role="status"
             aria-live="polite"
           >
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <p className="text-sm font-medium text-muted-foreground">
               Opponent declined the draw
             </p>
           </div>

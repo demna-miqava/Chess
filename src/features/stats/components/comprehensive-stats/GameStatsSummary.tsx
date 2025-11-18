@@ -15,8 +15,8 @@ const GameStatsSummary = ({
       <div className="flex items-center gap-3">
         <Folder className="size-12" />
         <div>
-          <span className="text-lg font-medium text-white">Games</span>
-          <div className="text-3xl font-bold text-white">
+          <span className="text-lg font-medium text-foreground">Games</span>
+          <div className="text-3xl font-bold text-foreground">
             {totalGames.toLocaleString()}
           </div>
         </div>

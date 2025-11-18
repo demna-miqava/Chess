@@ -12,25 +12,25 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     title: "Home",
     url: "/home",
     icon: Home,
-    color: "text-sky-600 dark:text-sky-400",
+    color: "text-muted-foreground",
   },
   {
     title: "Puzzles",
     url: "/home",
     icon: Puzzle,
-    color: "text-violet-600 dark:text-violet-400",
+    color: "text-muted-foreground",
   },
   {
     title: "Profile",
     url: (username: string) => `/profile/${username}`,
     icon: User,
-    color: "text-emerald-600 dark:text-emerald-400",
+    color: "text-muted-foreground",
   },
   {
     title: "Settings",
     url: "/settings",
     icon: Settings,
-    color: "text-amber-600 dark:text-amber-400",
+    color: "text-muted-foreground",
   },
 ];
 

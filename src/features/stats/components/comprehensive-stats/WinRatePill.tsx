@@ -21,22 +21,22 @@ export default function WinRatePill({ won, drawn, lost }: Props) {
         ...won,
         id: "won",
         label: "Won",
-        color: "bg-green-500",
-        text: "text-green-400",
+        color: "bg-win",
+        text: "text-win",
       },
       {
         ...drawn,
         id: "drawn",
         label: "Drawn",
-        color: "bg-neutral-400",
-        text: "text-neutral-300",
+        color: "bg-draw",
+        text: "text-draw",
       },
       {
         ...lost,
         id: "lost",
         label: "Lost",
-        color: "bg-red-500",
-        text: "text-red-400",
+        color: "bg-loss",
+        text: "text-loss",
       },
     ];
     return unfiltered.filter((segment) => segment.percent > 0);

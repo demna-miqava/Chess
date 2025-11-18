@@ -1,4 +1,5 @@
 import { CountingNumber } from "@/components/ui/shadcn-io/counting-number";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import type { ReactNode } from "react";
 
 interface PlayerDisplayProps {
@@ -36,11 +37,18 @@ export const PlayerDisplay = ({
               {ratingChange !== undefined && (
                 <span
                   className={
-                    ratingChange >= 0 ? "text-green-500" : "text-red-500"
+                    ratingChange >= 0 ? "flex items-center gap-0.5 text-rating-up" : "flex items-center gap-0.5 text-rating-down"
                   }
                 >
-                  {ratingChange >= 0 ? "+" : ""}
-                  {ratingChange}
+                  {ratingChange >= 0 ? (
+                    <TrendingUp className="h-3 w-3" aria-hidden="true" />
+                  ) : (
+                    <TrendingDown className="h-3 w-3" aria-hidden="true" />
+                  )}
+                  <span>
+                    {ratingChange >= 0 ? "+" : ""}
+                    {ratingChange}
+                  </span>
                 </span>
               )}
             </div>

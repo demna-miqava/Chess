@@ -16,9 +16,9 @@ export const TimeControlCell = ({
   const displayText = formatTimeControl(time, increment ?? undefined, "|");
 
   return (
-    <div className="flex flex-col items-center gap-1 text-xs text-white/70">
+    <div className="flex flex-col items-center gap-1 text-xs">
       <Icon />
-      <span className="font-medium text-gray-400">{displayText}</span>
+      <span className="font-medium text-muted-foreground">{displayText}</span>
     </div>
   );
 };

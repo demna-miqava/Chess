@@ -54,7 +54,7 @@ export const Challenges = () => {
               </Button>
               <Button
                 onClick={() => handleAcceptChallenge(challenge.challengerId)}
-                className="rounded-lg bg-lime-500 px-3 py-1 text-xs font-semibold text-lime-950 hover:bg-lime-600 transition-colors"
+                className="rounded-lg bg-win px-3 py-1 text-xs font-semibold text-win-foreground hover:bg-win/90 transition-colors"
               >
                 Accept
               </Button>

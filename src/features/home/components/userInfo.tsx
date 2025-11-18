@@ -1,10 +1,6 @@
 import { Link } from "react-router";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../../components/ui/avatar";
 import { useUser } from "@/hooks/useUser";
+import { UserAvatar } from "@/components/UserAvatar";
 
 export const UserInfo = () => {
   const { image, username } = useUser();
@@ -12,10 +8,7 @@ export const UserInfo = () => {
   return (
     <div className="flex items-center gap-2">
       <Link to={`/profile/${username}`}>
-        <Avatar>
-          {image && <AvatarImage src={image} />}
-          <AvatarFallback>{username?.charAt(0)}</AvatarFallback>
-        </Avatar>
+        <UserAvatar src={image} username={username} />
       </Link>
       <span className="text-sm font-medium">{username}</span>
     </div>

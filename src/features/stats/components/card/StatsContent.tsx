@@ -14,7 +14,7 @@ const StatsAccordionContent = ({ gameStats }: StatsAccordionContentProps) => {
         label="Highest"
         value={
           <div className="flex items-center gap-2">
-            <span className="text-green-500 font-medium">
+            <span className="text-success font-medium">
               {gameStats.highestRating}
             </span>
             <span className="text-muted-foreground text-sm">
@@ -30,11 +30,11 @@ const StatsAccordionContent = ({ gameStats }: StatsAccordionContentProps) => {
         label="W/D/L"
         value={
           <div className="flex items-center gap-1">
-            <span className="text-green-500 font-medium">{gameStats.wins}</span>
+            <span className="text-win font-medium">{gameStats.wins}</span>
             <span className="text-muted-foreground">/</span>
-            <span className="text-muted-foreground">{gameStats.draws}</span>
+            <span className="text-draw">{gameStats.draws}</span>
             <span className="text-muted-foreground">/</span>
-            <span className="text-destructive">{gameStats.losses}</span>
+            <span className="text-loss">{gameStats.losses}</span>
           </div>
         }
       />

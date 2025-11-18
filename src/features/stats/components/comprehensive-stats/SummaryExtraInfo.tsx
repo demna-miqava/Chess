@@ -43,8 +43,8 @@ const Container = ({
     <div className="flex items-center gap-4">
       {Icon}
       <div>
-        <p className="text-gray-300 text-sm">{title}</p>
-        <p className="text-gray-200 font-medium text-xl">{content}</p>
+        <p className="text-muted-foreground text-sm">{title}</p>
+        <p className="text-foreground font-medium text-xl">{content}</p>
       </div>
     </div>
   );

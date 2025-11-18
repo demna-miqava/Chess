@@ -82,9 +82,9 @@ export function AppSidebar() {
               }
             >
               {theme === "dark" ? (
-                <Sun className="text-amber-500" />
+                <Sun className="text-muted-foreground" />
               ) : (
-                <Moon className="text-sky-600" />
+                <Moon className="text-muted-foreground" />
               )}
               <span className="text-lg font-medium group-data-[collapsible=icon]:hidden">
                 {theme === "dark" ? "Light Mode" : "Dark Mode"}
@@ -93,7 +93,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={logout} tooltip="Logout">
-              <LogOut className="text-red-500" />
+              <LogOut className="text-muted-foreground" />
               <span className="text-lg font-medium group-data-[collapsible=icon]:hidden">
                 Logout
               </span>

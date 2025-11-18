@@ -11,7 +11,7 @@ const RatingDelta = ({
   if (delta === 0 || !delta) return null;
 
   const trend = delta > 0 ? "up" : "down";
-  const trendColor = trend === "up" ? "text-green-400" : "text-red-400";
+  const trendColor = trend === "up" ? "text-rating-up" : "text-rating-down";
   const IconComponent = trend === "up" ? TrendingUp : TrendingDown;
 
   return (

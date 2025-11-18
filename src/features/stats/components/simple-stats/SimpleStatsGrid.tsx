@@ -5,7 +5,7 @@ import { TIME_CONTROL_ICONS } from "@/constants/timeControlIcons";
 
 const simpleStats = [
   {
-    icon: <Sun className="size-12 text-yellow-300" />,
+    icon: <Sun className="size-12 text-warning" />,
     label: "Games",
     value: "1,847",
   },
@@ -28,7 +28,7 @@ const simpleStats = [
     delta: 0,
   },
   {
-    icon: <Puzzle className="size-12 text-orange-500" />,
+    icon: <Puzzle className="size-12 text-warning" />,
     label: "Puzzles",
     value: "960",
     delta: -45,

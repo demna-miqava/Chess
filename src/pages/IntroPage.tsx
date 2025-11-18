@@ -9,8 +9,8 @@ const IntroPage = () => {
       <Logo />
 
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold">Welcome to ChessHub</h1>
-        <p className="text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-foreground">Welcome to ChessHub</h1>
+        <p className="text-sm text-muted-foreground">
           Improve your chess skills with our app. Enjoy!
         </p>
         <Button onClick={() => navigate("/signup")}>Get Started</Button>
