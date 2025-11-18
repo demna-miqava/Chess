@@ -6,11 +6,13 @@ import { ActionButton } from "./ActionButton";
 import RematchOffered from "./RematchOffered";
 import RematchRequested from "./RematchRequested";
 import PostGameActions from "./PostGameActions";
+import { useSettings } from "@/features/settings/SettingsContext";
 interface MatchActionsProps {
   gameEnded: boolean;
 }
 
 const MatchActions = ({ gameEnded }: MatchActionsProps) => {
+  const { settings } = useSettings();
   const {
     openGameResultDialog,
     setOpenGameResultDialog,
@@ -32,6 +34,8 @@ const MatchActions = ({ gameEnded }: MatchActionsProps) => {
     setOpenGameResultDialog,
   });
 
+  const confirmDrawResignationEnabled = settings?.confirmDrawResignationEnabled;
+
   return (
     <>
       {!gameEnded && (
@@ -50,12 +54,22 @@ const MatchActions = ({ gameEnded }: MatchActionsProps) => {
                 onClick={onResign}
                 icon={<Flag className="size-4" />}
                 label="Resign"
+                confirmTitle={
+                  confirmDrawResignationEnabled
+                    ? "Are you sure you want to resign?"
+                    : undefined
+                }
               />
               <ActionButton
                 variant="draw"
                 onClick={onOfferDraw}
                 icon={<HandshakeIcon className="size-4" />}
                 label="Offer Draw"
+                confirmTitle={
+                  confirmDrawResignationEnabled
+                    ? "Are you sure you want to offer draw?"
+                    : undefined
+                }
               />
             </div>
           )}
