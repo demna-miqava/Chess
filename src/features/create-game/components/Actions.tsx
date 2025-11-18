@@ -29,6 +29,22 @@ export const Actions = () => {
     increment: timeControl.increment,
   });
 
+  if (isSearching) {
+    return (
+      <div className="h-full flex flex-col justify-center items-center gap-4 animate-pulse">
+        <p>Searching for a game...</p>
+        <Button
+          className="cursor-pointer"
+          onClick={() => {
+            setShouldConnect(false);
+          }}
+        >
+          Cancel
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <>
       <Button
@@ -37,13 +53,9 @@ export const Actions = () => {
           setShouldConnect(true);
         }}
         className="w-full py-6"
-        aria-label={isSearching ? "Searching for a game" : "Start a new game"}
+        aria-label="Start a new game"
       >
-        {isSearching ? (
-          <span>Searching for a game...</span>
-        ) : (
-          <span>Start Game</span>
-        )}
+        Start Game
       </Button>
       {actionItems.map((item) => {
         const Icon = item.icon;

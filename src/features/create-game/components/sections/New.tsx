@@ -6,7 +6,7 @@ import { Actions } from "../Actions";
 export const New = () => {
   return (
     <>
-      <section className="space-y-3">
+      <section className="space-y-3 h-full">
         <TimeControlsSection />
 
         <Actions />
