@@ -1,6 +1,6 @@
-import { Navigate, useLocation } from "react-router";
+import { Navigate, useLocation } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
-import { Loader2 } from "lucide-react";
+import { FullScreenLoader } from "./FullScreenLoader";
 
 const publicRoutes = ["/", "/signin", "/signup", "/forgot-password"];
 
@@ -8,13 +8,9 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const isPublicRoute = publicRoutes.includes(location.pathname);
   const { id, isPending } = useUser();
-  // TODO: change loader
+
   if (isPending) {
-    return (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-lime-500" />
-      </div>
-    );
+    return <FullScreenLoader />;
   }
   // User is authenticated
   if (id) {
