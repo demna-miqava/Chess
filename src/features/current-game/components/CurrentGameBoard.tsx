@@ -37,7 +37,6 @@ const CurrentGameBoard = () => {
       rating: 0,
     };
 
-  // Calculate player and opponent ratings with useMemo for performance
   const playerRatings = useMemo(
     () =>
       calculatePlayerRating(

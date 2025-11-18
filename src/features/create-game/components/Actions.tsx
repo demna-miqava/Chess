@@ -4,7 +4,6 @@ import {
   type GameSection,
 } from "@/features/create-game/GameSetupContext";
 import { Button } from "@/components/ui/button";
-import { useMatchmaking } from "@/features/matchmaking/hooks/useMatchmaking";
 
 const actionItems = [
   {
@@ -22,16 +21,12 @@ const actionItems = [
 ];
 
 export const Actions = () => {
-  const { setActiveSection, timeControl } = useGameSetup();
-
-  const { setShouldConnect, isSearching } = useMatchmaking({
-    time: timeControl.time,
-    increment: timeControl.increment,
-  });
+  const { setActiveSection, timeControl, setShouldConnect, isSearching } =
+    useGameSetup();
 
   if (isSearching) {
     return (
-      <div className="h-full flex flex-col justify-center items-center gap-4 animate-pulse">
+      <div className="h-full flex flex-col justify-center items-center gap-4 animate-pulse border rounded-2xl">
         <p>Searching for a game...</p>
         <Button
           className="cursor-pointer"

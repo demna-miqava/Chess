@@ -6,6 +6,7 @@ import {
 } from "./hooks/useTimeControl";
 import type { TimeControlType } from "@/types";
 import type { Friend } from "@/types";
+import { useMatchmaking } from "@/features/matchmaking/hooks/useMatchmaking";
 
 export type GameSection =
   | "new"
@@ -30,6 +31,10 @@ interface GameSetupContextValue {
   ) => void;
   selectedFriend: Friend | null;
   setSelectedFriend: React.Dispatch<React.SetStateAction<Friend | null>>;
+
+  // Matchmaking
+  isSearching: boolean;
+  setShouldConnect: (shouldConnect: boolean) => void;
 }
 
 const GameSetupContext = createContext<GameSetupContextValue | null>(null);
@@ -47,6 +52,11 @@ export const GameSetupProvider = ({
     useState<GameSection>(initialSection);
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
   const { timeControl, updateTimeControl } = useTimeControl();
+
+  const { isSearching, setShouldConnect } = useMatchmaking({
+    time: timeControl.time,
+    increment: timeControl.increment,
+  });
 
   const canGoBack = activeSection !== "new";
   const goBack = () => {
@@ -78,6 +88,8 @@ export const GameSetupProvider = ({
         updateTimeControl,
         selectedFriend,
         setSelectedFriend,
+        isSearching,
+        setShouldConnect,
       }}
     >
       {children}

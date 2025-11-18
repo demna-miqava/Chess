@@ -2,12 +2,15 @@ import { TimeControlsSection } from "../TimeControlsSection";
 import { Challenges } from "../Challenges";
 import { DailyGameInfo } from "../DailyGameInfo";
 import { Actions } from "../Actions";
+import { useGameSetup } from "@/features/create-game/GameSetupContext";
 
 export const New = () => {
+  const { isSearching } = useGameSetup();
+
   return (
     <>
       <section className="space-y-3 h-full">
-        <TimeControlsSection />
+        {!isSearching && <TimeControlsSection />}
 
         <Actions />
       </section>
