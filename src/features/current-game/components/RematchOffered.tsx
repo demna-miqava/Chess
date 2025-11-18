@@ -12,7 +12,7 @@ const RematchOffered = ({ onAcceptRematch, onDeclineRematch }: Props) => {
         <p className="text-center text-muted-foreground text-sm">
           Opponent wants a rematch!
         </p>
-        <div className="flex">
+        <div className="flex gap-4">
           <Button onClick={onAcceptRematch} className="flex-1 cursor-pointer">
             Accept
           </Button>
