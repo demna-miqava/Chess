@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const tabs = [
   { value: "overview", label: "Overview" },

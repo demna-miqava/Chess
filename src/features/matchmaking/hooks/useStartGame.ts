@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import type { MatchFoundMessage } from "../types/websocket-messages";
 import { MATCHMAKING_MESSAGE_TYPES } from "../constants/websocket-types";
 

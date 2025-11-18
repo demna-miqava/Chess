@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useMessageDispatcher } from "@/hooks/useMessageDispatcher";

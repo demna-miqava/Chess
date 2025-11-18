@@ -1,6 +1,6 @@
 import { Mail, Settings, Users } from "lucide-react";
 import { UserInfo } from "./UserInfo";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (

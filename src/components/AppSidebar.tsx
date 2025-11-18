@@ -18,7 +18,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import { useUser } from "@/hooks/useUser";
 import { useMemo } from "react";

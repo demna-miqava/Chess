@@ -5,7 +5,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { UserAvatar } from "@/components/UserAvatar";
-import { Link, useParams } from "react-router";
+import { Link, useParams } from "react-router-dom";
 import FriendPopover from "../../components/Popover";
 
 const FriendsGrid = () => {

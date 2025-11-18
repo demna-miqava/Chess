@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useMatchmaking } from "@/features/matchmaking/hooks/useMatchmaking";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   onRematch: () => void;

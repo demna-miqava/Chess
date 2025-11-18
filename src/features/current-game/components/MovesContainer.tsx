@@ -3,7 +3,7 @@ import MoveControls from "./MoveControls";
 import DrawOffer from "./DrawOffer";
 import { Button } from "@/components/ui/button";
 import { useMatchmaking } from "@/features/matchmaking/hooks/useMatchmaking";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import MatchActions from "./MatchActions";
 import { useLiveGame } from "../contexts/LiveGameContext";
 import { useDrawOffer } from "../hooks/useDrawOffer";

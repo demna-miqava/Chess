@@ -3,7 +3,7 @@ import { MovesContainer } from "@/features/current-game/components/MovesContaine
 import { ChessBoardProvider } from "@/features/game/contexts/ChessBoardContext";
 import { GameNavigationProvider } from "@/features/game/contexts/GameNavigationContext";
 import { LiveGameProvider } from "@/features/current-game/contexts/LiveGameContext";
-import { useParams, useLocation } from "react-router";
+import { useParams, useLocation } from "react-router-dom";
 
 const CurrentGame = () => {
   const { gameId } = useParams();

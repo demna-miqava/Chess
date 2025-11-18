@@ -1,6 +1,6 @@
 import { Bot, Handshake, Plus, Zap } from "lucide-react";
 import { useMemo } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export const QuickPlayGrid = () => {
   // TODO: should come from API

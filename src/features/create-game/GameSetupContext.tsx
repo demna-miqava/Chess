@@ -6,7 +6,7 @@ import {
   useMemo,
   useCallback,
 } from "react";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useTimeControl, type TimeControl } from "./hooks/useTimeControl";
 import type { TimeControlType } from "@/types";
 import type { Friend } from "@/types";

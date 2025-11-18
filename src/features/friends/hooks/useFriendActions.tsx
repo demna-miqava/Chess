@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useSendFriendRequest } from "../suggestions/hooks/useSendFriendRequest";
 import { useRemoveFriend } from "./useRemoveFriend";
 import type { Friend } from "@/types";

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "@/hooks/useUser";
 import { useMutation } from "@tanstack/react-query";
 import { logout as logoutApi } from "@/services/user";

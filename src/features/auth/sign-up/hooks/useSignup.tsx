@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import type { SignupSkill } from "../types";
 import { useMutation } from "@tanstack/react-query";
 import { signUp } from "@/services/user";

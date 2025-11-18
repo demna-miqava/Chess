@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { createColumns } from "./Columns";
 import { useUserGames } from "./hooks/useUserGames";
 import { DataTable } from "./DataTable";

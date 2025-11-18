@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useWebSocket from "react-use-websocket";
 import { BOARD_CONFIG } from "../constants/board-config";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { parseWebSocketMessage } from "../utils/websocket-helpers";
 import { messageDispatcher } from "@/services/websocketMessageDispatcher";
 import type { GameWebSocketMessage } from "../types/websocket-messages";
