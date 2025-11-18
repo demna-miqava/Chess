@@ -18,6 +18,8 @@ const CurrentGameBoard = () => {
     gameEnded,
     ratingChanges,
     sendMessage,
+    whiteTimeLeft,
+    blackTimeLeft,
     pendingPromotion,
     handlePromotionSelect,
     cancelPromotion,
@@ -25,13 +27,12 @@ const CurrentGameBoard = () => {
   const timeoutSentRef = useRef(false);
   const { settings } = useSettings();
 
-  const { opponentRating, opponentUsername, rating, color, time, increment } =
+  const { opponentRating, opponentUsername, rating, color, time } =
     useLocation().state || {
       opponentRating: 0,
       opponentUsername: "",
       color: "",
       time: 180,
-      increment: 0,
       rating: 0,
     };
 
@@ -57,7 +58,12 @@ const CurrentGameBoard = () => {
         settings?.showRatingsDuringGameEnabled ?? false,
         false
       ),
-    [opponentRating, color, ratingChanges, settings?.showRatingsDuringGameEnabled]
+    [
+      opponentRating,
+      color,
+      ratingChanges,
+      settings?.showRatingsDuringGameEnabled,
+    ]
   );
 
   const handleTimeout = () => {
@@ -84,24 +90,26 @@ const CurrentGameBoard = () => {
         startingRating: playerRatings.startingRating,
         newRating: playerRatings.newRating,
         ratingChange: gameEnded ? playerRatings.ratingChange : undefined,
-        avatar: <PlayerAvatar username={username} avatarUrl={image} size="sm" />,
+        avatar: (
+          <PlayerAvatar username={username} avatarUrl={image} size="sm" />
+        ),
       }}
       topPlayerClock={
         <Clock
           startingTime={time}
-          increment={increment}
           isActive={turn !== color}
           onTimeout={turn !== color ? handleTimeout : undefined}
           gameEnded={gameEnded}
+          serverTimeLeft={color === "white" ? blackTimeLeft : whiteTimeLeft}
         />
       }
       bottomPlayerClock={
         <Clock
           startingTime={time}
-          increment={increment}
           isActive={turn === color}
           onTimeout={turn === color ? handleTimeout : undefined}
           gameEnded={gameEnded}
+          serverTimeLeft={color === "white" ? whiteTimeLeft : blackTimeLeft}
         />
       }
     >

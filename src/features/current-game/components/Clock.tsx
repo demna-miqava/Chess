@@ -3,18 +3,24 @@ import { formatTime } from "@/features/game/utils/time-formatter";
 
 const Clock = ({
   startingTime,
-  increment,
   isActive,
   onTimeout,
   gameEnded = false,
+  serverTimeLeft,
 }: {
   startingTime: number;
-  increment?: number;
   isActive: boolean;
   onTimeout?: () => void;
   gameEnded?: boolean;
+  serverTimeLeft?: number; // Time from server in milliseconds
 }) => {
-  const { time, isLowTime } = useClock({ startingTime, increment, isActive, onTimeout, gameEnded });
+  const { time, isLowTime } = useClock({
+    startingTime,
+    isActive,
+    onTimeout,
+    gameEnded,
+    serverTimeLeft,
+  });
   const formattedTime = formatTime(time, isLowTime);
 
   return (

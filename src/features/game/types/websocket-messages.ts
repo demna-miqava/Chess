@@ -50,6 +50,9 @@ export type MoveMessage = {
   userId?: string;
   fen?: string;
   pgn?: string;
+  moveNumber?: number;
+  whiteTimeLeft?: number; // Time left in milliseconds
+  blackTimeLeft?: number; // Time left in milliseconds
 };
 
 export type TimeoutMessage = {
@@ -68,9 +71,15 @@ export type StalemateMessage = {
 export type InitialGameStateMessage = {
   type: GAME_MESSAGE_TYPES.INITIAL_GAME_STATE;
   data?: {
+    gameId: number;
     fen: string;
     pgn?: string;
+    time: number; // Initial time in seconds
+    increment?: number | null; // Increment in seconds
+    status?: string;
     isFinished?: boolean;
+    whiteTimeLeft?: number; // Current time left in milliseconds
+    blackTimeLeft?: number; // Current time left in milliseconds
   };
 };
 

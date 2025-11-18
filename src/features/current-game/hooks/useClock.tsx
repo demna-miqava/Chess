@@ -15,33 +15,36 @@ const getTimeControlFormat = (timeInSeconds: number): TimeControlType => {
 
 export const useClock = ({
   startingTime,
-  increment,
   isActive,
   onTimeout,
   gameEnded = false,
+  serverTimeLeft,
 }: {
   startingTime: number; // in seconds
-  increment?: number; // in seconds
   isActive: boolean;
   onTimeout?: () => void;
   gameEnded?: boolean;
+  serverTimeLeft?: number; // Time from server in milliseconds
 }) => {
-  const startingTimeMs = startingTime * ONE_SECOND_MS;
-  const incrementMs = increment ? increment * ONE_SECOND_MS : 0;
-
-  const [time, setTime] = useState(startingTimeMs);
+  const [time, setTime] = useState(
+    serverTimeLeft ?? startingTime * ONE_SECOND_MS
+  );
   const lastTickRef = useRef<number>(Date.now());
   const intervalRef = useRef<number | null>(null);
   const timeoutCalledRef = useRef(false);
 
   const format = getTimeControlFormat(startingTime);
   const isLowTime = time <= LOW_TIME_THRESHOLDS[format];
-  // TODO: Check requestAnimationFrame for better countdown experience
-  useEffect(() => {
-    setTime(startingTimeMs);
-    timeoutCalledRef.current = false; // Reset timeout flag when time changes
-  }, [startingTimeMs]);
 
+  // Sync with server time when received
+  useEffect(() => {
+    if (serverTimeLeft !== undefined && serverTimeLeft !== null) {
+      setTime(serverTimeLeft);
+      lastTickRef.current = Date.now();
+    }
+  }, [serverTimeLeft]);
+
+  // Handle timeout
   useEffect(() => {
     if (time === 0 && !timeoutCalledRef.current && onTimeout) {
       timeoutCalledRef.current = true;
@@ -49,22 +52,12 @@ export const useClock = ({
     }
   }, [time, onTimeout]);
 
+  // Countdown timer - runs between server updates for smooth display
   useEffect(() => {
-    if (gameEnded) {
+    if (gameEnded || !isActive) {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
-      }
-      return;
-    }
-
-    if (!isActive) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-        if (incrementMs > 0) {
-          setTime((prev) => prev + incrementMs);
-        }
       }
       return;
     }
@@ -84,7 +77,7 @@ export const useClock = ({
         clearInterval(intervalRef.current);
       }
     };
-  }, [incrementMs, isActive, gameEnded]);
+  }, [isActive, gameEnded]);
 
   return { time, isLowTime };
 };

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import type {
   RatingChanges,
   MoveMessage,
@@ -13,6 +13,7 @@ import { useSettings } from "@/features/settings/SettingsContext";
 import { useMessageDispatcher } from "@/hooks/useMessageDispatcher";
 import { GAME_MESSAGE_TYPES } from "@/features/game/constants/websocket-types";
 import { toast } from "sonner";
+import { useUser } from "@/hooks/useUser";
 
 interface UseLiveGameMessagesOptions {
   setGameEnded: (ended: boolean) => void;
@@ -27,6 +28,14 @@ export const useLiveGameMessages = ({
   const { goToLastMove } = useGameNavigation();
   const { settings } = useSettings();
   const { playSoundForMove } = useChessSound(settings?.soundsEnabled);
+  const { id: currentUserId } = useUser();
+
+  const [whiteTimeLeft, setWhiteTimeLeft] = useState<number | undefined>(
+    undefined
+  );
+  const [blackTimeLeft, setBlackTimeLeft] = useState<number | undefined>(
+    undefined
+  );
 
   // Handle move messages
   const handleMove = useCallback(
@@ -35,21 +44,40 @@ export const useLiveGameMessages = ({
       if (!data.move) return;
 
       const chess = chessRef.current;
-
+      const isOwnMove = data.userId === currentUserId;
       try {
-        const move = chess.move(data.move.lan);
-        const isCheckmate = chess.isCheckmate();
+        // Only apply the move to chess.js if it's from opponent
+        if (!isOwnMove) {
+          const move = chess.move(data.move.lan);
+          const isCheckmate = chess.isCheckmate();
 
-        syncBoardState(chessRef, cgRef, color, setTurn);
-        playSoundForMove(move, isCheckmate);
+          syncBoardState(chessRef, cgRef, color, setTurn);
+          playSoundForMove(move, isCheckmate);
 
-        // Auto-jump to latest move when opponent moves
-        goToLastMove();
+          // Auto-jump to latest move when opponent moves
+          goToLastMove();
+        }
+
+        // Always update clocks with server time (for both players)
+        if (data.whiteTimeLeft !== undefined) {
+          setWhiteTimeLeft(data.whiteTimeLeft);
+        }
+        if (data.blackTimeLeft !== undefined) {
+          setBlackTimeLeft(data.blackTimeLeft);
+        }
       } catch {
         toast.error("Failed to sync move. Please refresh the page.");
       }
     },
-    [chessRef, cgRef, color, setTurn, playSoundForMove, goToLastMove]
+    [
+      chessRef,
+      cgRef,
+      color,
+      setTurn,
+      playSoundForMove,
+      goToLastMove,
+      currentUserId,
+    ]
   );
 
   // Handle game_ended messages
@@ -78,6 +106,14 @@ export const useLiveGameMessages = ({
       if (data.data.isFinished) {
         setGameEnded(true);
       }
+
+      // Set initial clock times if provided
+      if (data.data.whiteTimeLeft !== undefined) {
+        setWhiteTimeLeft(data.data.whiteTimeLeft);
+      }
+      if (data.data.blackTimeLeft !== undefined) {
+        setBlackTimeLeft(data.data.blackTimeLeft);
+      }
     },
     [chessRef, cgRef, color, setTurn, setGameEnded]
   );
@@ -94,4 +130,6 @@ export const useLiveGameMessages = ({
     GAME_MESSAGE_TYPES.INITIAL_GAME_STATE,
     handleInitialState
   );
+
+  return { whiteTimeLeft, blackTimeLeft };
 };

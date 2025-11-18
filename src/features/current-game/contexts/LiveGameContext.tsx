@@ -29,6 +29,8 @@ interface LiveGameContextValue {
   gameEnded: boolean;
   ratingChanges: RatingChanges | null;
   sendMessage: SendMessage;
+  whiteTimeLeft: number | undefined;
+  blackTimeLeft: number | undefined;
   pendingPromotion: PendingPromotion | null;
   handlePromotionSelect: (piece: PieceSymbol) => void;
   cancelPromotion: () => void;
@@ -173,7 +175,7 @@ export const LiveGameProvider = ({ children }: LiveGameProviderProps) => {
     });
   }, [cgRef, handleMove]);
 
-  useLiveGameMessages({
+  const { whiteTimeLeft, blackTimeLeft } = useLiveGameMessages({
     setGameEnded,
     setRatingChanges,
   });
@@ -185,6 +187,8 @@ export const LiveGameProvider = ({ children }: LiveGameProviderProps) => {
     pendingPromotion,
     handlePromotionSelect,
     cancelPromotion,
+    whiteTimeLeft,
+    blackTimeLeft,
   };
 
   return (
