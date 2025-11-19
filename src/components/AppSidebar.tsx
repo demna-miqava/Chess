@@ -33,10 +33,19 @@ export function AppSidebar() {
   const { logout } = useLogout();
 
   const items = useMemo(() => getSidebarItems(username || ""), [username]);
+  const logoSrc = theme === "dark" ? "/logo_dark.png" : "/logo_light.png";
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader>(Logo)</SidebarHeader>
+      <SidebarHeader>
+        <div className="flex items-center justify-start py-4">
+          <img
+            src={logoSrc}
+            alt="GambitFlow"
+            className="h-12 w-full object-cover"
+          />
+        </div>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
