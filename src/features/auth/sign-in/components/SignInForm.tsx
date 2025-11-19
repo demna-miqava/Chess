@@ -59,22 +59,7 @@ const SignInForm = () => {
           )}
         />
 
-        <div className="flex items-center justify-between text-sm text-white/70">
-          <FormField
-            control={form.control}
-            name="rememberMe"
-            render={({ field }) => (
-              <label className="flex items-center gap-2">
-                <Input
-                  type="checkbox"
-                  className="size-4 rounded border-white/30 bg-transparent text-lime-500 focus:ring-lime-400"
-                  checked={field.value}
-                  onChange={field.onChange}
-                />
-                Remember me
-              </label>
-            )}
-          />
+        <div className="flex items-center justify-end text-sm text-white/70">
           <Link to={ROUTES.AUTH.FORGOT_PASSWORD} className="text-white hover:underline">
             Forgot password?
           </Link>

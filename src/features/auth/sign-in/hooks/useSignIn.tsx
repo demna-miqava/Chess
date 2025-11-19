@@ -12,7 +12,6 @@ import { ROUTES } from "@/constants/routes";
 const signInSchema = z.object({
   emailOrUsername: z.string().min(1, "Email or username is required"),
   password: z.string().min(1, "Password is required"),
-  rememberMe: z.boolean().optional(),
 });
 
 export type SignInForm = z.infer<typeof signInSchema>;
@@ -39,7 +38,6 @@ export const useSignIn = () => {
     defaultValues: {
       emailOrUsername: "",
       password: "",
-      rememberMe: false,
     },
   });
 
