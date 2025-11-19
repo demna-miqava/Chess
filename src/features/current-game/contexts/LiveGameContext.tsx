@@ -71,7 +71,6 @@ export const LiveGameProvider = ({ children }: LiveGameProviderProps) => {
           promotion,
         });
 
-        const numberOfMoves = chess.moveNumber();
         const isCheckmate = chess.isCheckmate();
         const isStalemate = chess.isStalemate();
 
@@ -85,7 +84,7 @@ export const LiveGameProvider = ({ children }: LiveGameProviderProps) => {
             move: move,
             fen: chess.fen(),
             pgn: chess.pgn(),
-            moveNumber: numberOfMoves,
+            moveNumber: chess.history().length,
           })
         );
 
@@ -181,25 +180,28 @@ export const LiveGameProvider = ({ children }: LiveGameProviderProps) => {
     setRatingChanges,
   });
 
-  const value = useMemo<LiveGameContextValue>(() => ({
-    gameEnded,
-    ratingChanges,
-    sendMessage,
-    pendingPromotion,
-    handlePromotionSelect,
-    cancelPromotion,
-    whiteTimeLeft,
-    blackTimeLeft,
-  }), [
-    gameEnded,
-    ratingChanges,
-    sendMessage,
-    pendingPromotion,
-    handlePromotionSelect,
-    cancelPromotion,
-    whiteTimeLeft,
-    blackTimeLeft
-  ]);
+  const value = useMemo<LiveGameContextValue>(
+    () => ({
+      gameEnded,
+      ratingChanges,
+      sendMessage,
+      pendingPromotion,
+      handlePromotionSelect,
+      cancelPromotion,
+      whiteTimeLeft,
+      blackTimeLeft,
+    }),
+    [
+      gameEnded,
+      ratingChanges,
+      sendMessage,
+      pendingPromotion,
+      handlePromotionSelect,
+      cancelPromotion,
+      whiteTimeLeft,
+      blackTimeLeft,
+    ]
+  );
 
   return (
     <LiveGameContext.Provider value={value}>
