@@ -3,6 +3,7 @@ export const ROUTES = {
   PLAY: "/play",
   SETTINGS: "/settings",
   GAME: "/game/:gameId",
+  ARCHIVE_GAME: "/archive/:gameId",
   PROFILE: {
     ROOT: "/profile/:username",
     OVERVIEW: "",
@@ -20,6 +21,7 @@ export const ROUTES = {
 
 // Helper functions for dynamic routes
 export const getGameRoute = (gameId: string) => `/game/${gameId}`;
+export const getArchiveGameRoute = (gameId: string) => `/archive/${gameId}`;
 export const getProfileRoute = (username: string) => `/profile/${username}`;
 export const getProfileGamesRoute = (username: string) => `/profile/${username}/games`;
 export const getProfileStatsRoute = (username: string) => `/profile/${username}/stats`;

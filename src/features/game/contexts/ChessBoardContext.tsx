@@ -11,6 +11,7 @@ interface ChessBoardContextValue {
   turn: PlayerColor | undefined;
   setTurn: (turn: PlayerColor) => void;
   color: PlayerColor;
+  isArchiveMode: boolean;
 }
 
 const ChessBoardContext = createContext<ChessBoardContextValue | null>(null);
@@ -18,11 +19,13 @@ const ChessBoardContext = createContext<ChessBoardContextValue | null>(null);
 interface ChessBoardProviderProps {
   children: ReactNode;
   color: PlayerColor;
+  isArchiveMode?: boolean;
 }
 
 export const ChessBoardProvider = ({
   children,
   color,
+  isArchiveMode = false,
 }: ChessBoardProviderProps) => {
   const chessBoard = useChessBoard({ color });
 
@@ -33,13 +36,15 @@ export const ChessBoardProvider = ({
     turn: chessBoard.turn,
     setTurn: chessBoard.setTurn,
     color,
+    isArchiveMode,
   }), [
     chessBoard.boardRef,
     chessBoard.chessRef,
     chessBoard.cgRef,
     chessBoard.turn,
     chessBoard.setTurn,
-    color
+    color,
+    isArchiveMode,
   ]);
 
   return (

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import { ROUTES } from "@/constants/routes";
 import { AppLayout } from "@/components/AppLayout";
+import ArchiveGame from "@/pages/ArchiveGame";
 
 // Protected
 const Home = lazy(() => import("@/pages/Home"));
@@ -33,6 +34,7 @@ export const AppRoutes = () => {
         </Route>
         <Route path={ROUTES.PLAY} element={<Play />} />
         <Route path={ROUTES.GAME} element={<CurrentGame />} />
+        <Route path={ROUTES.ARCHIVE_GAME} element={<ArchiveGame />} />
         <Route path={ROUTES.SETTINGS} element={<Settings />} />
       </Route>
       <Route path={ROUTES.LANDING} element={<IntroPage />} />

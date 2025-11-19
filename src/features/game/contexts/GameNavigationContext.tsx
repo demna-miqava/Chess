@@ -28,7 +28,7 @@ interface GameNavigationProviderProps {
 export const GameNavigationProvider = ({
   children,
 }: GameNavigationProviderProps) => {
-  const { chessRef, cgRef, color } = useChessBoardContext();
+  const { chessRef, cgRef, color, isArchiveMode } = useChessBoardContext();
   const totalMoves = chessRef.current?.history().length || 0;
 
   const {
@@ -58,14 +58,15 @@ export const GameNavigationProvider = ({
         tempChess.move(history[i]);
       }
 
-      // Update the board to show this historical position (disable moves)
+      // Update the board to show this historical position
       cgRef.current.set({
         fen: tempChess.fen(),
         movable: {
-          color: undefined, // Disable moves when viewing history
-          dests: new Map(),
+          color: isArchiveMode ? "both" : undefined, // Allow moves in archive mode
+          dests: isArchiveMode ? calculateLegalMoves(tempChess) : new Map(),
         },
         check: tempChess.inCheck(),
+        turnColor: tempChess.turn() === "w" ? "white" : "black",
       });
     } else if (viewingIndex === null && history.length > 0) {
       // User navigated back to current position - restore the live board state
@@ -75,13 +76,14 @@ export const GameNavigationProvider = ({
       cgRef.current.set({
         fen: chessRef.current.fen(),
         movable: {
-          color: color,
-          dests: isMyTurn ? calculateLegalMoves(chessRef.current) : new Map(),
+          color: isArchiveMode ? "both" : color,
+          dests: (isArchiveMode || isMyTurn) ? calculateLegalMoves(chessRef.current) : new Map(),
         },
         check: chessRef.current.inCheck(),
+        turnColor: chessRef.current.turn() === "w" ? "white" : "black",
       });
     }
-  }, [viewingIndex, chessRef, cgRef, isViewingHistory, currentIndex, color]);
+  }, [viewingIndex, chessRef, cgRef, isViewingHistory, currentIndex, color, isArchiveMode]);
 
   const value = useMemo<GameNavigationContextValue>(() => ({
     goToFirstMove,

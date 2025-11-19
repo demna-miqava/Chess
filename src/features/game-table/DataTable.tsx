@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/table";
 import { Pagination } from "@/components/Pagination";
 import { GameTableSkeleton } from "./components/GameTableSkeleton";
+import { useNavigate } from "react-router";
+import { getArchiveGameRoute } from "@/constants/routes";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -41,12 +43,12 @@ export function DataTable<TData, TValue>({
   hasNextPage,
   hasPreviousPage,
 }: DataTableProps<TData, TValue>) {
+  const navigate = useNavigate();
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
-    // limit: totalPages,
   });
 
   return (
@@ -74,18 +76,28 @@ export function DataTable<TData, TValue>({
           {isLoading ? (
             <GameTableSkeleton rows={pageSize} columnCount={columns.length} />
           ) : data.length > 0 ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="text-accent-foreground">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
+            table.getRowModel().rows.map((row) => {
+              const gameId = (row.original as { id?: number }).id;
+              return (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  onClick={() => {
+                    if (gameId) navigate(getArchiveGameRoute(String(gameId)));
+                  }}
+                  className="cursor-pointer"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} className="text-accent-foreground">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              );
+            })
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">

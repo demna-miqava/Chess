@@ -1,5 +1,5 @@
-import { MovesList } from "./MovesList";
-import MoveControls from "./MoveControls";
+import { MovesList } from "../../game/components/MovesList";
+import MoveControls from "../../game/components/MoveControls";
 import DrawOffer from "./DrawOffer";
 import { Button } from "@/components/ui/button";
 import { useMatchmaking } from "@/features/matchmaking/hooks/useMatchmaking";
