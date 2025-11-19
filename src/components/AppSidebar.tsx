@@ -24,6 +24,7 @@ import { useUser } from "@/hooks/useUser";
 import { useMemo } from "react";
 import { useLogout } from "@/features/auth/hooks/useLogout";
 import { getSidebarItems } from "@/config/sidebarItems";
+import { ROUTES } from "@/constants/routes";
 
 export function AppSidebar() {
   const { theme, toggleTheme } = useTheme();
@@ -37,13 +38,15 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <div className="flex items-center justify-start py-4">
-          <img
-            src="/logo.png"
-            alt="GambitFlow"
-            className="h-12 w-full object-cover"
-          />
-        </div>
+        <Link to={ROUTES.HOME}>
+          <div className="flex items-center justify-start py-4">
+            <img
+              src="/logo.png"
+              alt="GambitFlow"
+              className="h-12 w-full object-cover"
+            />
+          </div>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
