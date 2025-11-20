@@ -10,6 +10,7 @@ import MoveControls from "@/features/game/components/MoveControls";
 import { useUser } from "@/hooks/useUser";
 import type { PlayerColor } from "@/features/game/types/game.types";
 import { FullScreenLoader } from "@/components/FullScreenLoader";
+import { GameLayout } from "@/features/game/components/GameLayout";
 
 const ArchiveGame = () => {
   const { gameId } = useParams();
@@ -32,26 +33,26 @@ const ArchiveGame = () => {
     <ChessBoardProvider color={playerColor} isArchiveMode={true} key={gameId}>
       <ArchiveGameProvider pgn={gameData.pgn || ""}>
         <GameNavigationProvider>
-          <div className="grid h-full grid-cols-1 lg:grid-cols-[1fr_300px] gap-4">
-            <div className="flex items-center justify-center">
+          <GameLayout
+            board={
               <ArchiveGameBoard
                 whitePlayer={gameData.whitePlayer}
                 blackPlayer={gameData.blackPlayer}
                 timeControl={gameData.time}
               />
-            </div>
-            <div className="flex flex-col h-full p-4">
-              <h2 className="mb-4 text-lg font-semibold text-foreground">
-                Moves
-              </h2>
-              <div className="flex-1">
-                <MovesList />
+            }
+            sidebar={
+              <div className="flex flex-col gap-4 rounded-xl border border-border/60 bg-card p-4">
+                <h2 className="text-lg font-semibold text-foreground">Moves</h2>
+                <div className="flex-1 overflow-auto">
+                  <MovesList />
+                </div>
+                <div className="mt-4">
+                  <MoveControls />
+                </div>
               </div>
-              <div className="mt-4">
-                <MoveControls />
-              </div>
-            </div>
-          </div>
+            }
+          />
         </GameNavigationProvider>
       </ArchiveGameProvider>
     </ChessBoardProvider>

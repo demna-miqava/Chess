@@ -26,7 +26,7 @@ export const Actions = () => {
 
   if (isSearching) {
     return (
-      <div className="h-full flex flex-col justify-center items-center gap-4 animate-pulse border rounded-2xl">
+      <div className="h-full flex flex-col justify-center items-center gap-4 animate-pulse border rounded-2xl p-4">
         <p>Searching for a game...</p>
         <Button
           className="cursor-pointer"

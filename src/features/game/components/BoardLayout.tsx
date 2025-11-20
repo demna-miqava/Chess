@@ -37,7 +37,7 @@ export const BoardLayout = ({
     <section className="flex w-full flex-1 flex-col overflow-hidden rounded-xl border border-border/60 bg-background shadow-sm">
       <PlayerDisplay {...topPlayer} clock={topPlayerClock} />
 
-      <div className="flex flex-1 items-center justify-center bg-background p-4">
+      <div className="flex flex-1 items-center justify-center bg-background">
         <div className="relative aspect-square w-full max-w-3xl">
           <div ref={boardRef} className="h-full w-full" />
           {children}

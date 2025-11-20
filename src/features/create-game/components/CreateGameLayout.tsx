@@ -5,8 +5,8 @@ import { GameSetupProvider } from "@/features/create-game/GameSetupContext";
 export const CreateGameLayout = () => {
   return (
     <GameSetupProvider>
-      <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_500px]">
-        <div className="hidden lg:flex lg:w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(auto,800px)_auto] gap-6 p-4 lg:p-6 lg:justify-center">
+        <div className="hidden lg:block">
           <PlayBoard />
         </div>
         <CreateGameSidebar />
