@@ -37,7 +37,7 @@ export type PaginatedGamesResponse = {
 };
 
 export type GetUserGamesParams = {
-  username: string;
+  userId: number;
   page?: number;
   limit?: number;
 };

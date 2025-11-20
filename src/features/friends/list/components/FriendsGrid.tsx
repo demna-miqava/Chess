@@ -5,16 +5,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { UserAvatar } from "@/components/UserAvatar";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FriendPopover from "../../components/Popover";
+import { useProfileUserId } from "@/hooks/useProfileUserId";
+import { getProfileFriendsRoute } from "@/constants/routes";
 
 const FriendsGrid = () => {
   const { friends, pagination } = useUserFriends({ defaultLimit: 20 });
-  const { username } = useParams();
+  const userId = useProfileUserId();
 
   return (
     <aside className="rounded-2xl border p-4 flex flex-col gap-4">
-      <Link to={`/profile/${username}/friends`}>
+      <Link to={getProfileFriendsRoute(userId || 0)}>
         <h3 className="text-sm font-semibold">
           Friends ({pagination?.total ?? 0})
         </h3>

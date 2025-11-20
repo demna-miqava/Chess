@@ -1,6 +1,6 @@
 import type { SignUpData } from "@/features/auth/sign-up/hooks/useSignup";
 import type { SignInForm } from "@/features/auth/sign-in/hooks/useSignIn";
-import type { User, AuthResponse } from "@/types";
+import type { User, AuthResponse, UserProfileResponse, PaginatedFriendsResponse, PaginatedGamesResponse } from "@/types";
 import type { ChangePasswordData, ChangeEmailData } from "@/features/auth/types";
 import { apiRequest } from ".";
 
@@ -32,4 +32,16 @@ export const changeEmail = async (data: ChangeEmailData) => {
   return apiRequest<{ message: string }>("put", "/users/change-email", {
     data,
   });
+};
+
+export const getUserProfile = async (userId: number): Promise<UserProfileResponse> => {
+  return apiRequest<UserProfileResponse>("get", `/users/${userId}`);
+};
+
+export const getUserFriends = async (userId: number, query: string): Promise<PaginatedFriendsResponse> => {
+  return apiRequest<PaginatedFriendsResponse>("get", `/users/${userId}/friends?${query}`);
+};
+
+export const getUserGames = async (userId: number, query: string): Promise<PaginatedGamesResponse> => {
+  return apiRequest<PaginatedGamesResponse>("get", `/users/${userId}/games?${query}`);
 };

@@ -6,7 +6,7 @@ import {
 import type { Friend } from "@/types";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Sword } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import { format } from "date-fns";
 import { UserAvatar } from "@/components/UserAvatar";
 import { useFriendActions } from "../hooks/useFriendActions";
@@ -20,7 +20,6 @@ const FriendPopover = ({
   data: Friend;
 }) => {
   const { username, friendsSince, avatarUrl, id } = data;
-  const navigate = useNavigate();
   const { onChallenge, onMessage } = useFriendActions();
 
   return (
@@ -28,13 +27,9 @@ const FriendPopover = ({
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent>
         <div className="flex-col gap-4">
-          {/* TODO: This should be a link */}
-          <button
-            type="button"
+          <Link
+            to={getProfileRoute(id)}
             className="flex gap-6 text-left w-full hover:opacity-80 transition-opacity"
-            onClick={() => {
-              navigate(getProfileRoute(username));
-            }}
           >
             <UserAvatar src={avatarUrl} username={username} />
             <div>
@@ -43,7 +38,7 @@ const FriendPopover = ({
                 Friends since {format(new Date(friendsSince), "MMM d, yyyy")}
               </p>
             </div>
-          </button>
+          </Link>
           <div className="flex gap-2 mt-4 justify-end">
             <Button
               size="sm"

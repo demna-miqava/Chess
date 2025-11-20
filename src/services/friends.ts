@@ -1,5 +1,5 @@
 import { apiRequest } from ".";
-import type { PaginatedFriendsResponse, Friend } from "@/types";
+import type { Friend } from "@/types";
 import type {
   PendingFriendRequestsResponse,
   SendFriendRequestParams,
@@ -9,12 +9,6 @@ export const getFriendSuggestions = (
   query: string
 ): Promise<{ data: Friend[] }> => {
   return apiRequest("get", `/friends/suggestions?${query}`);
-};
-
-export const searchFriends = (
-  query: string
-): Promise<PaginatedFriendsResponse> => {
-  return apiRequest("get", `/friends/search?${query}`);
 };
 
 export const sendFriendRequest = (
@@ -28,6 +22,6 @@ export const getPendingFriendRequests =
     return apiRequest("get", "/friend-requests/pending");
   };
 
-export const removeFriend = (friendId: string): Promise<void> => {
+export const removeFriend = (friendId: number): Promise<void> => {
   return apiRequest("delete", `/friends/${friendId}`);
 };

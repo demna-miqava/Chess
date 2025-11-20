@@ -2,7 +2,7 @@ import { Home, Puzzle, Settings, User, type LucideIcon } from "lucide-react";
 
 export interface SidebarItem {
   title: string;
-  url: string | ((username: string) => string);
+  url: string | ((id: number) => string);
   icon: LucideIcon;
   color: string;
 }
@@ -22,7 +22,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   },
   {
     title: "Profile",
-    url: (username: string) => `/profile/${username}`,
+    url: (id: number) => `/profile/${id}`,
     icon: User,
     color: "text-muted-foreground",
   },
@@ -34,9 +34,9 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   },
 ];
 
-export const getSidebarItems = (username: string) => {
+export const getSidebarItems = (id: number) => {
   return SIDEBAR_ITEMS.map((item) => ({
     ...item,
-    url: typeof item.url === "function" ? item.url(username) : item.url,
+    url: typeof item.url === "function" ? item.url(id) : item.url,
   }));
 };

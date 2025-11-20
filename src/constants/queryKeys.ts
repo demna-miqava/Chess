@@ -1,4 +1,5 @@
 export const QKEY_USER = "user";
+export const QKEY_USER_PROFILE = "user-profile";
 export const QKEY_USER_GAMES = "user-games";
 export const QKEY_GAME_BY_ID = "game";
 export const QKEY_USER_FRIENDS = "user-friends";

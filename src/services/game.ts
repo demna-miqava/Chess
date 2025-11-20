@@ -1,15 +1,14 @@
 import { apiRequest } from ".";
 import type { PaginatedGamesResponse, GetUserGamesParams, Game } from "@/types";
+import { getUserGames as getUserGamesAPI } from "./user";
 
 export const getUserGames = async ({
-  username,
+  userId,
   page = 1,
   limit = 10,
 }: GetUserGamesParams): Promise<PaginatedGamesResponse> => {
-  return apiRequest<PaginatedGamesResponse>(
-    "get",
-    `/games/archive/${username}?page=${page}&limit=${limit}`
-  );
+  const query = `page=${page}&limit=${limit}`;
+  return getUserGamesAPI(userId, query);
 };
 
 export const getGameById = async (gameId: string): Promise<Game> => {

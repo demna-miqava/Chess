@@ -27,15 +27,16 @@ export const useFriendActions = () => {
     });
   };
 
-  const onRemove = (id: string) => {
+  const onRemove = (id: number) => {
     removeFriendMutation.mutate(id);
   };
 
-  const onMessage = (_id: string) => {
+  const onMessage = (id: number) => {
+    console.log("id", id);
     // TODO: Navigate to messages when messaging feature is implemented
   };
 
-  const onAddFriend = (id: string) => {
+  const onAddFriend = (id: number) => {
     sendFriendRequestMutation.mutate(id);
   };
 

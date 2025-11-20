@@ -1,10 +1,10 @@
 export type User = {
-  id: string;
+  id: number;
   username: string;
   email: string;
   skill: string;
   avatarUrl: string | null;
-  friendsCount: number;
+  friendCount: number;
   blitzRating: number;
   bulletRating: number;
   rapidRating: number;
@@ -13,4 +13,18 @@ export type User = {
 
 export type AuthResponse = {
   user: User;
+};
+
+export type UserProfile = {
+  id: number;
+  username: string;
+  createdAt: string;
+  rapidRating: number;
+  blitzRating: number;
+  bulletRating: number;
+  friendCount: number;
+};
+
+export type UserProfileResponse = {
+  user: UserProfile;
 };

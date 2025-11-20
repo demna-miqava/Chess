@@ -1,12 +1,13 @@
 import FriendsGrid from "@/features/friends/list/components/FriendsGrid";
 import { GameTable } from "@/features/game-table";
 import PerformanceShowcase from "@/features/stats/components/performance/PerformanceShowcase";
-import { useUser } from "@/hooks/useUser";
+import { useProfileUserId } from "@/hooks/useProfileUserId";
+import { getProfileGamesRoute } from "@/constants/routes";
 
 const ProfileOverview = () => {
-  const { username } = useUser();
+  const userId = useProfileUserId();
 
-  const profileGamesHref = `/profile/${username}/games`;
+  const profileGamesHref = getProfileGamesRoute(userId);
 
   return (
     <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_300px]">

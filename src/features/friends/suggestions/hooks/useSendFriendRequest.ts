@@ -11,7 +11,7 @@ export const useSendFriendRequest = () => {
   const { id: userId } = useUser();
 
   return useMutation({
-    mutationFn: (receiverId: string) => {
+    mutationFn: (receiverId: number) => {
       return sendFriendRequest({ receiverId });
     },
     onSuccess: () => {

@@ -31,7 +31,6 @@ export const useUser = (enabled: boolean = true) => {
     ...userData,
     username: userData?.username || "",
     image: userData?.avatarUrl ?? DEFAULT_AVATAR_URL,
-    friendsCount: userData?.friendsCount ?? 0,
     joinedAt: userData?.createdAt ?? "",
     isPending,
     error,

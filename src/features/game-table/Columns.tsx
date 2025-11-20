@@ -6,7 +6,10 @@ import { format } from "date-fns";
 import type { Game } from "@/types";
 
 // Helper function to determine result from current user's perspective
-const getResult = (game: Game, currentUserId?: string): "win" | "loss" | "draw" => {
+const getResult = (
+  game: Game,
+  currentUserId?: number
+): "win" | "loss" | "draw" => {
   // If no winner, it's a draw
   if (!game.winnerId) return "draw";
   if (!currentUserId) return "draw";
@@ -26,7 +29,7 @@ const getResult = (game: Game, currentUserId?: string): "win" | "loss" | "draw" 
   return "draw";
 };
 
-export const createColumns = (currentUserId?: string): ColumnDef<Game>[] => [
+export const createColumns = (currentUserId?: number): ColumnDef<Game>[] => [
   {
     accessorKey: "timeControl",
     header: "",

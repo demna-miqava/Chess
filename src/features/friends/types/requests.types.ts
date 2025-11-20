@@ -15,5 +15,5 @@ export type PendingFriendRequestsResponse = {
 };
 
 export type SendFriendRequestParams = {
-  receiverId: string;
+  receiverId: number;
 };

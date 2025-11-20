@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { searchFriends } from "@/services/friends";
-import { useUser } from "@/hooks/useUser";
+import { getUserFriends } from "@/services/user";
 import { useQueryParams } from "@/hooks/useQueryParams";
 import { QKEY_USER_FRIENDS } from "@/constants/queryKeys";
+import { useProfileUserId } from "@/hooks/useProfileUserId";
 
 interface UseUserFriendsOptions {
   defaultPage?: number;
@@ -18,7 +18,7 @@ export const useUserFriends = ({
   searchQuery,
   useLocalState = false,
 }: UseUserFriendsOptions = {}) => {
-  const { id: userId } = useUser();
+  const userId = useProfileUserId();
   const [urlPageStr, setUrlPageStr] = useQueryParams(
     "page",
     String(defaultPage)
@@ -43,7 +43,7 @@ export const useUserFriends = ({
 
   const query = useQuery({
     queryKey: [QKEY_USER_FRIENDS, userId, page, defaultLimit, search],
-    queryFn: () => searchFriends(buildQuery()),
+    queryFn: () => getUserFriends(userId || 0, buildQuery()),
     enabled: !!userId,
   });
 

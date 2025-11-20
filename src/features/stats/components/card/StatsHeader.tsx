@@ -8,11 +8,11 @@ interface StatsHeaderProps {
 }
 
 const StatsHeader = ({ showLink = true }: StatsHeaderProps) => {
-  const { username } = useUser();
+  const { id } = useUser();
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(getProfileStatsRoute(username));
+    navigate(getProfileStatsRoute(id || 0));
   };
 
   return (

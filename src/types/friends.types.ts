@@ -1,5 +1,5 @@
 export interface Friend {
-  id: string;
+  id: number;
   username: string;
   avatarUrl: string;
   friendsSince: string;
@@ -23,16 +23,16 @@ export type PaginatedFriendsResponse = {
  */
 interface BaseFriendActionHandlers {
   onChallenge?: (friend: Friend) => void;
-  onMessage?: (friendId: string) => void;
+  onMessage?: (friendId: number) => void;
 }
 
 export interface FriendActionHandlers extends BaseFriendActionHandlers {
-  onRemove?: (friendId: string) => void;
+  onRemove?: (friendId: number) => void;
 }
 
 export interface FriendSuggestionActionHandlers
   extends BaseFriendActionHandlers {
-  onAddFriend?: (friendId: string) => void;
+  onAddFriend?: (friendId: number) => void;
 }
 
 export interface FriendsData {

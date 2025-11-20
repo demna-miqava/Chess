@@ -17,10 +17,10 @@ import {
 
 interface FriendCardProps<T extends Friend> {
   friend: T;
-  onChallenge?: (id: Friend) => void;
-  onMessage?: (id: string) => void;
-  onRemove?: (id: string) => void;
-  onAddFriend?: (id: string) => void;
+  onChallenge?: (friend: Friend) => void;
+  onMessage?: (id: number) => void;
+  onRemove?: (id: number) => void;
+  onAddFriend?: (id: number) => void;
   secondaryText?: React.ReactNode;
 }
 

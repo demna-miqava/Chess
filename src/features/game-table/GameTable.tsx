@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { createColumns } from "./Columns";
 import { useUserGames } from "./hooks/useUserGames";
 import { DataTable } from "./DataTable";
-import { useUser } from "@/hooks/useUser";
+import { useProfileUserId } from "@/hooks/useProfileUserId";
 
 type GameTableVariant = "preview" | "full";
 
@@ -21,7 +21,8 @@ export const GameTable = ({
   limit = 10,
 }: GameTableProps) => {
   const isPreview = variant === "preview";
-  const { id: userId } = useUser();
+  const userId = useProfileUserId();
+
   const { games, isPending, page, setPage, pagination } = useUserGames({
     defaultLimit: limit,
   });

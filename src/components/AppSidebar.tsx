@@ -30,10 +30,10 @@ export function AppSidebar() {
   const { theme, toggleTheme } = useTheme();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
-  const { username } = useUser();
+  const { id } = useUser();
   const { logout } = useLogout();
 
-  const items = useMemo(() => getSidebarItems(username || ""), [username]);
+  const items = useMemo(() => getSidebarItems(id!), [id]);
 
   return (
     <Sidebar collapsible="icon">
