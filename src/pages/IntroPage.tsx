@@ -6,15 +6,19 @@ import { ROUTES } from "@/constants/routes";
 const IntroPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex gap-20 max-w-8xl mx-auto bg-background h-screen items-center justify-center">
+    <div className="flex flex-col gap-10 max-w-8xl mx-auto bg-background h-screen items-center justify-center">
       <Logo />
 
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-foreground">Welcome to ChessHub</h1>
+        <h1 className="text-2xl font-bold text-foreground">
+          Welcome to ChessHub
+        </h1>
         <p className="text-sm text-muted-foreground">
           Improve your chess skills with our app. Enjoy!
         </p>
-        <Button onClick={() => navigate(ROUTES.AUTH.SIGN_UP)}>Get Started</Button>
+        <Button onClick={() => navigate(ROUTES.AUTH.SIGN_UP)}>
+          Get Started
+        </Button>
       </div>
     </div>
   );
